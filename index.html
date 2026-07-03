@@ -133,6 +133,10 @@
   nav.links{display:flex; gap:24px; font-size:.95rem;}
   nav.links a{text-decoration:none; color:var(--ink-soft); font-weight:700;}
   nav.links a:hover{color:var(--signal-dark);}
+  @media(max-width:759px){
+    nav.links .nav-link-text{display:none;}
+    nav.links .nav-phone{font-size:.82rem;}
+  }
   .btn{
     display:inline-flex; align-items:center; justify-content:center; gap:.4em;
     background:var(--signal-dark);
@@ -398,8 +402,8 @@
   <div class="wrap nav-row">
     <div class="brand"><span class="dot" aria-hidden="true"></span>Интернет&nbsp;рядом</div>
     <nav class="links" aria-label="Основная навигация">
-      <a href="#coverage">Зона покрытия</a>
-      <a href="#faq">Вопросы</a>
+      <a href="#coverage" class="nav-link-text">Зона покрытия</a>
+      <a href="#faq" class="nav-link-text">Вопросы</a>
       <a href="tel:+79604892836" class="nav-phone">+7 (960) 489-28-36</a>
     </nav>
     <div class="header-actions">
