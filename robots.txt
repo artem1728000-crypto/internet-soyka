@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://internet-soyka.pages.dev/sitemap.xml
+Sitemap: https://internet-kanevskoy.ru/sitemap.xml
