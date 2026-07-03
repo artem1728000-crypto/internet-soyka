@@ -15,6 +15,13 @@
 <meta property="og:description" content="Заявка на подключение интернета в станицах и хуторах Каневского и Ейского района: Каневская, Новодеревянковская, Новоминская, Сладкий Лиман, Стародеревянковская и другие.">
 <meta property="og:url" content="https://internet-kanevskoy.ru/">
 <meta property="og:locale" content="ru_RU">
+<meta property="og:image" content="https://internet-kanevskoy.ru/og-preview.png">
+
+<!-- Twitter / VK -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Подключить домашний интернет в Каневском и Ейском районе">
+<meta name="twitter:description" content="Заявка на подключение интернета в станицах и хуторах Каневского и Ейского района.">
+<meta name="twitter:image" content="https://internet-kanevskoy.ru/og-preview.png">
 
 <!-- Schema.org LocalBusiness -->
 <script type="application/ld+json">
@@ -44,6 +51,7 @@
     {"@type": "Place", "name": "Садовый"},
     {"@type": "Place", "name": "Широчанка"}
   ],
+  "telephone": "+7(960)489-28-36",
   "address": {
     "@type": "PostalAddress",
     "addressRegion": "Краснодарский край",
@@ -144,8 +152,17 @@
     background:transparent; color:var(--signal-dark); border:1.5px solid var(--signal-dark);
   }
   .btn-ghost:hover{background:var(--signal-dark); color:var(--white);}
+  .header-actions{display:flex; gap:10px; align-items:center;}
   .header-cta{display:none;}
   @media(min-width:760px){ .header-cta{display:inline-flex;} }
+  .nav-phone{
+    font-weight:700; color:var(--signal-dark); text-decoration:none; white-space:nowrap;
+  }
+  .nav-phone:hover{color:var(--signal);}
+  .btn-max{
+    background:var(--gold); color:#fff;
+  }
+  .btn-max:hover{background:#b07820; transform:translateY(-1px);}
 
   /* HERO */
   .hero{padding:64px 0 30px; position:relative; overflow:hidden;}
@@ -383,8 +400,12 @@
     <nav class="links" aria-label="Основная навигация">
       <a href="#coverage">Зона покрытия</a>
       <a href="#faq">Вопросы</a>
+      <a href="tel:+79604892836" class="nav-phone">+7 (960) 489-28-36</a>
     </nav>
-    <a href="#form" class="btn header-cta">Оставить заявку</a>
+    <div class="header-actions">
+      <a href="https://max.ru/u/f9LHodD0cOLbdxm9q-o4BJX6n40LvaNxGg7Kuq9KpuYKPRoQ4WKfqa7YcP4" target="_blank" rel="noopener" class="btn btn-max header-cta">Написать в МАКС</a>
+      <a href="#form" class="btn header-cta">Оставить заявку</a>
+    </div>
   </div>
 </header>
 
@@ -626,6 +647,14 @@
 
       <div class="contacts-block" id="privacy">
         <div>
+          <strong>Телефон</strong>
+          <a href="tel:+79604892836">+7 (960) 489-28-36</a> — Артём
+        </div>
+        <div>
+          <strong>Написать в мессенджер</strong>
+          <a href="https://max.ru/u/f9LHodD0cOLbdxm9q-o4BJX6n40LvaNxGg7Kuq9KpuYKPRoQ4WKfqa7YcP4" target="_blank" rel="noopener">Написать в МАКС</a>
+        </div>
+        <div>
           <strong>Связь по заявке</strong>
           Перезваниваем по указанному в заявке номеру телефона.
         </div>
@@ -643,7 +672,11 @@
   <div class="wrap">
     <div class="foot-top">
       <div class="foot-brand">Интернет рядом — Каневской и Ейский район</div>
-      <a href="#form" class="btn btn-ghost" style="color:#FBF7EC; border-color:#6b665c;">Оставить заявку</a>
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <a href="tel:+79604892836" class="btn btn-ghost" style="color:#FBF7EC; border-color:#6b665c;">+7 (960) 489-28-36</a>
+        <a href="https://max.ru/u/f9LHodD0cOLbdxm9q-o4BJX6n40LvaNxGg7Kuq9KpuYKPRoQ4WKfqa7YcP4" target="_blank" rel="noopener" class="btn" style="background:var(--gold); color:#fff;">Написать в МАКС</a>
+        <a href="#form" class="btn btn-ghost" style="color:#FBF7EC; border-color:#6b665c;">Оставить заявку</a>
+      </div>
     </div>
     <p>Сайт является независимым каналом сбора заявок на подключение интернета и не является официальным ресурсом провайдера. Отправляя заявку через форму на сайте, вы даёте согласие на обработку персональных данных (ФИО, адрес, номер телефона) в целях обработки заявки на подключение услуг связи.</p>
     <p>© <span id="year"></span> Подключение интернета в Каневском и Ейском районе.</p>
