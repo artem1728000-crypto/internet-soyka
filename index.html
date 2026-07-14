@@ -90,7 +90,11 @@
     --line:#D8CCAE;
     --white:#FFFCF5;
     --radius:14px;
+    --radius-lg:20px;
     --max:1080px;
+    --shadow-sm:0 2px 8px rgba(35,36,31,.06);
+    --shadow-md:0 8px 24px rgba(35,36,31,.12);
+    --shadow-lg:0 18px 40px rgba(35,36,31,.15);
   }
 
   *{box-sizing:border-box;}
@@ -126,9 +130,14 @@
   /* Header */
   header.site{
     position:sticky; top:0; z-index:40;
-    background:rgba(246,241,228,.92);
-    backdrop-filter:blur(6px);
+    background:rgba(246,241,228,.95);
+    backdrop-filter:blur(12px);
     border-bottom:1px solid var(--line);
+    box-shadow:0 2px 12px rgba(35,36,31,.04);
+    transition:box-shadow .3s ease;
+  }
+  header.site.scrolled{
+    box-shadow:0 4px 20px rgba(35,36,31,.08);
   }
   .nav-row{
     display:flex; align-items:center; justify-content:space-between;
@@ -162,9 +171,35 @@
     font-size:.98rem;
     cursor:pointer;
     text-decoration:none;
-    transition:transform .15s ease, background .15s ease;
+    transition:transform .2s ease, background .2s ease, box-shadow .2s ease;
+    box-shadow:0 4px 12px rgba(31,111,100,.2);
+    position:relative;
+    overflow:hidden;
   }
-  .btn:hover{background:var(--signal); transform:translateY(-1px);}
+  .btn::before{
+    content:'';
+    position:absolute;
+    top:50%;
+    left:50%;
+    width:0;
+    height:0;
+    border-radius:50%;
+    background:rgba(255,255,255,.3);
+    transform:translate(-50%, -50%);
+    transition:width .5s ease, height .5s ease;
+  }
+  .btn:hover{
+    background:var(--signal);
+    transform:translateY(-2px);
+    box-shadow:0 8px 20px rgba(31,111,100,.3);
+  }
+  .btn:hover::before{
+    width:300px;
+    height:300px;
+  }
+  .btn:active{
+    transform:translateY(0);
+  }
   .btn-ghost{
     background:transparent; color:var(--signal-dark); border:1.5px solid var(--signal-dark);
   }
@@ -182,7 +217,23 @@
   .btn-max:hover{background:#b07820; transform:translateY(-1px);}
 
   /* HERO */
-  .hero{padding:64px 0 30px; position:relative; overflow:hidden;}
+  .hero{
+    padding:64px 0 30px;
+    position:relative;
+    overflow:hidden;
+    background:linear-gradient(180deg, rgba(251,247,236,0.5) 0%, var(--paper) 100%);
+  }
+  .hero::before{
+    content:'';
+    position:absolute;
+    top:-50%;
+    right:-20%;
+    width:800px;
+    height:800px;
+    background:radial-gradient(circle, rgba(31,111,100,.08) 0%, transparent 70%);
+    border-radius:50%;
+    pointer-events:none;
+  }
   .hero-grid{
     display:grid; grid-template-columns:1fr; gap:36px; align-items:center;
   }
@@ -232,6 +283,28 @@
     border:1px solid var(--line);
     border-radius:var(--radius);
     padding:24px 22px;
+    box-shadow:var(--shadow-sm);
+    transition:transform .25s ease, box-shadow .25s ease;
+    position:relative;
+    overflow:hidden;
+  }
+  .adv-card::before{
+    content:'';
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    height:4px;
+    background:linear-gradient(90deg, var(--signal), var(--gold));
+    transform:translateY(-4px);
+    transition:transform .25s ease;
+  }
+  .adv-card:hover{
+    transform:translateY(-4px);
+    box-shadow:var(--shadow-md);
+  }
+  .adv-card:hover::before{
+    transform:translateY(0);
   }
   .adv-card .num{
     font-family:'Bitter', serif; font-weight:700; color:var(--signal-dark);
@@ -240,6 +313,333 @@
   }
   .adv-card h3{font-size:1.18rem; margin-bottom:.35em;}
   .adv-card p{color:var(--ink-soft); margin:0; font-size:.97rem;}
+
+  /* installations gallery */
+  .installations-section{background:var(--paper-deep);}
+  .installations-grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:20px;
+  }
+  @media(min-width:640px){ .installations-grid{grid-template-columns:repeat(2,1fr);} }
+  @media(min-width:960px){ .installations-grid{grid-template-columns:repeat(3,1fr);} }
+
+  .installation-card{
+    background:var(--white);
+    border-radius:var(--radius);
+    overflow:hidden;
+    box-shadow:var(--shadow-sm);
+    transition:transform .3s ease, box-shadow .3s ease;
+  }
+  .installation-card:hover{
+    transform:translateY(-6px);
+    box-shadow:var(--shadow-md);
+  }
+  .installation-image{
+    position:relative;
+    width:100%;
+    height:240px;
+    overflow:hidden;
+    background:linear-gradient(135deg, var(--paper-deep) 0%, var(--paper) 100%);
+  }
+  .installation-image img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:transform .5s ease;
+  }
+  .installation-card:hover .installation-image img{
+    transform:scale(1.08);
+  }
+  .installation-overlay{
+    position:absolute;
+    bottom:0;
+    left:0;
+    right:0;
+    background:linear-gradient(to top, rgba(35,36,31,.85) 0%, transparent 100%);
+    padding:30px 16px 12px;
+    opacity:0;
+    transition:opacity .3s ease;
+  }
+  .installation-card:hover .installation-overlay{
+    opacity:1;
+  }
+  .installation-location{
+    color:#fff;
+    font-size:.85rem;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+  }
+  .installation-info{
+    padding:18px 16px 20px;
+  }
+  .installation-info h3{
+    font-size:1.1rem;
+    margin:0 0 .4em;
+    color:var(--ink);
+  }
+  .installation-info p{
+    font-size:.9rem;
+    color:var(--ink-soft);
+    margin:0;
+    line-height:1.5;
+  }
+  .installations-note{
+    margin-top:28px;
+    text-align:center;
+    font-size:.92rem;
+    color:var(--ink-soft);
+    max-width:60ch;
+    margin-left:auto;
+    margin-right:auto;
+  }
+
+  /* Placeholder for missing images */
+  .installation-image.placeholder{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg, var(--paper-deep) 0%, var(--line) 100%);
+  }
+  .installation-image.placeholder::before{
+    content:'Добавьте фото';
+    font-size:.9rem;
+    color:var(--ink-soft);
+    font-weight:600;
+  }
+
+  /* routers section */
+  .routers-section{background:var(--white);}
+  .router-grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:20px;
+  }
+  @media(min-width:640px){ .router-grid{grid-template-columns:repeat(2,1fr);} }
+  @media(min-width:960px){ .router-grid{grid-template-columns:repeat(4,1fr);} }
+
+  .router-card{
+    background:var(--paper);
+    border:1.5px solid var(--line);
+    border-radius:var(--radius);
+    overflow:hidden;
+    transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    position:relative;
+  }
+  .router-card:hover{
+    transform:translateY(-4px);
+    box-shadow:var(--shadow-md);
+    border-color:var(--signal-dark);
+  }
+  .router-card.featured{
+    border-color:var(--gold);
+    border-width:2px;
+  }
+  .router-card.featured:hover{
+    border-color:var(--gold);
+    box-shadow:0 8px 24px rgba(201,138,43,.2);
+  }
+  .router-badge{
+    position:absolute;
+    top:12px;
+    right:12px;
+    background:var(--gold);
+    color:#fff;
+    font-size:.75rem;
+    font-weight:700;
+    padding:4px 10px;
+    border-radius:999px;
+    z-index:2;
+    text-transform:uppercase;
+    letter-spacing:.05em;
+  }
+  .router-image{
+    background:var(--white);
+    padding:20px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:180px;
+  }
+  .router-image img{
+    width:100%;
+    height:auto;
+    object-fit:contain;
+  }
+  .router-info{
+    padding:18px 16px 20px;
+  }
+  .router-info h3{
+    font-size:1.15rem;
+    margin:0 0 .3em;
+    color:var(--ink);
+  }
+  .router-specs{
+    font-size:.8rem;
+    color:var(--signal-dark);
+    font-weight:700;
+    margin:0 0 .6em;
+    text-transform:uppercase;
+    letter-spacing:.05em;
+  }
+  .router-desc{
+    font-size:.9rem;
+    color:var(--ink-soft);
+    margin:0 0 1em;
+    line-height:1.5;
+  }
+  .btn-select-router{
+    width:100%;
+    font-size:.9rem;
+    padding:10px 18px;
+  }
+  .router-card.selected{
+    border-color:var(--signal-dark);
+    border-width:2px;
+    background:rgba(31,111,100,.03);
+  }
+  .router-card.selected .btn-select-router{
+    background:var(--signal-dark);
+    color:var(--white);
+  }
+  .router-note{
+    margin-top:24px;
+    text-align:center;
+    font-size:.92rem;
+    color:var(--ink-soft);
+  }
+
+  /* tariffs section */
+  .tariffs-section{background:var(--paper-deep);}
+  .tariff-grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:20px;
+  }
+  @media(min-width:640px){ .tariff-grid{grid-template-columns:repeat(2,1fr);} }
+  @media(min-width:960px){ .tariff-grid{grid-template-columns:repeat(3,1fr);} }
+
+  .tariff-card{
+    background:var(--white);
+    border:1.5px solid var(--line);
+    border-radius:var(--radius);
+    overflow:hidden;
+    transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    position:relative;
+    display:flex;
+    flex-direction:column;
+  }
+  .tariff-card:hover{
+    transform:translateY(-4px);
+    box-shadow:var(--shadow-md);
+    border-color:var(--signal-dark);
+  }
+  .tariff-card.featured{
+    border-color:var(--gold);
+    border-width:2px;
+  }
+  .tariff-card.featured:hover{
+    border-color:var(--gold);
+    box-shadow:0 8px 24px rgba(201,138,43,.2);
+  }
+  .tariff-badge{
+    position:absolute;
+    top:12px;
+    right:12px;
+    background:var(--gold);
+    color:#fff;
+    font-size:.75rem;
+    font-weight:700;
+    padding:4px 10px;
+    border-radius:999px;
+    z-index:2;
+    text-transform:uppercase;
+    letter-spacing:.05em;
+  }
+  .tariff-header{
+    background:linear-gradient(135deg, var(--paper-deep) 0%, var(--paper) 100%);
+    padding:24px 20px 20px;
+    text-align:center;
+    border-bottom:1px solid var(--line);
+  }
+  .tariff-header h3{
+    font-size:1.25rem;
+    margin:0 0 .5em;
+    color:var(--ink);
+  }
+  .tariff-price{
+    display:flex;
+    align-items:baseline;
+    justify-content:center;
+    gap:6px;
+  }
+  .price-value{
+    font-family:'Bitter', serif;
+    font-weight:700;
+    font-size:2.5rem;
+    color:var(--signal-dark);
+    line-height:1;
+  }
+  .price-currency{
+    font-size:1rem;
+    color:var(--ink-soft);
+    font-weight:600;
+  }
+  .tariff-features{
+    padding:24px 20px;
+    flex:1;
+  }
+  .tariff-feature{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:14px;
+    font-size:.95rem;
+    color:var(--ink);
+  }
+  .tariff-feature:last-child{
+    margin-bottom:0;
+  }
+  .feature-icon{
+    width:20px;
+    height:20px;
+    color:var(--signal-dark);
+    flex-shrink:0;
+  }
+  .btn-select-tariff{
+    margin:0 20px 20px;
+    font-size:.9rem;
+    padding:10px 18px;
+  }
+  .tariff-card.selected{
+    border-color:var(--signal-dark);
+    border-width:2px;
+    background:rgba(31,111,100,.03);
+  }
+  .tariff-card.selected .btn-select-tariff{
+    background:var(--signal-dark);
+    color:var(--white);
+  }
+  .tariff-note{
+    margin-top:28px;
+    text-align:center;
+    font-size:.92rem;
+    color:var(--ink-soft);
+    max-width:60ch;
+    margin-left:auto;
+    margin-right:auto;
+  }
+  .tariff-note p{
+    margin:.5em 0;
+  }
+  .tariff-note a{
+    color:var(--signal-dark);
+    text-decoration:underline;
+  }
+  .tariff-note a:hover{
+    color:var(--signal);
+  }
 
   /* coverage */
   .coverage{background:var(--paper-deep); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
@@ -309,11 +709,28 @@
   .form-card{
     background:var(--white);
     border:1px solid var(--line);
-    border-radius:var(--radius);
-    padding:28px 24px 32px;
+    border-radius:var(--radius-lg);
+    padding:32px 28px 36px;
     max-width:640px;
     margin:0 auto;
-    box-shadow:0 18px 40px -28px rgba(35,36,31,.4);
+    box-shadow:var(--shadow-lg);
+    position:relative;
+  }
+  .form-card::before{
+    content:'';
+    position:absolute;
+    top:-2px;
+    left:-2px;
+    right:-2px;
+    bottom:-2px;
+    background:linear-gradient(135deg, var(--signal), var(--gold), var(--dusk));
+    border-radius:var(--radius-lg);
+    z-index:-1;
+    opacity:0;
+    transition:opacity .3s ease;
+  }
+  .form-card:hover::before{
+    opacity:0.1;
   }
   .form-card h2{font-size:1.6rem; text-align:center;}
   .form-card > p.sub{text-align:center; color:var(--ink-soft); margin-top:0; margin-bottom:1.6em;}
@@ -405,6 +822,57 @@
   .skip-link:focus{left:10px; top:10px;}
 
   :focus-visible{outline:3px solid var(--signal-dark); outline-offset:2px;}
+
+  /* Анимации появления */
+  @keyframes fadeInUp{
+    from{
+      opacity:0;
+      transform:translateY(30px);
+    }
+    to{
+      opacity:1;
+      transform:translateY(0);
+    }
+  }
+  .fade-in-up{
+    opacity:0;
+    animation:fadeInUp .8s ease forwards;
+  }
+  .fade-in-up.delay-1{animation-delay:.1s;}
+  .fade-in-up.delay-2{animation-delay:.2s;}
+  .fade-in-up.delay-3{animation-delay:.3s;}
+
+  /* Улучшенный eyebrow */
+  .eyebrow{
+    font-family:'PT Sans', sans-serif;
+    text-transform:uppercase;
+    letter-spacing:.14em;
+    font-size:.78rem;
+    font-weight:700;
+    color:var(--signal-dark);
+    margin-bottom:.6em;
+    display:inline-block;
+    position:relative;
+    padding-left:24px;
+  }
+  .eyebrow::before{
+    content:'';
+    position:absolute;
+    left:0;
+    top:50%;
+    transform:translateY(-50%);
+    width:14px;
+    height:2px;
+    background:var(--gold);
+  }
+
+  /* Градиентный текст для заголовков */
+  h1{
+    background:linear-gradient(135deg, var(--ink) 0%, var(--signal-dark) 100%);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+  }
 </style>
 </head>
 <body>
@@ -415,6 +883,7 @@
   <div class="wrap nav-row">
     <div class="brand"><span class="dot" aria-hidden="true"></span>Интернет&nbsp;рядом</div>
     <nav class="links" aria-label="Основная навигация">
+      <a href="#tariffs" class="nav-link-text">Тарифы</a>
       <a href="#coverage" class="nav-link-text">Зона покрытия</a>
       <a href="#faq" class="nav-link-text">Вопросы</a>
       <a href="tel:+79604892836" class="nav-phone">+7 (960) 489-28-36</a>
@@ -552,6 +1021,311 @@
     </div>
   </section>
 
+  <!-- ROUTER SELECTION -->
+  <section id="routers" class="routers-section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Выбор оборудования</span>
+        <h2>WiFi роутеры в комплекте</h2>
+        <p>Подберём подходящий роутер для вашего дома — от компактных моделей до мощных Mesh-систем для больших площадей.</p>
+      </div>
+
+      <div class="router-grid">
+        <div class="router-card" data-router="Tenda TX2 Pro">
+          <div class="router-image">
+            <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Tenda TX2 Pro">
+              <!-- Router body -->
+              <rect x="30" y="50" width="140" height="70" rx="8" fill="#23241F"/>
+              <rect x="35" y="55" width="130" height="60" rx="6" fill="#2A2B26"/>
+              <!-- Top light indicator -->
+              <circle cx="100" cy="75" r="4" fill="#1F6F64" opacity="0.9">
+                <animate attributeName="opacity" values="0.4;1;0.4" dur="2s" repeatCount="indefinite"/>
+              </circle>
+              <!-- Antennas -->
+              <rect x="45" y="35" width="6" height="25" rx="3" fill="#23241F" transform="rotate(-15 48 50)"/>
+              <rect x="149" y="35" width="6" height="25" rx="3" fill="#23241F" transform="rotate(15 152 50)"/>
+              <!-- Front details -->
+              <rect x="50" y="90" width="100" height="3" rx="1.5" fill="#1F6F64" opacity="0.3"/>
+              <rect x="50" y="100" width="60" height="3" rx="1.5" fill="#C98A2B" opacity="0.3"/>
+              <!-- WiFi symbol -->
+              <path d="M100 85 Q85 90 85 100" fill="none" stroke="#1F6F64" stroke-width="2" opacity="0.5"/>
+              <path d="M100 85 Q115 90 115 100" fill="none" stroke="#1F6F64" stroke-width="2" opacity="0.5"/>
+            </svg>
+          </div>
+          <div class="router-info">
+            <h3>Tenda TX2 Pro</h3>
+            <p class="router-specs">WiFi 6 • До 1.5 Гбит/с • 2-3 комнаты</p>
+            <p class="router-desc">Современный роутер для квартиры или небольшого дома с поддержкой новейшего стандарта WiFi 6.</p>
+            <button class="btn btn-ghost btn-select-router" data-router="Tenda TX2 Pro">Выбрать</button>
+          </div>
+        </div>
+
+        <div class="router-card" data-router="Tenda TX2L Pro">
+          <div class="router-image">
+            <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Tenda TX2L Pro">
+              <!-- Router body - larger -->
+              <rect x="25" y="45" width="150" height="75" rx="10" fill="#23241F"/>
+              <rect x="30" y="50" width="140" height="65" rx="8" fill="#2A2B26"/>
+              <!-- Top light indicators -->
+              <circle cx="90" cy="70" r="4" fill="#1F6F64" opacity="0.9">
+                <animate attributeName="opacity" values="0.4;1;0.4" dur="1.8s" repeatCount="indefinite"/>
+              </circle>
+              <circle cx="110" cy="70" r="4" fill="#C98A2B" opacity="0.9">
+                <animate attributeName="opacity" values="0.4;1;0.4" dur="2.2s" repeatCount="indefinite"/>
+              </circle>
+              <!-- Three antennas for Pro version -->
+              <rect x="40" y="30" width="7" height="30" rx="3.5" fill="#23241F" transform="rotate(-20 43.5 45)"/>
+              <rect x="96.5" y="25" width="7" height="35" rx="3.5" fill="#23241F"/>
+              <rect x="153" y="30" width="7" height="30" rx="3.5" fill="#23241F" transform="rotate(20 156.5 45)"/>
+              <!-- Front details -->
+              <rect x="45" y="85" width="110" height="4" rx="2" fill="#1F6F64" opacity="0.4"/>
+              <rect x="45" y="95" width="70" height="4" rx="2" fill="#C98A2B" opacity="0.4"/>
+              <rect x="45" y="105" width="50" height="3" rx="1.5" fill="#1F6F64" opacity="0.3"/>
+              <!-- Enhanced WiFi symbol -->
+              <path d="M100 75 Q80 82 80 98" fill="none" stroke="#1F6F64" stroke-width="2.5" opacity="0.6"/>
+              <path d="M100 75 Q120 82 120 98" fill="none" stroke="#1F6F64" stroke-width="2.5" opacity="0.6"/>
+              <path d="M100 78 Q90 83 90 95" fill="none" stroke="#C98A2B" stroke-width="2" opacity="0.5"/>
+              <path d="M100 78 Q110 83 110 95" fill="none" stroke="#C98A2B" stroke-width="2" opacity="0.5"/>
+            </svg>
+          </div>
+          <div class="router-info">
+            <h3>Tenda TX2L Pro</h3>
+            <p class="router-specs">WiFi 6 • До 1.8 Гбит/с • 3-4 комнаты</p>
+            <p class="router-desc">Усиленная версия с увеличенной мощностью сигнала для дома средней площади.</p>
+            <button class="btn btn-ghost btn-select-router" data-router="Tenda TX2L Pro">Выбрать</button>
+          </div>
+        </div>
+
+        <div class="router-card" data-router="Tenda MW3">
+          <div class="router-image">
+            <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Tenda MW3 Mesh система">
+              <!-- Two mesh units side by side -->
+              <!-- Left unit -->
+              <g>
+                <rect x="35" y="40" width="50" height="70" rx="25" fill="#F6F1E4"/>
+                <rect x="38" y="43" width="44" height="64" rx="22" fill="#FFFFFF"/>
+                <circle cx="60" cy="60" r="3" fill="#1F6F64" opacity="0.8">
+                  <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="60" cy="70" r="2" fill="#C98A2B" opacity="0.6"/>
+                <circle cx="60" cy="78" r="2" fill="#C98A2B" opacity="0.6"/>
+                <!-- Mesh pattern -->
+                <path d="M50 85 Q60 90 70 85" fill="none" stroke="#1F6F64" stroke-width="1.5" opacity="0.3"/>
+                <path d="M50 92 Q60 97 70 92" fill="none" stroke="#1F6F64" stroke-width="1.5" opacity="0.3"/>
+              </g>
+              <!-- Right unit -->
+              <g>
+                <rect x="115" y="40" width="50" height="70" rx="25" fill="#F6F1E4"/>
+                <rect x="118" y="43" width="44" height="64" rx="22" fill="#FFFFFF"/>
+                <circle cx="140" cy="60" r="3" fill="#1F6F64" opacity="0.8">
+                  <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" begin="0.5s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="140" cy="70" r="2" fill="#C98A2B" opacity="0.6"/>
+                <circle cx="140" cy="78" r="2" fill="#C98A2B" opacity="0.6"/>
+                <!-- Mesh pattern -->
+                <path d="M130 85 Q140 90 150 85" fill="none" stroke="#1F6F64" stroke-width="1.5" opacity="0.3"/>
+                <path d="M130 92 Q140 97 150 92" fill="none" stroke="#1F6F64" stroke-width="1.5" opacity="0.3"/>
+              </g>
+              <!-- Connection between units -->
+              <path d="M85 75 Q100 70 115 75" fill="none" stroke="#C98A2B" stroke-width="2" stroke-dasharray="3 3" opacity="0.6">
+                <animate attributeName="stroke-dashoffset" from="0" to="12" dur="1.5s" repeatCount="indefinite"/>
+              </path>
+              <!-- WiFi waves -->
+              <path d="M60 65 Q50 68 45 75" fill="none" stroke="#1F6F64" stroke-width="1.5" opacity="0.4"/>
+              <path d="M140 65 Q150 68 155 75" fill="none" stroke="#1F6F64" stroke-width="1.5" opacity="0.4"/>
+            </svg>
+          </div>
+          <div class="router-info">
+            <h3>Tenda MW3</h3>
+            <p class="router-specs">Mesh система • 2 устройства • До 200 м²</p>
+            <p class="router-desc">Mesh-система из двух точек для бесшовного покрытия всего дома без мёртвых зон.</p>
+            <button class="btn btn-ghost btn-select-router" data-router="Tenda MW3">Выбрать</button>
+          </div>
+        </div>
+
+        <div class="router-card featured" data-router="Tenda MW6">
+          <div class="router-badge">Рекомендуем</div>
+          <div class="router-image">
+            <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Tenda MW6 Mesh система">
+              <!-- Three premium mesh units -->
+              <!-- Left unit -->
+              <g>
+                <rect x="15" y="35" width="45" height="75" rx="22" fill="#C98A2B" opacity="0.15"/>
+                <rect x="18" y="38" width="39" height="69" rx="19" fill="#FFFFFF"/>
+                <circle cx="37.5" cy="55" r="3.5" fill="#C98A2B" opacity="0.9">
+                  <animate attributeName="opacity" values="0.4;1;0.4" dur="1.8s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="37.5" cy="65" r="2.5" fill="#1F6F64" opacity="0.7"/>
+                <circle cx="37.5" cy="73" r="2.5" fill="#1F6F64" opacity="0.7"/>
+                <circle cx="37.5" cy="81" r="2" fill="#C98A2B" opacity="0.5"/>
+                <!-- Premium mesh pattern -->
+                <path d="M27 88 Q37.5 93 48 88" fill="none" stroke="#C98A2B" stroke-width="2" opacity="0.4"/>
+                <path d="M27 95 Q37.5 100 48 95" fill="none" stroke="#C98A2B" stroke-width="2" opacity="0.4"/>
+                <circle cx="37.5" cy="90" r="1.5" fill="#C98A2B"/>
+              </g>
+              <!-- Center unit (main) -->
+              <g>
+                <rect x="77.5" y="30" width="45" height="80" rx="22" fill="#C98A2B" opacity="0.15"/>
+                <rect x="80.5" y="33" width="39" height="74" rx="19" fill="#FFFFFF"/>
+                <circle cx="100" cy="50" r="4" fill="#C98A2B" opacity="1">
+                  <animate attributeName="opacity" values="0.5;1;0.5" dur="1.5s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="100" cy="62" r="3" fill="#1F6F64" opacity="0.8"/>
+                <circle cx="100" cy="72" r="3" fill="#1F6F64" opacity="0.8"/>
+                <circle cx="100" cy="82" r="2.5" fill="#C98A2B" opacity="0.6"/>
+                <!-- Premium mesh pattern -->
+                <path d="M88 92 Q100 98 112 92" fill="none" stroke="#C98A2B" stroke-width="2" opacity="0.5"/>
+                <path d="M88 100 Q100 106 112 100" fill="none" stroke="#C98A2B" stroke-width="2" opacity="0.5"/>
+                <circle cx="100" cy="95" r="2" fill="#C98A2B"/>
+              </g>
+              <!-- Right unit -->
+              <g>
+                <rect x="140" y="35" width="45" height="75" rx="22" fill="#C98A2B" opacity="0.15"/>
+                <rect x="143" y="38" width="39" height="69" rx="19" fill="#FFFFFF"/>
+                <circle cx="162.5" cy="55" r="3.5" fill="#C98A2B" opacity="0.9">
+                  <animate attributeName="opacity" values="0.4;1;0.4" dur="1.8s" begin="0.6s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="162.5" cy="65" r="2.5" fill="#1F6F64" opacity="0.7"/>
+                <circle cx="162.5" cy="73" r="2.5" fill="#1F6F64" opacity="0.7"/>
+                <circle cx="162.5" cy="81" r="2" fill="#C98A2B" opacity="0.5"/>
+                <!-- Premium mesh pattern -->
+                <path d="M152 88 Q162.5 93 173 88" fill="none" stroke="#C98A2B" stroke-width="2" opacity="0.4"/>
+                <path d="M152 95 Q162.5 100 173 95" fill="none" stroke="#C98A2B" stroke-width="2" opacity="0.4"/>
+                <circle cx="162.5" cy="90" r="1.5" fill="#C98A2B"/>
+              </g>
+              <!-- Connection lines between units -->
+              <path d="M60 70 Q77 65 80 70" fill="none" stroke="#C98A2B" stroke-width="2.5" stroke-dasharray="4 4" opacity="0.7">
+                <animate attributeName="stroke-dashoffset" from="0" to="16" dur="1.2s" repeatCount="indefinite"/>
+              </path>
+              <path d="M120 70 Q137 65 140 70" fill="none" stroke="#C98A2B" stroke-width="2.5" stroke-dasharray="4 4" opacity="0.7">
+                <animate attributeName="stroke-dashoffset" from="0" to="16" dur="1.2s" repeatCount="indefinite"/>
+              </path>
+              <!-- Premium WiFi waves -->
+              <path d="M100 55 Q85 60 75 70" fill="none" stroke="#C98A2B" stroke-width="2" opacity="0.5"/>
+              <path d="M100 55 Q115 60 125 70" fill="none" stroke="#C98A2B" stroke-width="2" opacity="0.5"/>
+              <path d="M100 58 Q90 62 82 70" fill="none" stroke="#1F6F64" stroke-width="1.5" opacity="0.4"/>
+              <path d="M100 58 Q110 62 118 70" fill="none" stroke="#1F6F64" stroke-width="1.5" opacity="0.4"/>
+            </svg>
+          </div>
+          <div class="router-info">
+            <h3>Tenda MW6</h3>
+            <p class="router-specs">Mesh система • 2-3 устройства • До 300 м²</p>
+            <p class="router-desc">Премиальная Mesh-система для больших домов с максимальной скоростью и покрытием.</p>
+            <button class="btn btn-select-router" data-router="Tenda MW6">Выбрать</button>
+          </div>
+        </div>
+      </div>
+
+      <p class="router-note">Окончательную стоимость роутера и возможность аренды уточним при звонке.</p>
+    </div>
+  </section>
+
+  <!-- TARIFFS SECTION -->
+  <section id="tariffs" class="tariffs-section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Тарифы 2026</span>
+        <h2>Выберите подходящий тариф</h2>
+        <p>Стабильная скорость интернета и ТВ-каналы через приложение «24ТВ» на Smart TV.</p>
+      </div>
+
+      <div class="tariff-grid">
+        <div class="tariff-card" data-tariff="ХИТ 100">
+          <div class="tariff-header">
+            <h3>ХИТ 100</h3>
+            <div class="tariff-price">
+              <span class="price-value">920</span>
+              <span class="price-currency">₽/мес</span>
+            </div>
+          </div>
+          <div class="tariff-features">
+            <div class="tariff-feature">
+              <svg class="feature-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="currentColor"/>
+              </svg>
+              <span>До 100 Мбит/с</span>
+            </div>
+            <div class="tariff-feature">
+              <svg class="feature-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="currentColor"/>
+              </svg>
+              <span>Безлимитный интернет</span>
+            </div>
+          </div>
+          <button class="btn btn-ghost btn-select-tariff" data-tariff="ХИТ 100 — 920 ₽/мес">Выбрать тариф</button>
+        </div>
+
+        <div class="tariff-card" data-tariff="СУПЕР ХИТ 100">
+          <div class="tariff-header">
+            <h3>СУПЕР ХИТ 100</h3>
+            <div class="tariff-price">
+              <span class="price-value">1035</span>
+              <span class="price-currency">₽/мес</span>
+            </div>
+          </div>
+          <div class="tariff-features">
+            <div class="tariff-feature">
+              <svg class="feature-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="currentColor"/>
+              </svg>
+              <span>До 100 Мбит/с</span>
+            </div>
+            <div class="tariff-feature">
+              <svg class="feature-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="currentColor"/>
+              </svg>
+              <span>150 ТВ-каналов</span>
+            </div>
+            <div class="tariff-feature">
+              <svg class="feature-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="currentColor"/>
+              </svg>
+              <span>Приложение «24ТВ»</span>
+            </div>
+          </div>
+          <button class="btn btn-ghost btn-select-tariff" data-tariff="СУПЕР ХИТ 100 — 1035 ₽/мес">Выбрать тариф</button>
+        </div>
+
+        <div class="tariff-card featured" data-tariff="СУПЕР ХИТ 200">
+          <div class="tariff-badge">Популярный</div>
+          <div class="tariff-header">
+            <h3>СУПЕР ХИТ 200</h3>
+            <div class="tariff-price">
+              <span class="price-value">1380</span>
+              <span class="price-currency">₽/мес</span>
+            </div>
+          </div>
+          <div class="tariff-features">
+            <div class="tariff-feature">
+              <svg class="feature-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="currentColor"/>
+              </svg>
+              <span>До 200 Мбит/с</span>
+            </div>
+            <div class="tariff-feature">
+              <svg class="feature-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="currentColor"/>
+              </svg>
+              <span>300 ТВ-каналов</span>
+            </div>
+            <div class="tariff-feature">
+              <svg class="feature-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="currentColor"/>
+              </svg>
+              <span>Приложение «24ТВ»</span>
+            </div>
+          </div>
+          <button class="btn btn-select-tariff" data-tariff="СУПЕР ХИТ 200 — 1380 ₽/мес">Выбрать тариф</button>
+        </div>
+      </div>
+
+      <div class="tariff-note">
+        <p><strong>📺 ТВ через приложение «24ТВ»</strong> на Smart TV, Android, iOS</p>
+        <p>Списки каналов: <a href="https://clck.ru/3GTtZP" target="_blank" rel="noopener">150 каналов</a> • <a href="https://clck.ru/3GTtXp" target="_blank" rel="noopener">300 каналов</a></p>
+      </div>
+    </div>
+  </section>
+
   <!-- FORM -->
   <section id="form" class="form-section">
     <div class="wrap">
@@ -616,6 +1390,27 @@
             <div class="err-msg">Введите корректный номер телефона</div>
           </div>
 
+          <div class="field">
+            <label for="tariff">Тариф (опционально)</label>
+            <select id="tariff" name="tariff">
+              <option value="">Не выбран</option>
+              <option value="ХИТ 100 — 920 ₽/мес">ХИТ 100 — 920 ₽/мес (до 100 Мбит/с)</option>
+              <option value="СУПЕР ХИТ 100 — 1035 ₽/мес">СУПЕР ХИТ 100 — 1035 ₽/мес (до 100 Мбит/с + 150 ТВ)</option>
+              <option value="СУПЕР ХИТ 200 — 1380 ₽/мес">СУПЕР ХИТ 200 — 1380 ₽/мес (до 200 Мбит/с + 300 ТВ)</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="router">WiFi роутер (опционально)</label>
+            <select id="router" name="router">
+              <option value="">Не выбран</option>
+              <option value="Tenda TX2 Pro">Tenda TX2 Pro — WiFi 6, до 1.5 Гбит/с</option>
+              <option value="Tenda TX2L Pro">Tenda TX2L Pro — WiFi 6, до 1.8 Гбит/с</option>
+              <option value="Tenda MW3">Tenda MW3 — Mesh система, до 200 м²</option>
+              <option value="Tenda MW6">Tenda MW6 — Mesh система, до 300 м² (рекомендуем)</option>
+            </select>
+          </div>
+
           <label class="consent">
             <input type="checkbox" id="consent" name="consent" required>
             <span>Согласен(на) на обработку персональных данных в соответствии с <a href="#privacy">политикой обработки персональных данных</a></span>
@@ -632,6 +1427,99 @@
           <div class="form-status" id="formStatus" role="status"></div>
         </form>
       </div>
+    </div>
+  </section>
+
+  <!-- INSTALLATIONS GALLERY -->
+  <section id="installations" class="installations-section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Наши работы</span>
+        <h2>Примеры реальных подключений</h2>
+        <p>Посмотрите, как мы подключаем интернет в домах и квартирах наших клиентов — аккуратная прокладка кабеля, качественный монтаж оборудования.</p>
+      </div>
+
+      <div class="installations-grid">
+        <div class="installation-card">
+          <div class="installation-image">
+            <img src="images/installations/example-1.jpg" alt="Установка оптического терминала и роутера на подоконнике" loading="lazy" onerror="this.parentElement.classList.add('placeholder')">
+            <div class="installation-overlay">
+              <span class="installation-location">Интернет Сойка</span>
+            </div>
+          </div>
+          <div class="installation-info">
+            <h3>Оптический терминал и роутер</h3>
+            <p>Компактное размещение оборудования — терминал и роутер с 5 антеннами на подоконнике</p>
+          </div>
+        </div>
+
+        <div class="installation-card">
+          <div class="installation-image">
+            <img src="images/installations/example-2.jpg" alt="Тест скорости интернета на ноутбуке — 100 Мбит/с" loading="lazy" onerror="this.parentElement.classList.add('placeholder')">
+            <div class="installation-overlay">
+              <span class="installation-location">Интернет Сойка</span>
+            </div>
+          </div>
+          <div class="installation-info">
+            <h3>Тест скорости 100 Мбит/с</h3>
+            <p>Проверка качества подключения — стабильная скорость около 100 Мбит/с</p>
+          </div>
+        </div>
+
+        <div class="installation-card">
+          <div class="installation-image">
+            <img src="images/installations/example-3.jpg" alt="Размещение оборудования в шкафу с кабель-менеджментом" loading="lazy" onerror="this.parentElement.classList.add('placeholder')">
+            <div class="installation-overlay">
+              <span class="installation-location">Интернет Сойка</span>
+            </div>
+          </div>
+          <div class="installation-info">
+            <h3>Монтаж в шкафу</h3>
+            <p>Аккуратное размещение роутера и терминала в шкафу с организацией кабелей</p>
+          </div>
+        </div>
+
+        <div class="installation-card">
+          <div class="installation-image">
+            <img src="images/installations/example-4.jpg" alt="Роутер на подоконнике с оптоволоконным кабелем" loading="lazy" onerror="this.parentElement.classList.add('placeholder')">
+            <div class="installation-overlay">
+              <span class="installation-location">Интернет Сойка</span>
+            </div>
+          </div>
+          <div class="installation-info">
+            <h3>Роутер с оптоволоконным подключением</h3>
+            <p>Размещение роутера на подоконнике с подведённым оптоволоконным кабелем</p>
+          </div>
+        </div>
+
+        <div class="installation-card">
+          <div class="installation-image">
+            <img src="images/installations/example-5.jpg" alt="Оптический терминал и роутер с подключёнными кабелями" loading="lazy" onerror="this.parentElement.classList.add('placeholder')">
+            <div class="installation-overlay">
+              <span class="installation-location">Интернет Сойка</span>
+            </div>
+          </div>
+          <div class="installation-info">
+            <h3>Оборудование с подключением</h3>
+            <p>Оптический терминал и роутер, установленные и подключённые на подоконнике</p>
+          </div>
+        </div>
+
+        <div class="installation-card">
+          <div class="installation-image">
+            <img src="images/installations/example-6.jpg" alt="Ввод оптоволоконного кабеля в дом по фасаду" loading="lazy" onerror="this.parentElement.classList.add('placeholder')">
+            <div class="installation-overlay">
+              <span class="installation-location">Интернет Сойка</span>
+            </div>
+          </div>
+          <div class="installation-info">
+            <h3>Ввод оптоволокна в дом</h3>
+            <p>Прокладка оптоволоконного кабеля по фасаду здания до точки входа в квартиру</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="installations-note">Все фотографии реальных объектов, подключённых нашими мастерами. Работаем аккуратно и качественно.</p>
     </div>
   </section>
 
@@ -703,6 +1591,19 @@
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
 
+  // Header scroll effect
+  const header = document.querySelector('header.site');
+  let lastScroll = 0;
+  window.addEventListener('scroll', function(){
+    const currentScroll = window.pageYOffset;
+    if(currentScroll > 50){
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+    lastScroll = currentScroll;
+  });
+
   // Клик по населённому пункту → выбор в форме
   document.querySelectorAll('.settlement-link').forEach(function(link){
     link.addEventListener('click', function(e){
@@ -719,6 +1620,86 @@
       select.closest('.field') && select.closest('.field').classList.remove('invalid');
       // Плавная прокрутка к форме
       document.getElementById('form').scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  });
+
+  // Выбор роутера по клику на карточку
+  document.querySelectorAll('.btn-select-router').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      var routerName = this.dataset.router;
+      var routerSelect = document.getElementById('router');
+
+      // Убираем selected у всех карточек
+      document.querySelectorAll('.router-card').forEach(function(card){
+        card.classList.remove('selected');
+      });
+
+      // Добавляем selected к выбранной карточке
+      var selectedCard = this.closest('.router-card');
+      selectedCard.classList.add('selected');
+
+      // Устанавливаем значение в select формы
+      for(var i = 0; i < routerSelect.options.length; i++){
+        if(routerSelect.options[i].value === routerName){
+          routerSelect.selectedIndex = i;
+          break;
+        }
+      }
+
+      // Плавная прокрутка к форме
+      document.getElementById('form').scrollIntoView({behavior:'smooth', block:'start'});
+
+      // Небольшая анимация подтверждения
+      this.textContent = '✓ Выбран';
+      var originalBtn = this;
+      setTimeout(function(){
+        if(originalBtn.closest('.router-card.featured')){
+          originalBtn.textContent = 'Выбрать';
+        } else {
+          originalBtn.textContent = 'Выбрать';
+        }
+      }, 1500);
+    });
+  });
+
+  // Выбор тарифа по клику на карточку
+  document.querySelectorAll('.btn-select-tariff').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      var tariffName = this.dataset.tariff;
+      var tariffSelect = document.getElementById('tariff');
+
+      // Убираем selected у всех карточек
+      document.querySelectorAll('.tariff-card').forEach(function(card){
+        card.classList.remove('selected');
+      });
+
+      // Добавляем selected к выбранной карточке
+      var selectedCard = this.closest('.tariff-card');
+      selectedCard.classList.add('selected');
+
+      // Устанавливаем значение в select формы
+      for(var i = 0; i < tariffSelect.options.length; i++){
+        if(tariffSelect.options[i].value === tariffName){
+          tariffSelect.selectedIndex = i;
+          break;
+        }
+      }
+
+      // Плавная прокрутка к форме
+      document.getElementById('form').scrollIntoView({behavior:'smooth', block:'start'});
+
+      // Небольшая анимация подтверждения
+      this.textContent = '✓ Выбран';
+      var originalBtn = this;
+      setTimeout(function(){
+        if(originalBtn.closest('.tariff-card.featured')){
+          originalBtn.textContent = 'Выбрать тариф';
+        } else {
+          originalBtn.textContent = 'Выбрать тариф';
+        }
+      }, 1500);
     });
   });
 
@@ -819,12 +1800,16 @@
     formData.append('from_name', 'Сайт — заявки на интернет');
 
     // Формируем читаемое тело письма на русском (избегаем проблем с кириллицей в названиях полей)
+    const tariffValue = document.getElementById('tariff').value;
+    const routerValue = document.getElementById('router').value;
     const readableMessage =
       'Населённый пункт: ' + document.getElementById('settlement').value + '\n' +
       'Улица: ' + document.getElementById('street').value + '\n' +
       'Дом: ' + document.getElementById('house').value + '\n' +
       'ФИО: ' + document.getElementById('fio').value + '\n' +
-      'Телефон: ' + document.getElementById('phone').value;
+      'Телефон: ' + document.getElementById('phone').value + '\n' +
+      'Тариф: ' + (tariffValue || 'Не выбран') + '\n' +
+      'WiFi роутер: ' + (routerValue || 'Не выбран');
     formData.append('message', readableMessage);
 
     try{
