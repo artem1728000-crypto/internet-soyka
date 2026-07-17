@@ -1020,3 +1020,225 @@ footer.site .foot-links a:hover{color:#FBF7EC;}
   -webkit-text-fill-color:var(--ink);
 }
 .error-page p{color:var(--ink-soft); max-width:46ch; margin:0 auto 1.6em;}
+
+/* ====== СТРАНИЦА «ДЛЯ АБОНЕНТОВ» ====== */
+
+/* Карточки абонента (ЛК, оплата, мессенджер) */
+.abonent-section{background:var(--paper-deep);}
+.abonent-grid{
+  display:grid; grid-template-columns:1fr; gap:20px;
+}
+@media(min-width:640px){ .abonent-grid{grid-template-columns:repeat(2, 1fr);} }
+@media(min-width:960px){ .abonent-grid{grid-template-columns:repeat(3, 1fr);} }
+
+.abonent-card{
+  background:var(--white);
+  border:1.5px solid var(--line);
+  border-radius:var(--radius);
+  padding:28px 24px;
+  box-shadow:var(--shadow-sm);
+  text-decoration:none;
+  color:inherit;
+  display:flex; flex-direction:column; gap:8px;
+  transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  position:relative;
+  overflow:hidden;
+}
+.abonent-card::before{
+  content:'';
+  position:absolute;
+  top:0; left:0; right:0;
+  height:4px;
+  background:linear-gradient(90deg, var(--signal), var(--gold));
+  transform:translateY(-4px);
+  transition:transform .25s ease;
+}
+.abonent-card:hover{
+  transform:translateY(-4px);
+  box-shadow:var(--shadow-md);
+  border-color:var(--signal-dark);
+}
+.abonent-card:hover::before{
+  transform:translateY(0);
+}
+.abonent-icon{
+  width:56px; height:56px;
+  border-radius:14px;
+  display:flex; align-items:center; justify-content:center;
+  margin-bottom:6px;
+}
+.abonent-icon svg{
+  width:30px; height:30px;
+}
+.abonent-card h3{
+  font-size:1.2rem;
+  margin:0 0 .3em;
+  color:var(--ink);
+}
+.abonent-card p{
+  color:var(--ink-soft);
+  font-size:.94rem;
+  margin:0 0 1.2em;
+  flex:1;
+}
+.abonent-card .btn{
+  align-self:flex-start;
+  font-size:.9rem;
+  padding:10px 18px;
+}
+
+/* ====== СТРАНИЦА «ОПЛАТА ИНТЕРНЕТА» ====== */
+
+.pay-method-section{
+  background:var(--paper);
+}
+.pay-method-section.alt{
+  background:var(--paper-deep);
+}
+.pay-method-card{
+  background:var(--white);
+  border:1px solid var(--line);
+  border-radius:var(--radius-lg);
+  padding:32px 28px;
+  box-shadow:var(--shadow-sm);
+  display:flex;
+  gap:24px;
+  align-items:flex-start;
+  position:relative;
+}
+@media(max-width:640px){
+  .pay-method-card{
+    padding:24px 20px;
+    gap:16px;
+  }
+}
+.pay-method-number{
+  flex-shrink:0;
+  width:48px; height:48px;
+  background:linear-gradient(135deg, var(--signal-dark), var(--signal));
+  color:#fff;
+  border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Bitter', serif;
+  font-weight:700;
+  font-size:1.4rem;
+  box-shadow:0 4px 12px rgba(31,111,100,.3);
+}
+@media(max-width:640px){
+  .pay-method-number{
+    width:36px; height:36px;
+    font-size:1.1rem;
+  }
+}
+.pay-method-body{
+  flex:1;
+  min-width:0;
+}
+.pay-method-body h2{
+  font-size:1.55rem;
+  margin-bottom:.5em;
+}
+.pay-method-body > p{
+  color:var(--ink-soft);
+  margin-bottom:1em;
+}
+.pay-method-body h3{
+  font-size:1.1rem;
+  margin:1.2em 0 .6em;
+  color:var(--ink);
+}
+
+/* Видео-инструкция блок */
+.pay-video-note{
+  background:rgba(201,138,43,.08);
+  border-left:3px solid var(--gold);
+  padding:14px 18px;
+  border-radius:8px;
+  margin:1.2em 0;
+  font-size:.95rem;
+  color:var(--ink);
+}
+.pay-video-note a{
+  font-weight:700;
+  text-decoration:underline;
+}
+
+/* Пошаговая инструкция (ol) */
+.pay-steps{
+  margin:0 0 1.4em;
+  padding-left:1.3em;
+  color:var(--ink);
+}
+.pay-steps li{
+  margin-bottom:.6em;
+  padding-left:.3em;
+  line-height:1.5;
+}
+.pay-steps strong{color:var(--signal-dark);}
+
+/* Список шагов (ul) */
+.pay-steps-list{
+  list-style:none;
+  margin:0 0 1.4em;
+  padding:0;
+}
+.pay-steps-list li{
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  padding:8px 0;
+  border-bottom:1px solid var(--line);
+  font-size:.96rem;
+  color:var(--ink);
+}
+.pay-steps-list li:last-child{border-bottom:none;}
+.pay-steps-list li::before{
+  content:'✓';
+  color:var(--signal-dark);
+  font-weight:700;
+  flex-shrink:0;
+  margin-top:1px;
+}
+.pay-steps-list strong{color:var(--signal-dark);}
+
+/* Блок с прямой ссылкой */
+.pay-direct-link{
+  background:var(--paper-deep);
+  border:1px dashed var(--line);
+  border-radius:var(--radius);
+  padding:18px 20px;
+  margin-top:1.4em;
+}
+.pay-direct-link p{
+  margin:0 0 1em;
+  font-size:.93rem;
+  color:var(--ink-soft);
+}
+.btn-direct{
+  background:linear-gradient(135deg, var(--signal-dark) 0%, var(--signal) 100%);
+  width:100%;
+}
+@media(min-width:560px){
+  .btn-direct{width:auto;}
+}
+
+/* Предупреждение */
+.pay-warning{
+  background:rgba(178,58,46,.06);
+  border-left:3px solid #B23A2E;
+  padding:14px 18px;
+  border-radius:8px;
+  margin-top:1.2em;
+  font-size:.94rem;
+  color:var(--ink);
+  line-height:1.5;
+}
+.pay-warning strong{color:#8c2e23;}
+
+/* FAQ-секция на странице оплаты */
+.pay-faq-section{
+  background:var(--white);
+}
+.pay-faq-section .faq-item:first-child{
+  border-top:1px solid var(--line);
+}
