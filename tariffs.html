@@ -52,6 +52,50 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@500;600;700;800&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
+<style>
+  /* === Speed demo widget (scoped, не пересекается со styles.css) === */
+  .speed-demo{ padding:0 0 8px; }
+  .speed-demo-card{
+    display:flex;
+    align-items:center;
+    gap:28px;
+    background:#fff;
+    border:1px solid rgba(0,0,0,.06);
+    border-radius:18px;
+    padding:22px 28px;
+    box-shadow:0 10px 30px rgba(0,0,0,.05);
+  }
+  .sd-gauge{ position:relative; width:120px; height:120px; flex:none; }
+  .sd-gauge-svg{ width:100%; height:100%; overflow:visible; }
+  .sd-track{ fill:none; stroke:#eee; stroke-width:9; stroke-linecap:round; }
+  .sd-progress{
+    fill:none; stroke-width:9; stroke-linecap:round;
+    stroke:url(#sdGrad);
+    stroke-dasharray:245; stroke-dashoffset:245;
+    transition:stroke-dashoffset 2.2s cubic-bezier(.2,.9,.25,1);
+  }
+  .sd-needle-group{
+    transform-origin:70px 76px;
+    transform:rotate(-135deg);
+    transition:transform 2.3s cubic-bezier(.22,.9,.2,1.05);
+  }
+  .sd-needle{ fill:var(--gold, #c9a227); }
+  .sd-needle-cap{ fill:#fff; stroke:var(--gold, #c9a227); stroke-width:2; }
+  .sd-value{
+    position:absolute; top:50%; left:50%;
+    transform:translate(-50%,-38%);
+    text-align:center; line-height:1;
+    font-family:'Bitter', serif;
+  }
+  .sd-value span{ font-size:22px; font-weight:700; color:#222; font-variant-numeric:tabular-nums; }
+  .sd-value small{ display:block; font-size:9px; letter-spacing:1px; color:#9a9a9a; margin-top:2px; font-family:'PT Sans', sans-serif; }
+  .sd-text h3{ margin:2px 0 8px; font-size:1.25rem; }
+  .sd-text p{ margin:0; color:#555; max-width:56ch; }
+  @media (max-width:640px){
+    .speed-demo-card{ flex-direction:column; text-align:center; padding:24px 20px; }
+    .sd-text p{ max-width:none; }
+  }
+</style>
 </head>
 <body>
 
@@ -142,6 +186,39 @@
       <div class="tariff-note">
         <p><strong>📺 ТВ через приложение «24ТВ»</strong> на Smart TV, Android, iOS</p>
         <p>Списки каналов: <a href="https://clck.ru/3GTtZP" target="_blank" rel="noopener">150 каналов</a> • <a href="https://clck.ru/3GTtXp" target="_blank" rel="noopener">300 каналов</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPEED DEMO WIDGET -->
+  <section class="speed-demo">
+    <div class="wrap">
+      <div class="speed-demo-card">
+        <div class="sd-gauge" aria-hidden="true">
+          <svg class="sd-gauge-svg" viewBox="0 0 140 140">
+            <defs>
+              <linearGradient id="sdGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#3ba36b"/>
+                <stop offset="55%" stop-color="var(--gold, #c9a227)"/>
+                <stop offset="100%" stop-color="var(--gold, #c9a227)"/>
+              </linearGradient>
+            </defs>
+            <path class="sd-track" d="M 25 103 A 52 52 0 1 1 115 103"/>
+            <path class="sd-progress" id="sdProgress" d="M 25 103 A 52 52 0 1 1 115 103"/>
+            <g class="sd-needle-group" id="sdNeedle">
+              <polygon class="sd-needle" points="70,76 68,77 58,26 70,22 82,26 72,77"/>
+              <circle class="sd-needle-cap" cx="70" cy="76" r="6"/>
+            </g>
+          </svg>
+          <div class="sd-value">
+            <span id="sdValueNum">0</span><small>Мбит/с</small>
+          </div>
+        </div>
+        <div class="sd-text">
+          <span class="eyebrow">Живой пример</span>
+          <h3>Вот так выглядит скорость 200 Мбит/с</h3>
+          <p>Именно такую скорость получают абоненты тарифа «СУПЕР ХИТ 200» — хватает на 4K на нескольких экранах, умный дом и работу сразу с нескольких устройств.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -245,6 +322,46 @@
   </div>
 </footer>
 
+<script>
+(function(){
+  var MAX = 220, TARGET = 200, START_ANGLE = -135, END_ANGLE = 135, ARC_LEN = 245;
+  var needle = document.getElementById('sdNeedle');
+  var progress = document.getElementById('sdProgress');
+  var valueNum = document.getElementById('sdValueNum');
+  if(!needle) return;
+
+  function setGauge(v){
+    var clamped = Math.max(0, Math.min(MAX, v));
+    var ratio = clamped / MAX;
+    needle.style.transform = 'rotate(' + (START_ANGLE + (END_ANGLE-START_ANGLE)*ratio) + 'deg)';
+    progress.style.strokeDashoffset = ARC_LEN * (1 - ratio);
+  }
+
+  function runOnce(){
+    setTimeout(function(){ setGauge(TARGET + 10); valueNum.textContent = Math.round(TARGET+10); }, 150);
+    setTimeout(function(){ setGauge(TARGET); valueNum.textContent = TARGET; }, 1500);
+    var flicker = setInterval(function(){
+      var v = TARGET + (Math.random()*6 - 3);
+      valueNum.textContent = v.toFixed(1);
+      setGauge(v);
+    }, 600);
+  }
+
+  // запускаем анимацию, когда виджет появляется во вьюпорте
+  var el = document.querySelector('.speed-demo-card');
+  if('IntersectionObserver' in window && el){
+    var started = false;
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting && !started){ started = true; runOnce(); io.disconnect(); }
+      });
+    }, {threshold:.4});
+    io.observe(el);
+  } else {
+    runOnce();
+  }
+})();
+</script>
 <script src="script.js" defer></script>
 
 </body>
