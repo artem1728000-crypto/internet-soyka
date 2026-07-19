@@ -30,6 +30,56 @@
     }
   }
 
+  /* Мобильное меню (гамбургер) */
+  var burgerBtn = document.getElementById('burgerBtn');
+  var mobileMenu = document.getElementById('mobileMenu');
+  var menuBackdrop = document.getElementById('menuBackdrop');
+
+  function closeMobileMenu(){
+    if(burgerBtn){ burgerBtn.setAttribute('aria-expanded', 'false'); }
+    if(mobileMenu){ mobileMenu.classList.remove('open'); }
+    if(menuBackdrop){ menuBackdrop.classList.remove('open'); }
+    document.body.classList.remove('menu-open');
+  }
+  function openMobileMenu(){
+    if(burgerBtn){ burgerBtn.setAttribute('aria-expanded', 'true'); }
+    if(mobileMenu){ mobileMenu.classList.add('open'); }
+    if(menuBackdrop){ menuBackdrop.classList.add('open'); }
+    document.body.classList.add('menu-open');
+  }
+  if(burgerBtn && mobileMenu){
+    burgerBtn.addEventListener('click', function(){
+      var isOpen = burgerBtn.getAttribute('aria-expanded') === 'true';
+      if(isOpen){ closeMobileMenu(); } else { openMobileMenu(); }
+    });
+  }
+  if(menuBackdrop){
+    menuBackdrop.addEventListener('click', closeMobileMenu);
+  }
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){ closeMobileMenu(); }
+  });
+  if(mobileMenu){
+    /* Закрываем меню при клике по любой ссылке внутри него */
+    mobileMenu.querySelectorAll('a').forEach(function(link){
+      link.addEventListener('click', function(){ closeMobileMenu(); });
+    });
+    /* Аккордеон "Населённые пункты" внутри мобильного меню */
+    var mobileDropdown = mobileMenu.querySelector('.mobile-nav-dropdown');
+    if(mobileDropdown){
+      var mobileToggle = mobileDropdown.querySelector('.mobile-nav-dropdown-toggle');
+      if(mobileToggle){
+        mobileToggle.addEventListener('click', function(){
+          mobileDropdown.classList.toggle('open');
+        });
+      }
+    }
+  }
+  /* Автозакрытие мобильного меню при увеличении окна до десктопной ширины */
+  window.addEventListener('resize', function(){
+    if(window.innerWidth > 920){ closeMobileMenu(); }
+  });
+
   /* Клик по населённому пункту в списке покрытия → выбор в форме */
   document.querySelectorAll('.settlement-link').forEach(function(link){
     link.addEventListener('click', function(e){
