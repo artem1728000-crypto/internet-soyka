@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=110368052', 'ym');
+
+    ym(110368052, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/110368052" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Проверить скорость интернета онлайн — тест скорости и пинга | Каневская, Ейск</title>
+<meta name="description" content="Проверьте скорость интернета через Яндекс, Ростелеком или nPerf, а также узнайте, как проверить пинг и потерю пакетов через командную строку. Разбираем, что важнее — скорость или стабильность.">
+<meta name="keywords" content="проверить скорость интернета, тест скорости интернета, интернетометр яндекс, проверить пинг, ping ya.ru, потеря пакетов интернет, скорость интернета каневская, скорость интернета ейск, тест скорости онлайн">
+<link rel="canonical" href="https://internet-kanevskoy.ru/speedtest.html">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Проверить скорость интернета онлайн — тест скорости и пинга">
+<meta property="og:description" content="Ссылки на надёжные сервисы проверки скорости интернета и инструкция по проверке пинга через командную строку — для абонентов Каневского и Ейского района.">
+<meta property="og:url" content="https://internet-kanevskoy.ru/speedtest.html">
+<meta property="og:locale" content="ru_RU">
+
+<!-- Schema.org BreadcrumbList -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type":"ListItem","position":1,"name":"Главная","item":"https://internet-kanevskoy.ru/"},
+    {"@type":"ListItem","position":2,"name":"Проверка скорости интернета","item":"https://internet-kanevskoy.ru/speedtest.html"}
+  ]
+}
+</script>
+
+<!-- Schema.org FAQPage -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Какая скорость интернета должна быть по моему тарифу?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "На тарифе ХИТ 100 и СУПЕР ХИТ 100 скорость до 100 Мбит/с, на СУПЕР ХИТ 200 — до 200 Мбит/с. Тест скорости лучше запускать при подключении по кабелю напрямую к роутеру, так как по Wi-Fi результат почти всегда ниже из-за особенностей беспроводной связи и характеристик устройства."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Почему скорость по Wi-Fi ниже, чем заявлено в тарифе?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Это нормально и почти всегда не связано с качеством интернета от провайдера. На результат влияют диапазон Wi-Fi (2,4 ГГц медленнее 5 ГГц), возраст и мощность роутера, характеристики принимающего устройства — старый ноутбук, смартфон или телевизор часто не выдают полную скорость канала. Чтобы измерить именно скорость линии, подключите устройство кабелем."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Что означает потеря пакетов при проверке пинга и когда это проблема?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Потеря пакетов — это доля запросов, на которые не пришёл ответ. Потери до 3% допустимы и обычно не влияют на использование интернета. Если потери стабильно выше — это может быть признаком проблемы на линии или оборудовании, и стоит обратиться в поддержку с результатами проверки."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Почему разные сервисы проверки скорости показывают разные результаты?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Результат теста скорости зависит не только от линии, но и от загруженности сервера, к которому идёт измерение, характеристик самого устройства (процессор, сетевая карта, порт Ethernet) и типа подключения — по кабелю или по Wi-Fi. Небольшая разница между сервисами — это нормально."
+      }
+    }
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@500;600;700;800&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Перейти к содержимому</a>
+
+<header class="site">
+  <div class="wrap nav-row">
+    <a href="index.html" class="brand"><span class="dot" aria-hidden="true"></span>Интернет&nbsp;рядом</a>
+    <nav class="links" aria-label="Основная навигация">
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle">Населённые пункты</button>
+        <div class="nav-dropdown-menu">
+          <a href="kanevskaya.html">Каневская</a>
+          <a href="staroderevyanovskaya.html">Стародеревянковская</a>
+          <a href="novominskaya.html">Новоминская</a>
+          <a href="novoderevyankovskaya.html">Новодеревянковская</a>
+          <a href="yeysk.html">Ейск</a>
+        </div>
+      </div>
+      <a href="tariffs.html" class="nav-link-text">Тарифы</a>
+      <a href="index.html#coverage" class="nav-link-text">Зона покрытия</a>
+      <a href="faq.html" class="nav-link-text">Вопросы</a>
+      <a href="abonent.html" class="nav-link-text">Для абонентов</a>
+      <a href="tel:+79604892836" class="nav-phone">+7 (960) 489-28-36</a>
+    </nav>
+    <div class="header-actions">
+      <a href="https://max.ru/u/f9LHodD0cOLbdxm9q-o4BJX6n40LvaNxGg7Kuq9KpuYKPRoQ4WKfqa7YcP4" target="_blank" rel="noopener" class="btn btn-max header-cta">Написать в МАКС</a>
+      <a href="index.html#form" class="btn header-cta">Оставить заявку</a>
+    </div>
+
+    <button type="button" class="burger" id="burgerBtn" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <div class="menu-backdrop" id="menuBackdrop"></div>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="wrap">
+      <nav class="mobile-nav" aria-label="Мобильная навигация">
+        <div class="mobile-nav-dropdown">
+          <button type="button" class="mobile-nav-dropdown-toggle">Населённые пункты</button>
+          <div class="mobile-nav-dropdown-menu">
+            <a href="kanevskaya.html">Каневская</a>
+            <a href="staroderevyanovskaya.html">Стародеревянковская</a>
+            <a href="novominskaya.html">Новоминская</a>
+            <a href="novoderevyankovskaya.html">Новодеревянковская</a>
+            <a href="yeysk.html">Ейск</a>
+          </div>
+        </div>
+        <a href="tariffs.html" class="mobile-link">Тарифы</a>
+        <a href="index.html#coverage" class="mobile-link">Зона покрытия</a>
+        <a href="faq.html" class="mobile-link">Вопросы</a>
+        <a href="abonent.html" class="mobile-link">Для абонентов</a>
+        <a href="diagnostika.html" class="mobile-link">Нет интернета?</a>
+      </nav>
+      <div class="mobile-menu-actions">
+        <a href="tel:+79604892836" class="btn btn-ghost">+7 (960) 489-28-36</a>
+        <a href="https://max.ru/u/f9LHodD0cOLbdxm9q-o4BJX6n40LvaNxGg7Kuq9KpuYKPRoQ4WKfqa7YcP4" target="_blank" rel="noopener" class="btn btn-max">Написать в МАКС</a>
+        <a href="index.html#form" class="btn">Оставить заявку</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <nav class="breadcrumbs wrap" aria-label="Хлебные крошки">
+    <ol>
+      <li><a href="index.html">Главная</a></li>
+      <li aria-current="page">Проверка скорости интернета</li>
+    </ol>
+  </nav>
+
+  <!-- INTRO -->
+  <section class="local-intro">
+    <div class="wrap">
+      <span class="eyebrow">Диагностика подключения</span>
+      <h1>Проверка скорости и стабильности интернета</h1>
+      <p class="lead">Собрали проверенные сервисы для измерения скорости и подробно объяснили, почему разовый тест скорости — это ещё не полная картина, а проверка пинга на длительном промежутке времени показывает реальное качество соединения точнее.</p>
+    </div>
+  </section>
+
+  <!-- SPEED TEST SERVICES -->
+  <section class="speedtest-section" id="speed">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Шаг 1</span>
+        <h2>Проверьте скорость интернета онлайн</h2>
+        <p>Любой из трёх сервисов подойдёт для быстрой проверки. Для точного результата подключите компьютер или ноутбук к роутеру кабелем и закройте лишние вкладки и приложения перед тестом.</p>
+      </div>
+
+      <div class="speedtest-grid">
+        <a href="https://yandex.ru/internet/" target="_blank" rel="noopener" class="abonent-card">
+          <div class="abonent-icon" style="background:rgba(31,111,100,.1);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--signal-dark)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h.01"/><path d="M2 8.82a15 15 0 0 1 20 0"/><path d="M5 12.86a10 10 0 0 1 14 0"/><path d="M8.5 16.43a5 5 0 0 1 7 0"/></svg>
+          </div>
+          <h3>Яндекс Интернетометр</h3>
+          <p>Простой и быстрый тест прямо в браузере, без установки приложений. Показывает входящую и исходящую скорость.</p>
+          <span class="btn btn-ghost">Измерить на Яндексе</span>
+        </a>
+
+        <a href="https://speedtest.rt.ru/" target="_blank" rel="noopener" class="abonent-card">
+          <div class="abonent-icon" style="background:rgba(201,138,43,.12);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+          </div>
+          <h3>Speedtest от Ростелекома</h3>
+          <p>Ещё один независимый сервис для сравнения результата — полезно, если хотите перепроверить показания другим способом.</p>
+          <span class="btn btn-ghost">Измерить на Ростелекоме</span>
+        </a>
+
+        <a href="https://www.nperf.com/ru/" target="_blank" rel="noopener" class="abonent-card">
+          <div class="abonent-icon" style="background:rgba(91,58,86,.1);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--dusk)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+          </div>
+          <h3>nPerf</h3>
+          <p>Работает в браузере и как приложение — есть версии для Windows, Android, iOS и других ОС, удобно проверять скорость и на компьютере, и на телефоне.</p>
+          <span class="btn btn-ghost">Открыть nPerf</span>
+        </a>
+      </div>
+
+      <div class="priority-note">
+        <strong>Важно:</strong> результат теста скорости всегда точнее по проводному подключению. Через Wi-Fi на итог влияют диапазон сети (2,4 ГГц или 5 ГГц), возраст роутера и характеристики самого устройства — поэтому по беспроводной сети показатель почти всегда будет ниже тарифного.
+      </div>
+    </div>
+  </section>
+
+  <!-- PING -->
+  <section class="ping-section" id="ping">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Шаг 2 — и самый важный</span>
+        <h2>Проверьте пинг — это надёжнее разового теста скорости</h2>
+        <p>Тест скорости показывает только один момент времени. Проверка пинга (ping) может идти минутами и даже часами, поэтому куда точнее показывает, есть ли реальные проблемы со связью — обрывы, подвисания, потери пакетов.</p>
+      </div>
+
+      <div class="pay-method-card">
+        <div class="pay-method-number">1</div>
+        <div class="pay-method-body">
+          <h3>Откройте командную строку</h3>
+          <p>Нажмите одновременно клавиши <strong>Win + R</strong>, введите <strong>cmd</strong> и нажмите Enter. Откроется чёрное окно командной строки.</p>
+
+          <h3>Разовая проверка</h3>
+          <p>Введите команду и нажмите Enter — программа отправит несколько запросов и покажет итог:</p>
+          <div class="code-block">
+            <code>ping ya.ru</code>
+            <button type="button" class="code-copy-btn" data-copy="ping ya.ru">Копировать</button>
+          </div>
+
+          <h3>Проверка на длительном промежутке времени</h3>
+          <p>Для более показательного теста используйте команду с ключом <strong>-t</strong> — она будет проверять связь непрерывно, пока вы её не остановите:</p>
+          <div class="code-block">
+            <code>ping ya.ru -t</code>
+            <button type="button" class="code-copy-btn" data-copy="ping ya.ru -t">Копировать</button>
+          </div>
+          <p>Оставьте команду работать на 10–15 минут или дольше — например, пока смотрите видео или играете. Чтобы остановить проверку, нажмите <strong>Ctrl + C</strong> — программа покажет итоговую статистику: сколько пакетов отправлено, сколько потеряно и в процентах.</p>
+
+          <div class="priority-note">
+            <strong>На что смотреть:</strong> главный показатель — процент потерь (Loss / потеряно). Потери до 3% — это нормально и не критично для обычного использования интернета. Если потери стабильно выше — вероятна проблема на линии или с оборудованием, и есть смысл обратиться в поддержку, приложив результат проверки.
+          </div>
+
+          <div class="pay-video-note">
+            Проверку пинга и скорости лучше проводить с компьютера или ноутбука, подключённого к роутеру кабелем — так вы исключаете влияние Wi-Fi и получаете показатели именно вашей интернет-линии.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY IT SEEMS SLOW -->
+  <section class="article-section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Полезно знать</span>
+        <h2>Почему интернет кажется медленным, хотя с линией всё в порядке</h2>
+        <p>Часть обращений о «плохом интернете» на самом деле связана не с качеством линии, а с другими факторами. Вот на что стоит обратить внимание перед тем, как делать выводы по одному тесту.</p>
+      </div>
+
+      <ul class="pay-steps-list">
+        <li><span><strong>Возраст и характеристики устройства.</strong> Старый ноутбук, бюджетный телевизор или смартфон могут физически не поддерживать высокую скорость — например, из-за слабого Wi-Fi-модуля или процессора, который не успевает обрабатывать поток данных.</span></li>
+        <li><span><strong>Диапазон и поколение Wi-Fi.</strong> Подключение на частоте 2,4 ГГц или через роутер с Wi-Fi 4-го поколения ощутимо медленнее, чем 5 ГГц и более новые стандарты — это ограничение оборудования, а не линии.</span></li>
+        <li><span><strong>Отсутствие гигабитного порта.</strong> Если сетевая карта устройства или порт роутера рассчитаны на 100 Мбит/с, скорость выше этого значения физически не будет отображаться, даже если тариф позволяет больше.</span></li>
+        <li><span><strong>Загруженность сервера теста.</strong> Результат зависит и от сервера, с которым идёт измерение — в час пик он тоже может быть загружен, и разные сервисы покажут немного разные цифры.</span></li>
+        <li><span><strong>Проблема на стороне сервиса, а не интернета.</strong> Подвисание видео или медленная загрузка конкретного сайта иногда связаны с самим сервисом или CDN, а не с качеством вашего подключения — проверка скорости и пинга помогает это разграничить.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Коротко о главном</span>
+        <h2>Частые вопросы о проверке скорости</h2>
+      </div>
+
+      <div id="faqList">
+        <div class="faq-item">
+          <div class="faq-q"><span>Какая скорость интернета должна быть по моему тарифу?</span><span class="plus">+</span></div>
+          <div class="faq-a"><p>На тарифах ХИТ 100 и СУПЕР ХИТ 100 — до 100 Мбит/с, на СУПЕР ХИТ 200 — до 200 Мбит/с. Проверяйте по кабелю, чтобы получить показатель именно линии, без потерь на Wi-Fi.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q"><span>Почему скорость по Wi-Fi ниже, чем в тарифе?</span><span class="plus">+</span></div>
+          <div class="faq-a"><p>Это частая ситуация и обычно не связана с интернетом от провайдера — влияют диапазон сети, возраст роутера и характеристики принимающего устройства. Для точного теста подключитесь кабелем.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q"><span>Что означает потеря пакетов и когда это уже проблема?</span><span class="plus">+</span></div>
+          <div class="faq-a"><p>Потери до 3% при проверке пинга — это норма. Если стабильно выше — вероятна проблема на линии или оборудовании, и стоит обратиться в поддержку с результатами проверки.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q"><span>Почему разные сервисы теста скорости показывают разные цифры?</span><span class="plus">+</span></div>
+          <div class="faq-a"><p>На результат влияют загруженность сервера теста, характеристики вашего устройства и тип подключения. Небольшие расхождения между сервисами — это нормально.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-bar">
+    <div class="wrap" style="text-align:center;">
+      <h2>Если результаты проверки вас насторожили</h2>
+      <p>Пройдите короткую самостоятельную диагностику по индикаторам оборудования или сразу свяжитесь с нами — разберёмся вместе.</p>
+      <div class="hero-actions" style="justify-content:center;">
+        <a href="diagnostika.html" class="btn">Пройти диагностику</a>
+        <a href="tel:+79604892836" class="btn btn-ghost">Позвонить: +7 (960) 489-28-36</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">Интернет рядом — Каневской и Ейский район</div>
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <a href="tel:+79604892836" class="btn btn-ghost" style="color:#FBF7EC; border-color:#6b665c;">+7 (960) 489-28-36</a>
+        <a href="https://max.ru/u/f9LHodD0cOLbdxm9q-o4BJX6n40LvaNxGg7Kuq9KpuYKPRoQ4WKfqa7YcP4" target="_blank" rel="noopener" class="btn" style="background:var(--gold); color:#fff;">Написать в МАКС</a>
+        <a href="index.html#form" class="btn btn-ghost" style="color:#FBF7EC; border-color:#6b665c;">Оставить заявку</a>
+      </div>
+    </div>
+    <nav class="foot-links" aria-label="Дополнительная навигация">
+      <a href="index.html">Главная</a>
+      <a href="kanevskaya.html">Каневская</a>
+      <a href="staroderevyanovskaya.html">Стародеревянковская</a>
+      <a href="novominskaya.html">Новоминская</a>
+      <a href="novoderevyankovskaya.html">Новодеревянковская</a>
+      <a href="yeysk.html">Ейск</a>
+      <a href="tariffs.html">Тарифы</a>
+      <a href="faq.html">Вопросы и ответы</a>
+      <a href="abonent.html">Для абонентов</a>
+      <a href="speedtest.html">Проверка скорости</a>
+      <a href="diagnostika.html">Пропал интернет?</a>
+      <a href="privacy.html">Политика обработки данных</a>
+    </nav>
+    <p>Сайт является независимым каналом сбора заявок на подключение интернета и не является официальным ресурсом провайдера. Ссылки на сторонние сервисы проверки скорости приведены для удобства и не являются рекламой.</p>
+    <p>© <span id="year"></span> Подключение интернета в Каневском и Ейском районе.</p>
+  </div>
+</footer>
+
+<script src="script.js" defer></script>
+
+</body>
+</html>

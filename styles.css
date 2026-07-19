@@ -1344,3 +1344,56 @@ footer.site .foot-links a:hover{color:#FBF7EC;}
 .pay-faq-section .faq-item:first-child{
   border-top:1px solid var(--line);
 }
+
+/* ====== Страница проверки скорости интернета ====== */
+.speedtest-section{background:var(--white);}
+.speedtest-grid{
+  display:grid; grid-template-columns:1fr; gap:20px;
+}
+@media(min-width:640px){ .speedtest-grid{grid-template-columns:repeat(2,1fr);} }
+@media(min-width:960px){ .speedtest-grid{grid-template-columns:repeat(3,1fr);} }
+
+.ping-section{background:var(--paper-deep);}
+
+.code-block{
+  display:flex; align-items:center; justify-content:space-between; gap:14px;
+  background:var(--ink);
+  border-radius:var(--radius);
+  padding:16px 18px;
+  margin:1em 0;
+  overflow-x:auto;
+}
+.code-block code{
+  font-family:'Courier New', monospace;
+  font-size:.98rem;
+  color:#F3EEDD;
+  white-space:nowrap;
+}
+.code-copy-btn{
+  flex-shrink:0;
+  display:inline-flex; align-items:center; gap:6px;
+  background:rgba(255,255,255,.1);
+  border:1px solid rgba(255,255,255,.28);
+  color:#F3EEDD;
+  border-radius:8px;
+  padding:8px 13px;
+  font-family:'PT Sans', sans-serif;
+  font-size:.83rem;
+  font-weight:700;
+  cursor:pointer;
+  transition:background .2s ease, border-color .2s ease;
+}
+.code-copy-btn:hover{background:rgba(255,255,255,.2);}
+.code-copy-btn.copied{background:var(--signal); border-color:var(--signal); color:#fff;}
+
+.priority-note{
+  background:rgba(31,111,100,.08);
+  border-left:3px solid var(--signal-dark);
+  padding:16px 20px;
+  border-radius:8px;
+  margin:1.4em 0;
+  font-size:.96rem;
+  color:var(--ink);
+  line-height:1.55;
+}
+.priority-note strong{color:var(--signal-dark);}
