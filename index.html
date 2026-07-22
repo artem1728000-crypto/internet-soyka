@@ -163,7 +163,7 @@
 
 <header class="site">
   <div class="wrap nav-row">
-    <a href="index.html" class="brand"><span class="dot" aria-hidden="true"></span>Интернет&nbsp;рядом</a>
+    <a href="index.html" class="brand"><svg class="brand-fiber" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.6" fill="none" stroke="#154E47" stroke-width="1.5"/><circle cx="10" cy="10" r="5.6" fill="none" stroke="#1F6F64" stroke-width="1.4"/><circle cx="10" cy="10" r="2.3" class="brand-fiber-core"/></svg>Интернет&nbsp;рядом</a>
     <nav class="links" aria-label="Основная навигация">
       <div class="nav-dropdown">
         <button type="button" class="nav-dropdown-toggle">Населённые пункты</button>
@@ -176,6 +176,7 @@
         </div>
       </div>
       <a href="tariffs.html" class="nav-link-text">Тарифы</a>
+      <a href="skolko-internet-nuzhno.html" class="nav-link-text">Калькулятор скорости</a>
       <a href="index.html#coverage" class="nav-link-text">Зона покрытия</a>
       <a href="faq.html" class="nav-link-text">Вопросы</a>
       <a href="abonent.html" class="nav-link-text">Для абонентов</a>
@@ -207,6 +208,7 @@
           </div>
         </div>
         <a href="tariffs.html" class="mobile-link">Тарифы</a>
+        <a href="skolko-internet-nuzhno.html" class="mobile-link">Калькулятор скорости</a>
         <a href="index.html#coverage" class="mobile-link">Зона покрытия</a>
         <a href="faq.html" class="mobile-link">Вопросы</a>
         <a href="abonent.html" class="mobile-link">Для абонентов</a>
@@ -236,13 +238,30 @@
         </div>
       </div>
 
-      <div class="horizon-box" aria-hidden="true">
-        <svg viewBox="0 0 420 230" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Карта покрытия сигналом по станицам района">
+      <div class="horizon-box fiber-box" aria-hidden="true">
+        <svg viewBox="0 0 420 230" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Анимация: свет бежит по оптоволоконному кабелю от узла связи до домов в станицах района">
           <defs>
             <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stop-color="#FBF7EC"/>
               <stop offset="100%" stop-color="#F1E9D6"/>
             </linearGradient>
+            <linearGradient id="cableGrad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#154E47"/>
+              <stop offset="50%" stop-color="#1F6F64"/>
+              <stop offset="100%" stop-color="#154E47"/>
+            </linearGradient>
+            <linearGradient id="lightGrad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#FFE9B8" stop-opacity="0"/>
+              <stop offset="50%" stop-color="#FFE9B8" stop-opacity="1"/>
+              <stop offset="100%" stop-color="#FFE9B8" stop-opacity="0"/>
+            </linearGradient>
+            <filter id="fiberGlow" x="-60%" y="-60%" width="220%" height="220%">
+              <feGaussianBlur stdDeviation="2.4" result="blur"/>
+              <feMerge>
+                <feMergeNode in="blur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
           </defs>
           <rect x="0" y="0" width="420" height="230" fill="url(#sky)"/>
           <g stroke="#E1D6B8" stroke-width="2">
@@ -250,29 +269,43 @@
             <path d="M0,218 H420" />
             <path d="M0,226 H420" />
           </g>
-          <path d="M0,168 C70,150 110,180 180,160 C250,142 300,175 420,150" fill="none" stroke="#1F6F64" stroke-width="2.5" opacity="0.55"/>
-          <g>
-            <line x1="55" y1="120" x2="140" y2="95" stroke="#C98A2B" stroke-width="2" stroke-dasharray="4 5"/>
-            <line x1="140" y1="95" x2="225" y2="118" stroke="#C98A2B" stroke-width="2" stroke-dasharray="4 5"/>
-            <line x1="225" y1="118" x2="300" y2="80" stroke="#C98A2B" stroke-width="2" stroke-dasharray="4 5"/>
-            <line x1="300" y1="80" x2="365" y2="112" stroke="#C98A2B" stroke-width="2" stroke-dasharray="4 5"/>
+
+          <!-- магистральный оптический кабель -->
+          <path d="M0,168 C70,150 110,180 180,160 C250,142 300,175 375,150" fill="none" stroke="url(#cableGrad)" stroke-width="4" stroke-linecap="round"/>
+
+          <!-- бегущие импульсы света внутри волокна -->
+          <path d="M0,168 C70,150 110,180 180,160 C250,142 300,175 375,150" fill="none" stroke="url(#lightGrad)" stroke-width="4" stroke-linecap="round" class="fiber-pulse" filter="url(#fiberGlow)"/>
+
+          <!-- отводы (дроп-кабель) к станицам -->
+          <g stroke="#C98A2B" stroke-width="1.6" stroke-dasharray="4 5" opacity="0.85">
+            <line x1="55" y1="120" x2="33" y2="153"/>
+            <line x1="140" y1="95" x2="118" y2="156"/>
+            <line x1="225" y1="118" x2="218" y2="153"/>
+            <line x1="300" y1="80" x2="296" y2="151"/>
           </g>
+
           <g fill="#1F6F64">
             <circle class="pulse-dot d1" cx="55" cy="120" r="5"/>
             <circle class="pulse-dot d2" cx="140" cy="95" r="5"/>
             <circle class="pulse-dot d3" cx="225" cy="118" r="5"/>
             <circle class="pulse-dot d4" cx="300" cy="80" r="5"/>
-            <circle class="pulse-dot d5" cx="365" cy="112" r="5"/>
           </g>
+
           <g fill="#56564C" font-family="PT Sans, sans-serif" font-size="11">
             <text x="30" y="142">Каневская</text>
             <text x="98" y="80">Стародеревянковская</text>
             <text x="190" y="140">Новоминская</text>
             <text x="278" y="65">Новодеревянковская</text>
-            <text x="320" y="135">Сладкий Лиман</text>
+          </g>
+
+          <!-- дом абонента, куда приходит сигнал -->
+          <g transform="translate(375,150)">
+            <circle r="15" fill="rgba(201,138,43,.16)" class="house-glow"/>
+            <path d="M-8,4 V-4 L0,-11 L8,-4 V4 Z" fill="#FBF7EC" stroke="#C98A2B" stroke-width="1.6" stroke-linejoin="round"/>
+            <rect x="-2.5" y="-1" width="5" height="5" fill="#C98A2B"/>
           </g>
         </svg>
-        <p class="horizon-caption">Так выглядит наша зона покрытия — от Каневской до соседних станиц</p>
+        <p class="horizon-caption">Сигнал по оптоволокну распространяется со скоростью света — от узла связи до вашего дома за доли секунды</p>
       </div>
     </div>
   </section>
@@ -953,7 +986,7 @@
 <footer class="site">
   <div class="wrap">
     <div class="foot-top">
-      <div class="foot-brand">Интернет рядом — Каневской и Ейский район</div>
+      <div class="foot-brand">Интернет рядом — Каневской и Ейский район<span class="foot-badge"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.6" fill="none" stroke="#6b665c" stroke-width="1.5"/><circle cx="10" cy="10" r="5.6" fill="none" stroke="#9a9488" stroke-width="1.4"/><circle cx="10" cy="10" r="2.3" class="brand-fiber-core"/></svg>100% оптоволокно до дома</span></div>
       <div style="display:flex; gap:10px; flex-wrap:wrap;">
         <a href="tel:+79604892836" class="btn btn-ghost" style="color:#FBF7EC; border-color:#6b665c;">+7 (960) 489-28-36</a>
         <a href="https://max.ru/u/f9LHodD0cOLbdxm9q-o4BJX6n40LvaNxGg7Kuq9KpuYKPRoQ4WKfqa7YcP4" target="_blank" rel="noopener" class="btn" style="background:var(--gold); color:#fff;">Написать в МАКС</a>
@@ -968,6 +1001,7 @@
       <a href="novoderevyankovskaya.html">Новодеревянковская</a>
       <a href="yeysk.html">Ейск</a>
       <a href="tariffs.html">Тарифы</a>
+      <a href="skolko-internet-nuzhno.html">Калькулятор скорости</a>
       <a href="faq.html">Вопросы и ответы</a>
       <a href="abonent.html">Для абонентов</a>
       <a href="speedtest.html">Проверка скорости</a>

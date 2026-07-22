@@ -88,10 +88,27 @@ header.site.scrolled{
   text-decoration:none;
   color:var(--ink);
 }
-.brand .dot{
-  width:10px; height:10px; border-radius:50%;
-  background:var(--signal);
-  box-shadow:0 0 0 4px rgba(31,111,100,.18);
+.brand-fiber{
+  width:20px; height:20px; flex:none;
+}
+.brand-fiber-core{
+  fill:var(--gold);
+  animation:coreGlow 2.2s ease-in-out infinite;
+  transform-origin:center;
+}
+@keyframes coreGlow{
+  0%,100%{ fill:var(--gold); filter:drop-shadow(0 0 0 rgba(201,138,43,0)); }
+  50%{ fill:#FFE9B8; filter:drop-shadow(0 0 3px rgba(255,233,184,.9)); }
+}
+.foot-brand{ display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+.foot-badge{
+  display:inline-flex; align-items:center; gap:6px;
+  font-size:.78rem; font-weight:700; color:#c9c3b4;
+  border:1px solid #514c42; border-radius:999px; padding:4px 10px 4px 6px;
+}
+.foot-badge svg{ width:16px; height:16px; flex:none; }
+@media (prefers-reduced-motion: reduce){
+  .brand-fiber-core{ animation:none; }
 }
 nav.links{display:flex; gap:24px; font-size:.95rem; align-items:center;}
 nav.links > a, nav.links .nav-dropdown-toggle{
@@ -335,9 +352,25 @@ body.menu-open{overflow:hidden;}
 .pulse-dot.d2{ animation-delay:.5s; }
 .pulse-dot.d3{ animation-delay:1s; }
 .pulse-dot.d4{ animation-delay:1.5s; }
-.pulse-dot.d5{ animation-delay:2s; }
+
+/* бегущий свет по оптоволоконному кабелю в hero */
+.fiber-pulse{
+  stroke-dasharray:14 90;
+  animation:fiberFlow 2.2s linear infinite;
+}
+@keyframes fiberFlow{
+  to{ stroke-dashoffset:-520; }
+}
+.house-glow{
+  animation:houseGlow 2.2s ease-in-out infinite;
+  transform-origin:center;
+}
+@keyframes houseGlow{
+  0%,100%{ opacity:.35; }
+  50%{ opacity:1; }
+}
 @media (prefers-reduced-motion: reduce){
-  .pulse-dot{ animation:none; }
+  .pulse-dot, .fiber-pulse, .house-glow{ animation:none; }
 }
 
 /* Sections */
