@@ -59,6 +59,16 @@ function tariffGridHTML() {
   return '\n' + TARIFFS.map(tariffCardHTML).join('\n') + '\n      ';
 }
 
+function tariffOptionsHTML() {
+  const opts = TARIFFS.map(t => {
+    const extras = [`до ${t.speedMax} Мбит/с`];
+    if (t.tvChannels > 0) extras.push(`${t.tvChannels} ТВ`);
+    const label = `${t.name} — ${t.price} ₽/мес`;
+    return `              <option value="${label}">${label} (${extras.join(' + ')})</option>`;
+  }).join('\n');
+  return `\n              <option value="">Не выбран</option>\n${opts}\n            `;
+}
+
 function routerOptionsHTML() {
   const opts = ROUTERS.map(r => `              <option value="${r.name}">${r.optionLabel}</option>`).join('\n');
   return `\n              <option value="">Не выбран</option>\n${opts}\n            `;
@@ -109,10 +119,34 @@ const TOKENS = {
   '{{OFFER_COUNT}}': TARIFFS.length
 };
 
+function tariffOfferHTML(t) {
+  const desc = t.tvChannels > 0
+    ? `Интернет до ${t.speedMax} Мбит/с + ${t.tvChannels}+ ТВ-каналов`
+    : `Домашний интернет до ${t.speedMax} Мбит/с`;
+  return `      {
+        "@type": "Offer",
+        "itemOffered": { "@type": "Service", "name": "${t.name}", "description": "${desc}" },
+        "price": "${t.price}", "priceCurrency": "RUB"
+      }`;
+}
+
+function tariffOffersHTML() {
+  return '\n' + TARIFFS.map(tariffOfferHTML).join(',\n') + '\n    ';
+}
+
 const BLOCKS = {
   TARIFF_GRID: tariffGridHTML,
+  TARIFF_OPTIONS: tariffOptionsHTML,
   ROUTER_OPTIONS: routerOptionsHTML,
   ROUTER_GRID: routerGridHTML
+};
+
+// Токены для контента, который живёт ВНУТРИ <script type="application/ld+json">.
+// Там HTML-комментарии <!-- --> НЕ работают как разметка (браузер и Google
+// видят их как часть текста и JSON-LD ломается) — поэтому здесь используется
+// обычная текстовая подстановка без комментариев-меток.
+const DYNAMIC_TOKENS = {
+  '{{TARIFF_OFFERS}}': tariffOffersHTML
 };
 
 /*
@@ -141,6 +175,10 @@ function buildFromTemplate(templatePath) {
 
   for (const [token, value] of Object.entries(TOKENS)) {
     content = content.split(token).join(value);
+  }
+
+  for (const [token, generator] of Object.entries(DYNAMIC_TOKENS)) {
+    content = content.split(token).join(generator());
   }
 
   const outPath = path.join(ROOT, fileName);

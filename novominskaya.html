@@ -276,7 +276,14 @@
           </div>
           <div class="field"><label for="fio">ФИО</label><input type="text" id="fio" name="full_name" required autocomplete="name"><div class="err-msg">Укажите имя и фамилию</div></div>
           <div class="field"><label for="phone">Контактный телефон</label><input type="tel" id="phone" name="phone" placeholder="+7 900 000-00-00" required autocomplete="tel"><div class="err-msg">Введите корректный номер телефона</div></div>
-          <div class="field"><label for="tariff">Тариф (опционально)</label><select id="tariff" name="tariff"><option value="">Не выбран</option><option value="ХИТ 100 — 920 ₽/мес">ХИТ 100 — 920 ₽/мес (до 100 Мбит/с)</option><option value="СУПЕР ХИТ 100 — 1035 ₽/мес">СУПЕР ХИТ 100 — 1035 ₽/мес (до 100 Мбит/с + 150 ТВ)</option><option value="СУПЕР ХИТ 200 — 1380 ₽/мес">СУПЕР ХИТ 200 — 1380 ₽/мес (до 200 Мбит/с + 300 ТВ)</option></select></div>
+          <div class="field"><label for="tariff">Тариф (опционально)</label><select id="tariff" name="tariff">
+<!-- BUILD:TARIFF_OPTIONS -->
+              <option value="">Не выбран</option>
+              <option value="ХИТ 100 — 920 ₽/мес">ХИТ 100 — 920 ₽/мес (до 100 Мбит/с)</option>
+              <option value="СУПЕР ХИТ 100 — 1035 ₽/мес">СУПЕР ХИТ 100 — 1035 ₽/мес (до 100 Мбит/с + 175 ТВ)</option>
+              <option value="СУПЕР ХИТ 200 — 1380 ₽/мес">СУПЕР ХИТ 200 — 1380 ₽/мес (до 200 Мбит/с + 313 ТВ)</option>
+            <!-- END:TARIFF_OPTIONS -->
+            </select></div>
           <div class="field"><label for="router">WiFi роутер (опционально)</label><select id="router" name="router">
 <!-- BUILD:ROUTER_OPTIONS -->
               <option value="">Не выбран</option>

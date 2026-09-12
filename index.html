@@ -74,6 +74,7 @@
     "@type": "OfferCatalog",
     "name": "Тарифы интернет",
     "itemListElement": [
+
       {
         "@type": "Offer",
         "itemOffered": { "@type": "Service", "name": "ХИТ 100", "description": "Домашний интернет до 100 Мбит/с" },
@@ -89,6 +90,7 @@
         "itemOffered": { "@type": "Service", "name": "СУПЕР ХИТ 200", "description": "Интернет до 200 Мбит/с + 313+ ТВ-каналов" },
         "price": "1380", "priceCurrency": "RUB"
       }
+    
     ]
   }
 }
@@ -608,10 +610,12 @@
           <div class="field">
             <label for="tariff">Тариф (опционально)</label>
             <select id="tariff" name="tariff">
+<!-- BUILD:TARIFF_OPTIONS -->
               <option value="">Не выбран</option>
               <option value="ХИТ 100 — 920 ₽/мес">ХИТ 100 — 920 ₽/мес (до 100 Мбит/с)</option>
-              <option value="СУПЕР ХИТ 100 — 1035 ₽/мес">СУПЕР ХИТ 100 — 1035 ₽/мес (до 100 Мбит/с + 150 ТВ)</option>
-              <option value="СУПЕР ХИТ 200 — 1380 ₽/мес">СУПЕР ХИТ 200 — 1380 ₽/мес (до 200 Мбит/с + 300 ТВ)</option>
+              <option value="СУПЕР ХИТ 100 — 1035 ₽/мес">СУПЕР ХИТ 100 — 1035 ₽/мес (до 100 Мбит/с + 175 ТВ)</option>
+              <option value="СУПЕР ХИТ 200 — 1380 ₽/мес">СУПЕР ХИТ 200 — 1380 ₽/мес (до 200 Мбит/с + 313 ТВ)</option>
+            <!-- END:TARIFF_OPTIONS -->
             </select>
           </div>
 
