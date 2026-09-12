@@ -43,9 +43,9 @@
   "offers": {
     "@type": "AggregateOffer",
     "priceCurrency": "RUB",
-    "lowPrice": "920",
-    "highPrice": "1380",
-    "offerCount": "3"
+    "lowPrice": "{{PRICE_MIN}}",
+    "highPrice": "{{PRICE_MAX}}",
+    "offerCount": "{{OFFER_COUNT}}"
   }
 }
 </script>
@@ -215,43 +215,7 @@
 
       <div class="tariff-grid">
 <!-- BUILD:TARIFF_GRID -->
-        <div class="tariff-card" data-tariff="ХИТ 100">
-          <div class="tariff-header">
-            <h3>ХИТ 100</h3>
-            <div class="tariff-price"><span class="price-value">920</span><span class="price-currency">₽/мес</span></div>
-          </div>
-          <div class="tariff-features">
-            <div class="tariff-feature"><svg class="feature-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="currentColor"/></svg><span>До 100 Мбит/с</span></div>
-            <div class="tariff-feature"><svg class="feature-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="currentColor"/></svg><span>Безлимитный интернет</span></div>
-          </div>
-          <button class="btn btn-ghost btn-select-tariff" data-tariff="ХИТ 100 — 920 ₽/мес">Выбрать тариф</button>
-        </div>
-        <div class="tariff-card" data-tariff="СУПЕР ХИТ 100">
-          <div class="tariff-header">
-            <h3>СУПЕР ХИТ 100</h3>
-            <div class="tariff-price"><span class="price-value">1035</span><span class="price-currency">₽/мес</span></div>
-          </div>
-          <div class="tariff-features">
-            <div class="tariff-feature"><svg class="feature-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="currentColor"/></svg><span>До 100 Мбит/с</span></div>
-            <div class="tariff-feature"><svg class="feature-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="currentColor"/></svg><span>175+ ТВ-каналов</span></div>
-            <div class="tariff-feature"><svg class="feature-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="currentColor"/></svg><span>Приложение «24ТВ»</span></div>
-          </div>
-          <button class="btn btn-ghost btn-select-tariff" data-tariff="СУПЕР ХИТ 100 — 1035 ₽/мес">Выбрать тариф</button>
-        </div>
-        <div class="tariff-card featured" data-tariff="СУПЕР ХИТ 200">
-          <div class="tariff-badge">Популярный</div>
-          <div class="tariff-header">
-            <h3>СУПЕР ХИТ 200</h3>
-            <div class="tariff-price"><span class="price-value">1380</span><span class="price-currency">₽/мес</span></div>
-          </div>
-          <div class="tariff-features">
-            <div class="tariff-feature"><svg class="feature-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="currentColor"/></svg><span>До 200 Мбит/с</span></div>
-            <div class="tariff-feature"><svg class="feature-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="currentColor"/></svg><span>313+ ТВ-каналов</span></div>
-            <div class="tariff-feature"><svg class="feature-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="currentColor"/></svg><span>Приложение «24ТВ»</span></div>
-          </div>
-          <button class="btn btn-select-tariff" data-tariff="СУПЕР ХИТ 200 — 1380 ₽/мес">Выбрать тариф</button>
-        </div>
-      <!-- END:TARIFF_GRID -->
+<!-- END:TARIFF_GRID -->
       </div>
 
       <div class="tariff-note">
@@ -366,12 +330,7 @@
             <label for="router">WiFi роутер (опционально)</label>
             <select id="router" name="router">
 <!-- BUILD:ROUTER_OPTIONS -->
-              <option value="">Не выбран</option>
-              <option value="Tenda TX2 Pro">Tenda TX2 Pro — WiFi 6, до 1.5 Гбит/с</option>
-              <option value="Tenda TX2L Pro">Tenda TX2L Pro — WiFi 6, до 1.8 Гбит/с</option>
-              <option value="Tenda MW3">Tenda MW3 — Mesh система, до 200 м²</option>
-              <option value="Tenda MW6">Tenda MW6 — Mesh система, до 300 м² (рекомендуем)</option>
-            <!-- END:ROUTER_OPTIONS -->
+<!-- END:ROUTER_OPTIONS -->
             </select>
           </div>
 

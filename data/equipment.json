@@ -1,0 +1,42 @@
+{
+  "_comment": "Единственное место, где меняются модели роутеров. После правки запустите: node build.js — и список обновится во всех выпадающих списках форм и в блоке подбора оборудования на главной.",
+
+  "routers": [
+    {
+      "id": "tenda-tx2-pro",
+      "name": "Tenda TX2 Pro",
+      "optionLabel": "Tenda TX2 Pro — WiFi 6, до 1.5 Гбит/с",
+      "specsLine": "WiFi 6 • До 1.5 Гбит/с • 2-3 комнаты",
+      "desc": "Современный роутер для квартиры или небольшого дома с поддержкой новейшего стандарта WiFi 6.",
+      "icon": "single",
+      "featured": false
+    },
+    {
+      "id": "tenda-tx2l-pro",
+      "name": "Tenda TX2L Pro",
+      "optionLabel": "Tenda TX2L Pro — WiFi 6, до 1.8 Гбит/с",
+      "specsLine": "WiFi 6 • До 1.8 Гбит/с • 3-4 комнаты",
+      "desc": "Усиленная версия с увеличенной мощностью сигнала для дома средней площади.",
+      "icon": "single-strong",
+      "featured": false
+    },
+    {
+      "id": "tenda-mw3",
+      "name": "Tenda MW3",
+      "optionLabel": "Tenda MW3 — Mesh система, до 200 м²",
+      "specsLine": "Mesh система • 2 устройства • До 200 м²",
+      "desc": "Mesh-система из двух точек для бесшовного покрытия всего дома без мёртвых зон.",
+      "icon": "mesh2",
+      "featured": false
+    },
+    {
+      "id": "tenda-mw6",
+      "name": "Tenda MW6",
+      "optionLabel": "Tenda MW6 — Mesh система, до 300 м² (рекомендуем)",
+      "specsLine": "Mesh система • 2-3 устройства • До 300 м²",
+      "desc": "Премиальная Mesh-система для больших домов с максимальной скоростью и покрытием.",
+      "icon": "mesh3",
+      "featured": true
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "_comment": "Единственное место, где меняются тарифы. После правки запустите: node build.js — и цены/скорости/ТВ обновятся на ВСЕХ страницах сайта (карточки тарифов + JSON-LD для Google).",
+
+  "tariffs": [
+    {
+      "id": "hit100",
+      "name": "ХИТ 100",
+      "price": 920,
+      "speedMax": 100,
+      "tvChannels": 0,
+      "featured": false,
+      "badge": null,
+      "features": [
+        "До 100 Мбит/с",
+        "Безлимитный интернет"
+      ]
+    },
+    {
+      "id": "superhit100",
+      "name": "СУПЕР ХИТ 100",
+      "price": 1035,
+      "speedMax": 100,
+      "tvChannels": 175,
+      "featured": false,
+      "badge": null,
+      "features": [
+        "До 100 Мбит/с",
+        "175+ ТВ-каналов",
+        "Приложение «24ТВ»"
+      ]
+    },
+    {
+      "id": "superhit200",
+      "name": "СУПЕР ХИТ 200",
+      "price": 1380,
+      "speedMax": 200,
+      "tvChannels": 313,
+      "featured": true,
+      "badge": "Популярный",
+      "features": [
+        "До 200 Мбит/с",
+        "313+ ТВ-каналов",
+        "Приложение «24ТВ»"
+      ]
+    }
+  ]
+}
