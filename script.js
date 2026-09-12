@@ -377,3 +377,108 @@
     }
   });
 })();
+
+/* ====== Модальное окно "Написать в МАКС" ====== */
+(function(){
+  'use strict';
+
+  var MAX_LINK_SELECTOR = 'a[href*="max.ru/u/"]';
+  var maxLinks = document.querySelectorAll(MAX_LINK_SELECTOR);
+  if(!maxLinks.length){ return; }
+
+  var TEMPLATE_TEXT =
+    'Здравствуйте! Хочу подключить интернет.\n' +
+    'Населённый пункт, улица, дом: \n' +
+    'ФИО: \n' +
+    'Телефон: \n' +
+    'Тариф: \n' +
+    'Роутер (модель из списка на сайте или «свой роутер»): \n' +
+    'Email: ';
+
+  var overlay = null;
+
+  function buildModal(){
+    overlay = document.createElement('div');
+    overlay.className = 'max-modal-overlay';
+    overlay.innerHTML =
+      '<div class="max-modal" role="dialog" aria-modal="true" aria-labelledby="maxModalTitle">' +
+        '<button type="button" class="max-modal-close" aria-label="Закрыть">&times;</button>' +
+        '<h3 id="maxModalTitle">Прежде чем написать в МАКС</h3>' +
+        '<p>Чтобы Артём мог сразу проверить техническую возможность и оформить заявку без лишних уточнений, пришлите эти данные:</p>' +
+        '<ul class="max-modal-checklist">' +
+          '<li><span class="ico">📍</span><span>Точный адрес — населённый пункт, улица, дом</span></li>' +
+          '<li><span class="ico">👤</span><span>ФИО и контактный телефон</span></li>' +
+          '<li><span class="ico">📶</span><span>Выбранный тариф</span></li>' +
+          '<li><span class="ico">📦</span><span>Модель роутера из списка на сайте (или «свой роутер»)</span></li>' +
+          '<li><span class="ico">📧</span><span>Электронная почта (Email)</span></li>' +
+        '</ul>' +
+        '<span class="max-modal-template-label">Можно скопировать и просто заполнить пропуски:</span>' +
+        '<div class="max-modal-template" id="maxModalTemplate">' + TEMPLATE_TEXT + '</div>' +
+        '<div class="max-modal-actions">' +
+          '<button type="button" class="btn" id="maxModalCopyGo">Скопировать шаблон и перейти в МАКС</button>' +
+          '<a href="#" target="_blank" rel="noopener" class="btn btn-ghost" id="maxModalJustGo">Перейти в МАКС без шаблона</a>' +
+          '<div class="max-modal-copy-status" id="maxModalStatus"></div>' +
+        '</div>' +
+      '</div>';
+    document.body.appendChild(overlay);
+
+    overlay.addEventListener('click', function(e){
+      if(e.target === overlay){ closeModal(); }
+    });
+    overlay.querySelector('.max-modal-close').addEventListener('click', closeModal);
+
+    overlay.querySelector('#maxModalCopyGo').addEventListener('click', function(){
+      copyTemplate(function(){
+        window.open(overlay.dataset.maxUrl, '_blank', 'noopener');
+        closeModal();
+      });
+    });
+  }
+
+  function copyTemplate(done){
+    var statusEl = overlay.querySelector('#maxModalStatus');
+    function ok(){
+      if(statusEl){ statusEl.textContent = 'Шаблон скопирован ✓'; }
+      if(done){ done(); }
+    }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(TEMPLATE_TEXT).then(ok).catch(function(){
+        if(done){ done(); }
+      });
+    } else {
+      var tmp = document.createElement('textarea');
+      tmp.value = TEMPLATE_TEXT;
+      document.body.appendChild(tmp);
+      tmp.select();
+      try{ document.execCommand('copy'); }catch(e){}
+      document.body.removeChild(tmp);
+      ok();
+    }
+  }
+
+  function openModal(url){
+    if(!overlay){ buildModal(); }
+    overlay.dataset.maxUrl = url;
+    overlay.querySelector('#maxModalJustGo').setAttribute('href', url);
+    overlay.querySelector('#maxModalStatus').textContent = '';
+    overlay.classList.add('open');
+    document.body.classList.add('menu-open');
+  }
+
+  function closeModal(){
+    if(!overlay){ return; }
+    overlay.classList.remove('open');
+    document.body.classList.remove('menu-open');
+  }
+
+  maxLinks.forEach(function(link){
+    link.addEventListener('click', function(e){
+      e.preventDefault();
+      openModal(link.getAttribute('href'));
+    });
+  });
+
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){ closeModal(); }
+  });
+})();

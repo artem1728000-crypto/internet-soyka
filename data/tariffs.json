@@ -3,9 +3,22 @@
 
   "tariffs": [
     {
+      "id": "hit100",
+      "name": "ХИТ 100",
+      "price": 920,
+      "speedMax": 100,
+      "tvChannels": 0,
+      "featured": false,
+      "badge": null,
+      "features": [
+        "До 100 Мбит/с",
+        "Безлимитный интернет"
+      ]
+    },
+    {
       "id": "superhit100",
-      "name": "ХИТ 100 2.0",
-      "price": 970,
+      "name": "СУПЕР ХИТ 100",
+      "price": 1035,
       "speedMax": 100,
       "tvChannels": 175,
       "featured": false,
