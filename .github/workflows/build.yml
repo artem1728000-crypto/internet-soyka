@@ -1,0 +1,40 @@
+name: Собрать сайт при изменении тарифов/оборудования
+
+on:
+  push:
+    branches: [ master, main ]
+    paths:
+      - 'data/tariffs.json'
+      - 'data/equipment.json'
+      - 'templates/**'
+      - 'build.js'
+  workflow_dispatch: {}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Установить Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Собрать сайт
+        run: node build.js
+
+      - name: Закоммитить готовые файлы
+        run: |
+          git config user.name "site-builder-bot"
+          git config user.email "actions@github.com"
+          git add *.html
+          if git diff --cached --quiet; then
+            echo "Изменений нет, коммит не нужен."
+          else
+            git commit -m "Автосборка: обновлены тарифы/оборудование"
+            git push
+          fi
