@@ -105,20 +105,6 @@ function routerGridHTML() {
   return '\n' + ROUTERS.map(routerCardHTML).join('\n\n') + '\n      ';
 }
 
-/* ===================== Токены для мета-тегов / JSON-LD ===================== */
-
-const priceValues = TARIFFS.map(t => t.price);
-const speedValues = TARIFFS.map(t => t.speedMax);
-
-const TOKENS = {
-  '{{PRICE_MIN}}': Math.min(...priceValues),
-  '{{PRICE_MAX}}': Math.max(...priceValues),
-  '{{SPEED_MIN}}': Math.min(...speedValues),
-  '{{SPEED_MAX}}': Math.max(...speedValues),
-  '{{TV_MAX}}': Math.max(...TARIFFS.map(t => t.tvChannels)),
-  '{{OFFER_COUNT}}': TARIFFS.length
-};
-
 function tariffOfferHTML(t) {
   const desc = t.tvChannels > 0
     ? `Интернет до ${t.speedMax} Мбит/с + ${t.tvChannels}+ ТВ-каналов`
@@ -133,6 +119,20 @@ function tariffOfferHTML(t) {
 function tariffOffersHTML() {
   return '\n' + TARIFFS.map(tariffOfferHTML).join(',\n') + '\n    ';
 }
+
+/* ===================== Токены для мета-тегов / JSON-LD ===================== */
+
+const priceValues = TARIFFS.map(t => t.price);
+const speedValues = TARIFFS.map(t => t.speedMax);
+
+const TOKENS = {
+  '{{PRICE_MIN}}': Math.min(...priceValues),
+  '{{PRICE_MAX}}': Math.max(...priceValues),
+  '{{SPEED_MIN}}': Math.min(...speedValues),
+  '{{SPEED_MAX}}': Math.max(...speedValues),
+  '{{TV_MAX}}': Math.max(...TARIFFS.map(t => t.tvChannels)),
+  '{{OFFER_COUNT}}': TARIFFS.length
+};
 
 const BLOCKS = {
   TARIFF_GRID: tariffGridHTML,
