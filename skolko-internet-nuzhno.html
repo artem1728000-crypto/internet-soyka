@@ -141,6 +141,7 @@
       </div>
       <a href="tariffs.html" class="nav-link-text">Тарифы</a>
       <a href="skolko-internet-nuzhno.html" class="nav-link-text">Калькулятор скорости</a>
+	  <a href="wifi-routery.html" class="nav-link-text">Роутеры</a>
       <a href="faq.html" class="nav-link-text">Вопросы</a>
       <a href="abonent.html" class="nav-link-text">Для абонентов</a>
       <a href="tel:+79604892836" class="nav-phone">+7 (960) 489-28-36</a>
@@ -268,6 +269,7 @@
       <a href="yeysk.html">Ейск</a>
       <a href="tariffs.html">Тарифы</a>
       <a href="skolko-internet-nuzhno.html">Калькулятор скорости</a>
+      <a href="wifi-routery.html">Роутеры</a>
       <a href="faq.html">Вопросы и ответы</a>
       <a href="abonent.html">Для абонентов</a>
       <a href="speedtest.html">Проверка скорости</a>
@@ -304,7 +306,7 @@ const DEVICES = [
 const TECH = [
   { id:'fiber', name:'Оптоволокно (наш тариф)', down:100, downMax:200, up:100, upMax:200, symmetric:true },
   { id:'radio', name:'Радиоканал (Беспроводной интернет)', down:20, up:10, symmetric:false },
-  { id:'dsl',   name:'DSL по телефонной линии', down:5, up:0.5, symmetric:false },
+  { id:'dsl',   name:'DSL по телефонной линии', down:10, up:1, symmetric:false },
 ];
 
 const listEl = document.getElementById('deviceList');

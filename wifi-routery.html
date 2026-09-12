@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=110368052', 'ym');
+    ym(110368052, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/110368052" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Чем отличаются WiFi-роутеры друг от друга — простое объяснение поколений Wi-Fi</title>
+<meta name="description" content="Почему один роутер тормозит, а другой нет? Простыми словами о поколениях Wi-Fi (N, AC, AX, BE), скоростных формулах AX1500/AX3000, MIMO и бимформинге. Какой роутер выбрать в 2026 году ☎ +7(960)489-28-36">
+<meta name="keywords" content="какой роутер выбрать, чем отличаются wifi роутеры, wifi 6 или wifi 5, AX1500 AX3000, N300 роутер медленный интернет, поколения wifi, стандарт wifi 802.11ax, бимформинг mimo простыми словами">
+<link rel="canonical" href="https://internet-kanevskoy.ru/wifi-routery.html">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Чем отличаются WiFi-роутеры друг от друга — просто о поколениях Wi-Fi">
+<meta property="og:description" content="Почему старый роутер режет скорость интернета и какое поколение Wi-Fi выбрать в 2026 году — простое объяснение без привязки к конкретным моделям.">
+<meta property="og:url" content="https://internet-kanevskoy.ru/wifi-routery.html">
+<meta property="og:locale" content="ru_RU">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Главная", "item": "https://internet-kanevskoy.ru/"},
+    {"@type": "ListItem", "position": 2, "name": "Чем отличаются WiFi-роутеры", "item": "https://internet-kanevskoy.ru/wifi-routery.html"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "Почему по WiFi скорость намного ниже, чем в тарифе?",
+     "acceptedAnswer": {"@type": "Answer", "text": "Чаще всего дело в самом роутере или диапазоне 2,4 ГГц: старые модели стандарта Wi-Fi 4 (N300) физически не способны передать 100-200 Мбит/с по воздуху одновременно нескольким устройствам, даже если оптоволокно на входе быстрое."}},
+    {"@type": "Question", "name": "Какой Wi-Fi выбрать в 2026 году?",
+     "acceptedAnswer": {"@type": "Answer", "text": "Минимально разумный вариант в 2026 году — роутер стандарта Wi-Fi 6 (маркировка AX, например AX1500 или AX3000). Для дома с большим количеством устройств одновременно лучше рассматривать Wi-Fi 6E или Wi-Fi 7 (BE)."}},
+    {"@type": "Question", "name": "Что означают цифры AX1500, AX3000, BE3600 в названии роутера?",
+     "acceptedAnswer": {"@type": "Answer", "text": "Буквы обозначают поколение Wi-Fi (AX — Wi-Fi 6, BE — Wi-Fi 7), а цифра — примерную сумму максимальных теоретических скоростей всех диапазонов роутера (2,4 ГГц + 5 ГГц). Это не гарантированная реальная скорость, а верхняя техническая планка."}}
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@500;600;700;800&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* ===== Скоуп wr- (WiFi Routers): страница про поколения Wi-Fi.
+     Классы уникальны и не пересекаются со styles.css ===== */
+
+  .wr-intro-card{
+    background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:18px;
+    padding:26px 28px; box-shadow:0 10px 30px rgba(0,0,0,.05); margin-bottom:18px;
+  }
+  .wr-intro-card h3{ margin:0 0 8px; font-size:1.15rem; }
+  .wr-intro-card p{ margin:0; color:#555; font-size:.95rem; }
+  .wr-analogy-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:8px; }
+  @media (max-width:820px){ .wr-analogy-grid{ grid-template-columns:1fr; } }
+
+  /* Таймлайн поколений — сигнатурный элемент страницы */
+  .wr-timeline{ margin-top:10px; }
+  .wr-gen-row{
+    display:grid; grid-template-columns:190px 1fr; gap:22px; align-items:center;
+    padding:16px 0; border-bottom:1px dashed var(--line);
+  }
+  .wr-gen-row:last-child{ border-bottom:none; }
+  .wr-gen-label{ display:flex; flex-direction:column; gap:2px; }
+  .wr-gen-name{ font-family:'Bitter',serif; font-weight:800; font-size:1.15rem; color:var(--ink); }
+  .wr-gen-alt{ font-size:.78rem; color:var(--ink-soft); }
+  .wr-gen-year{
+    display:inline-block; margin-top:4px; font-size:.72rem; font-weight:700;
+    color:var(--signal-dark); background:rgba(31,111,100,.1); border-radius:999px;
+    padding:2px 9px; width:fit-content;
+  }
+  .wr-bar-wrap{ position:relative; }
+  .wr-bar-track{ height:20px; background:var(--paper-deep); border:1px solid var(--line); border-radius:999px; overflow:hidden; }
+  .wr-bar-fill{ height:100%; border-radius:999px; background:linear-gradient(90deg, var(--signal-dark), var(--signal)); position:relative; }
+  .wr-gen-row:nth-child(3) .wr-bar-fill, .wr-gen-row:nth-child(4) .wr-bar-fill{ background:linear-gradient(90deg, var(--signal-dark), var(--gold)); }
+  .wr-gen-row:nth-child(5) .wr-bar-fill{ background:linear-gradient(90deg, var(--dusk), var(--gold)); }
+  .wr-bar-label{ margin-top:6px; font-size:.85rem; color:var(--ink-soft); }
+  .wr-bar-label strong{ color:var(--ink); }
+
+  /* Разбор скоростной формулы */
+  .wr-formula-box{
+    display:flex; flex-wrap:wrap; gap:0; align-items:stretch;
+    background:var(--paper); border:1.5px dashed var(--line); border-radius:16px;
+    padding:22px 24px; margin:20px 0; font-family:'PT Sans',sans-serif;
+  }
+  .wr-formula-part{ display:flex; flex-direction:column; align-items:center; padding:6px 22px; text-align:center; }
+  .wr-formula-part b{ font-family:'Bitter',serif; font-size:1.6rem; color:var(--signal-dark); }
+  .wr-formula-part span{ font-size:.82rem; color:var(--ink-soft); max-width:16ch; margin-top:4px; }
+  .wr-formula-plus{ align-self:center; font-size:1.4rem; color:var(--gold); font-weight:700; }
+  @media (max-width:640px){ .wr-formula-box{ flex-direction:column; align-items:center; } .wr-formula-plus{ transform:rotate(90deg); } }
+
+  /* Карточки-объяснения технологий (MIMO, бимформинг, OFDMA) */
+  .wr-tech-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:10px; }
+  @media (max-width:900px){ .wr-tech-grid{ grid-template-columns:1fr; } }
+  .wr-tech-card{ background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:16px; padding:22px; box-shadow:0 6px 18px rgba(0,0,0,.04); }
+  .wr-tech-card .wr-tech-icon{
+    width:44px; height:44px; border-radius:12px; display:flex; align-items:center; justify-content:center;
+    background:rgba(31,111,100,.1); margin-bottom:12px;
+  }
+  .wr-tech-card h4{ margin:0 0 8px; font-size:1.08rem; }
+  .wr-tech-card p{ margin:0 0 10px; font-size:.92rem; color:#555; }
+  .wr-tech-analogy{
+    font-size:.85rem; color:var(--signal-dark); background:rgba(31,111,100,.07);
+    border-radius:10px; padding:9px 12px; font-style:italic;
+  }
+
+  /* Блок "мини-компьютер внутри" */
+  .wr-inside-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:14px; }
+  @media (max-width:820px){ .wr-inside-grid{ grid-template-columns:1fr; } }
+  .wr-inside-card{ background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:18px; }
+  .wr-inside-card b{ display:block; font-family:'Bitter',serif; margin-bottom:6px; color:var(--signal-dark); }
+  .wr-inside-card p{ margin:0; font-size:.9rem; color:var(--ink-soft); }
+
+  /* Рекомендательный блок 2026 */
+  .wr-reco-box{
+    background:linear-gradient(135deg, var(--signal-dark) 0%, var(--signal) 100%);
+    color:#fff; border-radius:18px; padding:30px 28px; margin-top:10px;
+  }
+  .wr-reco-box h3{ color:#fff; margin-top:0; font-size:1.3rem; }
+  .wr-reco-box p{ color:rgba(255,255,255,.88); max-width:70ch; }
+  .wr-reco-tags{ display:flex; flex-wrap:wrap; gap:10px; margin-top:16px; }
+  .wr-reco-tag{
+    background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.35);
+    border-radius:999px; padding:8px 16px; font-size:.88rem; font-weight:700;
+  }
+  .wr-reco-tag.dim{ opacity:.55; text-decoration:line-through; }
+
+  .wr-note-box{
+    display:flex; gap:12px; background:rgba(201,138,43,.08); border:1px solid rgba(201,138,43,.3);
+    border-radius:12px; padding:14px 18px; font-size:.9rem; color:var(--ink-soft); margin-top:18px;
+  }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Перейти к содержимому</a>
+
+<header class="site">
+  <div class="wrap nav-row">
+    <a href="index.html" class="brand"><svg class="brand-fiber" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.6" fill="none" stroke="#154E47" stroke-width="1.5"/><circle cx="10" cy="10" r="5.6" fill="none" stroke="#1F6F64" stroke-width="1.4"/><circle cx="10" cy="10" r="2.3" class="brand-fiber-core"/></svg>Интернет&nbsp;рядом</a>
+    <nav class="links" aria-label="Основная навигация">
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle">Населённые пункты</button>
+        <div class="nav-dropdown-menu">
+          <a href="kanevskaya.html">Каневская</a>
+          <a href="staroderevyanovskaya.html">Стародеревянковская</a>
+          <a href="novominskaya.html">Новоминская</a>
+          <a href="novoderevyankovskaya.html">Новодеревянковская</a>
+          <a href="yeysk.html">Ейск</a>
+        </div>
+      </div>
+      <a href="tariffs.html" class="nav-link-text">Тарифы</a>
+      <a href="skolko-internet-nuzhno.html" class="nav-link-text">Калькулятор скорости</a>
+	  <a href="wifi-routery.html" class="nav-link-text">Роутеры</a>
+      <a href="index.html#coverage" class="nav-link-text">Зона покрытия</a>
+      <a href="faq.html" class="nav-link-text">Вопросы</a>
+      <a href="abonent.html" class="nav-link-text">Для абонентов</a>
+      <a href="tel:+79604892836" class="nav-phone">+7 (960) 489-28-36</a>
+    </nav>
+    <div class="header-actions">
+      <a href="https://max.ru/u/f9LHodD0cOLbdxm9q-o4BJX6n40LvaNxGg7Kuq9KpuYKPRoQ4WKfqa7YcP4" target="_blank" rel="noopener" class="btn btn-max header-cta">Написать в МАКС</a>
+      <a href="index.html#form" class="btn header-cta">Оставить заявку</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <div class="wrap">
+    <nav class="breadcrumbs" aria-label="Хлебные крошки">
+      <ol>
+        <li><a href="index.html">Главная</a></li>
+        <li aria-current="page">Чем отличаются WiFi-роутеры</li>
+      </ol>
+    </nav>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero local-intro">
+    <div class="wrap">
+      <span class="eyebrow">Разбираемся в оборудовании</span>
+      <h1>Чем отличаются WiFi-роутеры друг от друга</h1>
+      <p class="lead">Один и тот же тариф на 100 или 200 Мбит/с в двух соседних квартирах может «ощущаться» совершенно по-разному — и дело далеко не всегда в проводе. Разберём простыми словами, почему роутер — это не просто коробочка с антеннами, а маленький компьютер, и почему поколение Wi-Fi внутри него так сильно влияет на скорость и стабильность.</p>
+      <div class="hero-actions">
+        <a href="#timeline" class="btn">Смотреть сравнение поколений</a>
+        <a href="index.html#routers" class="btn btn-ghost">Подобрать роутер</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROUTER = COMPUTER -->
+  <section class="article-section" style="padding-bottom:10px;">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Шаг 1</span>
+        <h2>Роутер — это маленький компьютер, а не просто коробка с антеннами</h2>
+        <p>Внутри любого роутера, как и в смартфоне или ноутбуке, есть процессор, оперативная память и радиомодули. Разница в характеристиках между дешёвой и современной моделью так же ощутима, как разница между старым и новым телефоном.</p>
+      </div>
+      <div class="wr-inside-grid">
+        <div class="wr-inside-card">
+          <b>Процессор</b>
+          <p>Отвечает за то, сколько устройств роутер может обслуживать одновременно, не «задумываясь». Слабый процессор в старых моделях начинает тормозить уже при 8-10 одновременно работающих устройствах — телефоны, телевизор, ноутбуки, умные лампочки.</p>
+        </div>
+        <div class="wr-inside-card">
+          <b>Память</b>
+          <p>Чем её больше, тем стабильнее роутер держит соединения и тем меньше «зависает» и перезагружается сам по себе при высокой нагрузке — типичная проблема бюджетных моделей десятилетней давности.</p>
+        </div>
+        <div class="wr-inside-card">
+          <b>Радиомодуль (Wi-Fi чип)</b>
+          <p>Именно от него зависит, по какому «стандарту связи» роутер умеет разговаривать с вашими устройствами — и это самое важное отличие, на котором стоит остановиться подробнее.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GENERATIONS TIMELINE -->
+  <section id="timeline" class="article-section" style="background:var(--paper-deep);">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Шаг 2 — главное</span>
+        <h2>С каждым поколением Wi-Fi становился быстрее и умнее</h2>
+        <p>Так же, как поколения мобильной связи (3G → 4G → 5G), у Wi-Fi есть свои поколения. Полоски ниже наглядно показывают, как выросла максимальная теоретическая скорость связи роутера с устройствами — от привычного многим N300 до современных стандартов.</p>
+      </div>
+
+      <div class="wr-intro-card wr-timeline">
+        <div class="wr-gen-row">
+          <div class="wr-gen-label">
+            <span class="wr-gen-name">Wi-Fi 4</span>
+            <span class="wr-gen-alt">маркировка «N», например N300</span>
+            <span class="wr-gen-year">~2009 год</span>
+          </div>
+          <div class="wr-bar-wrap">
+            <div class="wr-bar-track"><div class="wr-bar-fill" style="width:9%"></div></div>
+            <div class="wr-bar-label">До <strong>~300–450 Мбит/с</strong> теоретически, а на практике по диапазону 2,4 ГГц — часто <strong>25–95 Мбит/с</strong> и один общий «канал» на все устройства сразу.</div>
+          </div>
+        </div>
+
+        <div class="wr-gen-row">
+          <div class="wr-gen-label">
+            <span class="wr-gen-name">Wi-Fi 5</span>
+            <span class="wr-gen-alt">маркировка «AC», например AC1200</span>
+            <span class="wr-gen-year">~2014 год</span>
+          </div>
+          <div class="wr-bar-wrap">
+            <div class="wr-bar-track"><div class="wr-bar-fill" style="width:32%"></div></div>
+            <div class="wr-bar-label">До <strong>~1300–1900 Мбит/с</strong> суммарно по двум диапазонам, более широкие «полосы» на 5 ГГц, появился базовый MU-MIMO.</div>
+          </div>
+        </div>
+
+        <div class="wr-gen-row">
+          <div class="wr-gen-label">
+            <span class="wr-gen-name">Wi-Fi 6</span>
+            <span class="wr-gen-alt">маркировка «AX», например AX1500 / AX3000</span>
+            <span class="wr-gen-year">~2019 год</span>
+          </div>
+          <div class="wr-bar-wrap">
+            <div class="wr-bar-track"><div class="wr-bar-fill" style="width:58%"></div></div>
+            <div class="wr-bar-label">До <strong>~1500–3000+ Мбит/с</strong> суммарно, и, что важнее скорости — обслуживает <strong>намного больше устройств одновременно</strong> без просадок (технология OFDMA).</div>
+          </div>
+        </div>
+
+        <div class="wr-gen-row">
+          <div class="wr-gen-label">
+            <span class="wr-gen-name">Wi-Fi 6E</span>
+            <span class="wr-gen-alt">Wi-Fi 6 + новый диапазон 6 ГГц</span>
+            <span class="wr-gen-year">~2021 год</span>
+          </div>
+          <div class="wr-bar-wrap">
+            <div class="wr-bar-track"><div class="wr-bar-fill" style="width:70%"></div></div>
+            <div class="wr-bar-label">Те же возможности Wi-Fi 6, но плюс «чистый» диапазон 6 ГГц — там почти нет соседских сетей, которые создают помехи.</div>
+          </div>
+        </div>
+
+        <div class="wr-gen-row">
+          <div class="wr-gen-label">
+            <span class="wr-gen-name">Wi-Fi 7</span>
+            <span class="wr-gen-alt">маркировка «BE», например BE3600</span>
+            <span class="wr-gen-year">~2024 год</span>
+          </div>
+          <div class="wr-bar-wrap">
+            <div class="wr-bar-track"><div class="wr-bar-fill" style="width:96%"></div></div>
+            <div class="wr-bar-label">Многогигабитные скорости и умение «склеивать» несколько диапазонов в одно соединение одновременно (Multi-Link Operation) — пока избыточно для большинства домашних задач, но задел на будущее.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="wr-note-box">
+        <span>💡</span>
+        <span>Полоски показывают <strong>максимальную теоретическую</strong> скорость связи роутера по воздуху, а не гарантированную реальную. Это как заявленный «до 200 л.с.» у автомобиля — потолок возможностей, а не то, с чем вы едете в каждой конкретной ситуации.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY REAL SPEED IS LOWER -->
+  <section class="article-section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Важно понимать</span>
+        <h2>Почему реальная скорость по Wi-Fi ниже, чем написано на коробке</h2>
+        <p>Цифра «N300» или «AX3000» — это теоретический потолок в идеальных лабораторных условиях. В обычной квартире на итоговую скорость влияет сразу несколько факторов.</p>
+      </div>
+      <div class="wr-analogy-grid">
+        <div class="wr-intro-card">
+          <h3>🏠 Стены и расстояние</h3>
+          <p>Каждая стена, особенно бетонная или с металлоарматурой, «съедает» часть сигнала. Чем старше и слабее роутер, тем хуже он «пробивает» такие препятствия.</p>
+        </div>
+        <div class="wr-intro-card">
+          <h3>📡 Диапазон 2,4 ГГц</h3>
+          <p>Этот диапазон дальнобойный, но узкий и очень «многолюдный» — в нём одновременно работают соседские роутеры, микроволновки, Bluetooth-устройства. Отсюда те самые 25–95 Мбит/с вместо заявленных сотен.</p>
+        </div>
+        <div class="wr-intro-card">
+          <h3>👥 Количество устройств</h3>
+          <p>У старых роутеров все устройства по очереди «ждут» доступ к эфиру — чем их больше, тем ощутимее просадка для каждого. Новые стандарты умеют обслуживать несколько устройств буквально одновременно.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORMULA EXPLAINED -->
+  <section class="article-section" style="background:var(--paper-deep); padding-top:20px;">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Расшифровка маркировки</span>
+        <h2>Что означают буквы и цифры в названии роутера</h2>
+        <p>Маркировка вида AX1500, AX3000 или BE3600 состоит из двух частей — и обе имеют конкретный смысл, а не просто «чем больше цифра, тем лучше».</p>
+      </div>
+
+      <div class="wr-formula-box">
+        <div class="wr-formula-part">
+          <b>AX</b>
+          <span>Буквы = поколение Wi-Fi.<br>N — 4-е, AC — 5-е, AX — 6-е, BE — 7-е</span>
+        </div>
+        <div class="wr-formula-plus">+</div>
+        <div class="wr-formula-part">
+          <b>3000</b>
+          <span>Цифра = сумма максимальных скоростей всех диапазонов роутера (2,4 ГГц + 5 ГГц), округлённо</span>
+        </div>
+        <div class="wr-formula-plus">=</div>
+        <div class="wr-formula-part">
+          <b>AX3000</b>
+          <span>Роутер 6-го поколения с суммарным теоретическим потолком около 3000 Мбит/с на два диапазона</span>
+        </div>
+      </div>
+
+      <div class="wr-note-box">
+        <span>⚠️</span>
+        <span>Одно устройство не может использовать оба диапазона сразу (кроме Wi-Fi 7 с Multi-Link Operation), поэтому цифра в названии — это «потолок на двоих», а не скорость, которую получит конкретный телефон или ноутбук.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- TECH EXPLAINED SIMPLY -->
+  <section class="article-section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Технологии простыми словами</span>
+        <h2>MIMO, бимформинг и OFDMA — что это и зачем</h2>
+        <p>За красивыми аббревиатурами в характеристиках роутера стоят вполне понятные вещи, которые прямо влияют на стабильность связи в доме с несколькими устройствами.</p>
+      </div>
+      <div class="wr-tech-grid">
+        <div class="wr-tech-card">
+          <div class="wr-tech-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1F6F64" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></svg>
+          </div>
+          <h4>MIMO / MU-MIMO</h4>
+          <p>Несколько антенн позволяют роутеру вести «несколько разговоров» одновременно, а не по очереди. MU-MIMO — это версия для нескольких устройств сразу, а не только для одного мощного канала к одному ноутбуку.</p>
+          <div class="wr-tech-analogy">Представьте кассу с несколькими окошками вместо одной очереди в единственное окно.</div>
+        </div>
+        <div class="wr-tech-card">
+          <div class="wr-tech-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1F6F64" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20"/><path d="M12 2 L20 20 M12 2 L4 20" opacity=".4"/></svg>
+          </div>
+          <h4>Бимформинг</h4>
+          <p>Обычная антенна светит сигналом равномерно во все стороны. Роутер с бимформингом определяет, где находится ваше устройство, и «направляет» сигнал именно туда, а не тратит мощность впустую.</p>
+          <div class="wr-tech-analogy">Разница между обычной лампочкой и фонариком, направленным точно на вас.</div>
+        </div>
+        <div class="wr-tech-card">
+          <div class="wr-tech-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1F6F64" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="10" rx="2"/><path d="M7 7v10M12 7v10M17 7v10"/></svg>
+          </div>
+          <h4>OFDMA (появился в Wi-Fi 6)</h4>
+          <p>Раньше роутер отправлял каждому устройству отдельный «полный грузовик» данных по очереди. OFDMA умеет собирать в один «грузовик» маленькие посылки сразу для нескольких устройств — умных лампочек, датчиков, телефонов.</p>
+          <div class="wr-tech-analogy">Один рейс доставки вместо десятка отдельных поездок ради пары мелких коробок.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARE TABLE -->
+  <section class="compare-section" style="background:var(--paper-deep);">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Итог в одной таблице</span>
+        <h2>Поколения Wi-Fi: коротко и по делу</h2>
+      </div>
+      <div class="compare-table-wrap">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>Параметр</th>
+              <th class="center">Wi-Fi 4 (N)</th>
+              <th class="center">Wi-Fi 5 (AC)</th>
+              <th class="center">Wi-Fi 6 (AX)</th>
+              <th class="center">Wi-Fi 7 (BE)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><th>Год появления</th><td class="center">~2009</td><td class="center">~2014</td><td class="center">~2019</td><td class="center">~2024</td></tr>
+            <tr><th>Макс. скорость (теория)</th><td class="center">~300–450 Мбит/с</td><td class="center">~1300–1900 Мбит/с</td><td class="center">~1500–3000+ Мбит/с</td><td class="center">многогигабитная</td></tr>
+            <tr><th>Много устройств одновременно</th><td class="center dash">—</td><td class="center">частично</td><td class="center check">✓</td><td class="center check">✓</td></tr>
+            <tr><th>Бимформинг</th><td class="center dash">—</td><td class="center">частично</td><td class="center check">✓</td><td class="center check">✓</td></tr>
+            <tr><th>Актуальность в 2026 году</th><td class="center">устарел</td><td class="center">бюджетный минимум</td><td class="center check">оптимальный выбор</td><td class="center">с запасом на будущее</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2026 RECOMMENDATION -->
+  <section class="article-section">
+    <div class="wrap">
+      <div class="wr-reco-box">
+        <span class="eyebrow" style="color:#BFE0D8;">Рекомендация на 2026 год</span>
+        <h3>Если роутер моложе вас не намного — вероятно, пора его менять</h3>
+        <p>Роутеры стандарта N300, купленные 8–10 лет назад, были нормальным выбором в своё время — но при подключении оптоволокна на 100-200 Мбит/с именно они чаще всего становятся «узким местом»: вместо заявленной скорости вы получаете 25–95 Мбит/с на 2,4 ГГц, особенно когда к сети подключено много устройств. Разумный ориентир для дома в 2026 году:</p>
+        <div class="wr-reco-tags">
+          <span class="wr-reco-tag dim">Wi-Fi 4 / N300</span>
+          <span class="wr-reco-tag dim">Wi-Fi 5 / AC — только для простых задач</span>
+          <span class="wr-reco-tag">Wi-Fi 6 / AX1500–AX3000 — оптимальный минимум</span>
+          <span class="wr-reco-tag">Wi-Fi 6E / Wi-Fi 7 (BE) — с запасом для большого дома</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROUTERS ON SITE CTA -->
+  <section class="abonent-section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Подбор оборудования</span>
+        <h2>Поможем выбрать роутер под ваш дом</h2>
+        <p>Учитываем площадь, количество комнат и число устройств — от компактной модели до Mesh-системы для большого дома.</p>
+      </div>
+      <div class="abonent-grid">
+        <a href="index.html#routers" class="abonent-card">
+          <div class="abonent-icon" style="background:rgba(31,111,100,.1);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--signal-dark)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8.82a15 15 0 0 1 20 0"/><path d="M5 12.86a10 10 0 0 1 14 0"/><path d="M8.5 16.43a5 5 0 0 1 7 0"/><path d="M12 20h.01"/></svg>
+          </div>
+          <h3>Модели роутеров в комплекте</h3>
+          <p>Посмотрите варианты Wi-Fi 6 и Mesh-систем, которые предлагаем при подключении.</p>
+          <span class="btn btn-ghost">Смотреть модели</span>
+        </a>
+        <a href="skolko-internet-nuzhno.html" class="abonent-card">
+          <div class="abonent-icon" style="background:rgba(201,138,43,.12);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 4 3 5-6"/></svg>
+          </div>
+          <h3>Сколько скорости нужно дому?</h3>
+          <p>Калькулятор: отметьте устройства и узнайте нужную скорость и тариф.</p>
+          <span class="btn btn-ghost">Посчитать</span>
+        </a>
+        <a href="diagnostika.html" class="abonent-card">
+          <div class="abonent-icon" style="background:rgba(192,57,43,.1);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7z"/></svg>
+          </div>
+          <h3>Пропал интернет?</h3>
+          <p>Самостоятельная диагностика по индикаторам терминала и роутера.</p>
+          <span class="btn btn-ghost">Пройти диагностику</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Коротко о главном</span>
+        <h2>Частые вопросы о роутерах и Wi-Fi</h2>
+      </div>
+      <div id="faqList">
+        <div class="faq-item">
+          <div class="faq-q"><span>Почему по WiFi скорость намного ниже, чем в тарифе?</span><span class="plus">+</span></div>
+          <div class="faq-a"><p>Чаще всего дело в самом роутере или диапазоне 2,4 ГГц: старые модели стандарта Wi-Fi 4 (N300) физически не способны передать 100-200 Мбит/с по воздуху одновременно нескольким устройствам, даже если оптоволокно на входе быстрое. Для проверки реальной скорости линии подключите компьютер кабелем напрямую — см. <a href="speedtest.html">страницу проверки скорости</a>.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q"><span>Какой Wi-Fi выбрать в 2026 году?</span><span class="plus">+</span></div>
+          <div class="faq-a"><p>Минимально разумный вариант — роутер стандарта Wi-Fi 6 (маркировка AX, например AX1500 или AX3000). Для дома с большим количеством устройств одновременно лучше рассматривать Wi-Fi 6E или Wi-Fi 7 (BE).</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q"><span>Что означают цифры AX1500, AX3000, BE3600 в названии роутера?</span><span class="plus">+</span></div>
+          <div class="faq-a"><p>Буквы обозначают поколение Wi-Fi (AX — Wi-Fi 6, BE — Wi-Fi 7), а цифра — примерную сумму максимальных теоретических скоростей всех диапазонов роутера (2,4 ГГц + 5 ГГц). Это не гарантированная реальная скорость, а верхняя техническая планка.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q"><span>Обязательно ли менять старый роутер, если интернет вроде работает?</span><span class="plus">+</span></div>
+          <div class="faq-a"><p>Не всегда срочно, но если в доме больше 5–7 устройств одновременно или тариф выше 100 Мбит/с, старый N300-роутер почти наверняка станет «узким местом» раньше, чем линия провайдера. Замена роутера в этом случае обычно даёт больше ощутимого эффекта, чем повышение тарифа.</p></div>
+        </div>
+      </div>
+      <div class="contacts-block">
+        <div>
+          <strong>Телефон</strong>
+          <a href="tel:+79604892836">+7 (960) 489-28-36</a> — Артём
+        </div>
+        <div>
+          <strong>Написать в мессенджер</strong>
+          <a href="https://max.ru/u/f9LHodD0cOLbdxm9q-o4BJX6n40LvaNxGg7Kuq9KpuYKPRoQ4WKfqa7YcP4" target="_blank" rel="noopener">Написать в МАКС</a>
+        </div>
+        <div>
+          <strong>Полный список вопросов</strong>
+          <a href="faq.html">Все частые вопросы о подключении →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-bar">
+    <div class="wrap">
+      <h2>Подключаем интернет вместе с современным роутером</h2>
+      <p>Подберём Wi-Fi 6 роутер или Mesh-систему под площадь вашего дома и настроим при подключении.</p>
+      <a href="index.html#form" class="btn">Оставить заявку</a>
+      <a href="tel:+79604892836" class="btn btn-ghost" style="margin-left:10px;">+7 (960) 489-28-36</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">Интернет рядом — Каневской и Ейский район<span class="foot-badge"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.6" fill="none" stroke="#6b665c" stroke-width="1.5"/><circle cx="10" cy="10" r="5.6" fill="none" stroke="#9a9488" stroke-width="1.4"/><circle cx="10" cy="10" r="2.3" class="brand-fiber-core"/></svg>100% оптоволокно до дома</span></div>
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <a href="tel:+79604892836" class="btn btn-ghost" style="color:#FBF7EC; border-color:#6b665c;">+7 (960) 489-28-36</a>
+        <a href="https://max.ru/u/f9LHodD0cOLbdxm9q-o4BJX6n40LvaNxGg7Kuq9KpuYKPRoQ4WKfqa7YcP4" target="_blank" rel="noopener" class="btn" style="background:var(--gold); color:#fff;">Написать в МАКС</a>
+        <a href="index.html#form" class="btn btn-ghost" style="color:#FBF7EC; border-color:#6b665c;">Оставить заявку</a>
+      </div>
+    </div>
+    <nav class="foot-links" aria-label="Дополнительная навигация">
+      <a href="index.html">Главная</a>
+      <a href="kanevskaya.html">Каневская</a>
+      <a href="staroderevyanovskaya.html">Стародеревянковская</a>
+      <a href="novominskaya.html">Новоминская</a>
+      <a href="novoderevyankovskaya.html">Новодеревянковская</a>
+      <a href="yeysk.html">Ейск</a>
+      <a href="tariffs.html">Тарифы</a>
+      <a href="skolko-internet-nuzhno.html">Калькулятор скорости</a>
+      <a href="wifi-routery.html">Роутеры</a>
+      <a href="faq.html">Вопросы и ответы</a>
+      <a href="abonent.html">Для абонентов</a>
+      <a href="speedtest.html">Проверка скорости</a>
+      <a href="diagnostika.html">Пропал интернет?</a>
+      <a href="privacy.html">Политика обработки данных</a>
+    </nav>
+    <p>Сайт является независимым каналом сбора заявок на подключение интернета и не является официальным ресурсом провайдера. Отправляя заявку через форму на сайте, вы даёте согласие на обработку персональных данных.</p>
+    <p>© <span id="year"></span> Подключение интернета в Каневском и Ейском районе.</p>
+  </div>
+</footer>
+
+<script src="script.js" defer></script>
+
+</body>
+</html>
