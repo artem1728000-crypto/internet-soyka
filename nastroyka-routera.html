@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=110368052', 'ym');
+    ym(110368052, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/110368052" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Как настроить WiFi-роутер самостоятельно — DHCP, автоматическое получение IP</title>
+<meta name="description" content="Пошаговая инструкция по самостоятельной настройке WiFi-роутера: автоматическое получение IP (DHCP), а не PPPoE. Почему нужно отключить ONU на 2 часа при смене роутера и как клонировать MAC-адрес ☎ +7(960)489-28-36">
+<meta name="keywords" content="настройка роутера, dhcp роутер, автоматическое получение ip, не работает интернет после смены роутера, клонировать mac адрес роутера, привязка по mac адресу интернет, настройка wifi роутера самостоятельно, отключить онт на 2 часа">
+<link rel="canonical" href="https://internet-kanevskoy.ru/nastroyka-routera.html">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Как настроить WiFi-роутер самостоятельно — автоматическое получение IP (DHCP)">
+<meta property="og:description" content="Инструкция по самостоятельной настройке роутера: почему это не PPPoE, зачем отключать ONU на 2 часа при смене роутера и как клонировать MAC-адрес.">
+<meta property="og:url" content="https://internet-kanevskoy.ru/nastroyka-routera.html">
+<meta property="og:locale" content="ru_RU">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Главная", "item": "https://internet-kanevskoy.ru/"},
+    {"@type": "ListItem", "position": 2, "name": "Настройка роутера", "item": "https://internet-kanevskoy.ru/nastroyka-routera.html"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "Как настроить WiFi-роутер для подключения по оптоволокну",
+  "description": "Пошаговая инструкция по самостоятельной настройке WiFi-роутера: подключение кабеля от терминала в WAN-порт и включение автоматического получения IP-адреса (DHCP).",
+  "step": [
+    {"@type": "HowToStep", "name": "Подключите кабель в WAN", "text": "Кабель от оптического терминала подключите в порт WAN (Internet) роутера, а не в LAN."},
+    {"@type": "HowToStep", "name": "Зайдите в веб-интерфейс роутера", "text": "Подключитесь к WiFi-сети роутера по умолчанию (название и пароль указаны на наклейке снизу) и откройте в браузере адрес 192.168.0.1 или 192.168.1.1."},
+    {"@type": "HowToStep", "name": "Найдите настройки типа подключения WAN", "text": "В разделе WAN / Интернет / Internet Settings выберите тип подключения «Динамический IP» / DHCP / Automatic IP — не PPPoE."},
+    {"@type": "HowToStep", "name": "Сохраните настройки и перезагрузите роутер", "text": "Примените настройки, дождитесь перезагрузки роутера и проверьте, что интернет заработал."}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "Нужно ли вводить логин и пароль от интернета (PPPoE) в роутере?",
+     "acceptedAnswer": {"@type": "Answer", "text": "Нет. Сеть работает на автоматическом получении IP-адреса (DHCP) — логин и пароль вводить не нужно. В настройках роутера нужно выбрать тип подключения «Динамический IP», DHCP, Automatic IP или «Автоматическое получение IP» — в зависимости от производителя роутера название пункта немного отличается."},
+    {"@type": "Question", "name": "Почему после смены роутера пропал интернет?",
+     "acceptedAnswer": {"@type": "Answer", "text": "Скорее всего дело в привязке сессии к MAC-адресу предыдущего роутера. Нужно отключить блок питания оптического терминала (ONU) из розетки минимум на 2 часа, чтобы старая сессия удалилась, затем включить терминал и роутер заново."},
+    {"@type": "Question", "name": "Можно ли не ждать 2 часа при смене роутера?",
+     "acceptedAnswer": {"@type": "Answer", "text": "Да, если продублировать (клонировать) в новом роутере MAC-адрес WAN-интерфейса старого роутера. Но учтите: MAC-адрес, указанный на наклейке роутера снизу, не всегда совпадает с тем MAC-адресом, который был привязан на сервере — иногда это MAC именно WAN-порта, а не общий MAC устройства."}
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@500;600;700;800&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* === Скоуп ns- (Настройка роутера): классы уникальны, не пересекаются со styles.css === */
+
+  .ns-intro-card{
+    background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:18px;
+    padding:26px 28px; box-shadow:0 10px 30px rgba(0,0,0,.05); margin-bottom:18px;
+  }
+  .ns-intro-card h3{ margin:0 0 10px; font-size:1.15rem; }
+  .ns-intro-card p{ margin:0 0 10px; color:#555; font-size:.95rem; }
+  .ns-intro-card p:last-child{ margin-bottom:0; }
+
+  /* Список названий DHCP у разных производителей */
+  .ns-alias-grid{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:14px;
+  }
+  @media (max-width:820px){ .ns-alias-grid{ grid-template-columns:1fr 1fr; } }
+  @media (max-width:560px){ .ns-alias-grid{ grid-template-columns:1fr; } }
+  .ns-alias-chip{
+    background:var(--paper); border:1px solid var(--line); border-radius:10px;
+    padding:10px 14px; font-size:.88rem; color:var(--ink);
+  }
+  .ns-alias-chip b{ display:block; font-family:'Bitter',serif; color:var(--signal-dark); font-size:.95rem; margin-bottom:2px; }
+
+  /* Предупреждающие блоки */
+  .ns-warn-box{
+    display:flex; gap:14px; align-items:flex-start;
+    background:rgba(192,57,43,.06); border:1px solid rgba(192,57,43,.28);
+    border-radius:14px; padding:20px 22px; margin:20px 0;
+  }
+  .ns-warn-box .ns-icon{
+    flex:none; width:40px; height:40px; border-radius:10px;
+    background:rgba(192,57,43,.12); display:flex; align-items:center; justify-content:center;
+    font-size:1.3rem;
+  }
+  .ns-warn-box h3{ margin:0 0 6px; font-size:1.1rem; color:#8c2e23; }
+  .ns-warn-box p{ margin:0 0 8px; font-size:.93rem; color:#555; }
+  .ns-warn-box p:last-child{ margin-bottom:0; }
+
+  .ns-info-box{
+    display:flex; gap:14px; align-items:flex-start;
+    background:rgba(31,111,100,.06); border:1px solid rgba(31,111,100,.24);
+    border-radius:14px; padding:20px 22px; margin:20px 0;
+  }
+  .ns-info-box .ns-icon{
+    flex:none; width:40px; height:40px; border-radius:10px;
+    background:rgba(31,111,100,.12); display:flex; align-items:center; justify-content:center;
+    font-size:1.3rem;
+  }
+  .ns-info-box h3{ margin:0 0 6px; font-size:1.1rem; color:var(--signal-dark); }
+  .ns-info-box p{ margin:0 0 8px; font-size:.93rem; color:#555; }
+  .ns-info-box p:last-child{ margin-bottom:0; }
+
+  .ns-note-box{
+    display:flex; gap:12px; background:rgba(201,138,43,.08); border:1px solid rgba(201,138,43,.3);
+    border-radius:12px; padding:14px 18px; font-size:.9rem; color:var(--ink-soft); margin-top:18px;
+  }
+
+  /* Таблица примера параметров сети */
+  .ns-params-wrap{ overflow-x:auto; border-radius:14px; border:1px solid var(--line); margin-top:14px; }
+  .ns-params-table{ width:100%; border-collapse:collapse; min-width:460px; background:#fff; }
+  .ns-params-table th, .ns-params-table td{
+    padding:13px 16px; text-align:left; border-bottom:1px solid var(--line); font-size:.92rem;
+  }
+  .ns-params-table thead th{ background:var(--paper-deep); font-family:'Bitter',serif; font-weight:700; }
+  .ns-params-table td.mono{ font-family:'Courier New', monospace; font-weight:700; color:var(--signal-dark); }
+  .ns-params-table tr:last-child td, .ns-params-table tr:last-child th{ border-bottom:none; }
+
+  /* Индикатор "как понять, что проблема именно в этом" */
+  .ns-symptom{
+    display:flex; align-items:center; gap:10px;
+    background:var(--paper); border:1px dashed var(--line); border-radius:10px;
+    padding:12px 16px; margin-top:14px; font-size:.9rem; color:var(--ink);
+  }
+  .ns-symptom b{ color:var(--signal-dark); }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Перейти к содержимому</a>
+
+<header class="site">
+  <div class="wrap nav-row">
+    <a href="index.html" class="brand"><svg class="brand-fiber" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.6" fill="none" stroke="#154E47" stroke-width="1.5"/><circle cx="10" cy="10" r="5.6" fill="none" stroke="#1F6F64" stroke-width="1.4"/><circle cx="10" cy="10" r="2.3" class="brand-fiber-core"/></svg>Интернет&nbsp;рядом</a>
+    <nav class="links" aria-label="Основная навигация">
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle">Населённые пункты</button>
+        <div class="nav-dropdown-menu">
+          <a href="kanevskaya.html">Каневская</a>
+          <a href="staroderevyanovskaya.html">Стародеревянковская</a>
+          <a href="novominskaya.html">Новоминская</a>
+          <a href="novoderevyankovskaya.html">Новодеревянковская</a>
+          <a href="yeysk.html">Ейск</a>
+        </div>
+      </div>
+      <a href="tariffs.html" class="nav-link-text">Тарифы</a>
+      <a href="skolko-internet-nuzhno.html" class="nav-link-text">Калькулятор скорости</a>
+      <a href="wifi-routery.html" class="nav-link-text">Роутеры</a>
+      <a href="nastroyka-routera.html" class="nav-link-text">Настройка роутера</a>
+      <a href="index.html#coverage" class="nav-link-text">Зона покрытия</a>
+      <a href="faq.html" class="nav-link-text">Вопросы</a>
+      <a href="abonent.html" class="nav-link-text">Для абонентов</a>
+      <a href="tel:+79604892836" class="nav-phone">+7 (960) 489-28-36</a>
+    </nav>
+    <div class="header-actions">
+      <a href="https://max.ru/u/f9LHodD0cOLbdxm9q-o4BJX6n40LvaNxGg7Kuq9KpuYKPRoQ4WKfqa7YcP4" target="_blank" rel="noopener" class="btn btn-max header-cta">Написать в МАКС</a>
+      <a href="index.html#form" class="btn header-cta">Оставить заявку</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <div class="wrap">
+    <nav class="breadcrumbs" aria-label="Хлебные крошки">
+      <ol>
+        <li><a href="index.html">Главная</a></li>
+        <li aria-current="page">Настройка роутера</li>
+      </ol>
+    </nav>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero local-intro">
+    <div class="wrap">
+      <span class="eyebrow">Инструкция для абонентов</span>
+      <h1>Как настроить WiFi-роутер самостоятельно</h1>
+      <p class="lead">Если вы купили новый роутер сами или сбросили старый к заводским настройкам — подключить его несложно. Главное — не перепутать тип подключения: наша сеть работает не на логине и пароле (PPPoE), а на автоматическом получении IP-адреса (DHCP). Ниже — как это настроить и на что обратить внимание, чтобы интернет заработал с первого раза.</p>
+      <div class="hero-actions">
+        <a href="#steps" class="btn">Смотреть инструкцию</a>
+        <a href="https://max.ru/u/f9LHodD0cOLbdxm9q-o4BJX6n40LvaNxGg7Kuq9KpuYKPRoQ4WKfqa7YcP4" target="_blank" rel="noopener" class="btn btn-ghost">Написать в МАКС, если не получается</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN IDEA: DHCP NOT PPPOE -->
+  <section class="article-section" style="padding-bottom:10px;">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Главное, что нужно знать</span>
+        <h2>Это автоматическое получение IP, а не логин и пароль</h2>
+        <p>У некоторых провайдеров при настройке роутера нужно вводить логин и пароль от договора (это называется PPPoE). У нас — иначе: роутер сам получает адрес от сети, как только правильно выбран тип подключения. Никакой логин и пароль в роутер вводить не нужно.</p>
+      </div>
+
+      <div class="ns-intro-card">
+        <h3>Как называется нужный пункт в разных роутерах</h3>
+        <p>В настройках раздела WAN / Интернет / Internet Settings нужно выбрать тип подключения, который у разных производителей может называться по-разному — по смыслу это всегда одно и то же:</p>
+        <div class="ns-alias-grid">
+          <div class="ns-alias-chip"><b>DHCP</b>наиболее частое название</div>
+          <div class="ns-alias-chip"><b>Dynamic IP</b>«динамический IP»</div>
+          <div class="ns-alias-chip"><b>Automatic IP</b>«автоматический IP»</div>
+          <div class="ns-alias-chip"><b>Автоматическое получение IP</b>русскоязычный интерфейс</div>
+          <div class="ns-alias-chip"><b>Динамический IPv4</b>иногда указывают именно так</div>
+          <div class="ns-alias-chip"><b>Ethernet WAN</b>у некоторых Mesh-систем это просто выбор порта без доп. настроек</div>
+        </div>
+        <p style="margin-top:14px;">Если в списке типов подключения вы видите «PPPoE», «Статический IP» или «L2TP» — это не наш вариант, выбирайте именно DHCP / Dynamic IP / автоматическое получение.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEP BY STEP -->
+  <section id="steps" class="process-section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Пошагово</span>
+        <h2>Как настроить роутер</h2>
+        <p>Общий порядок действий подходит для большинства современных роутеров — Tenda, Xiaomi, Cudy, Keenetic, TP-LINK, D-Link и других. Названия пунктов меню могут немного отличаться, но логика везде одинаковая.</p>
+      </div>
+      <div class="process-grid">
+        <div class="process-step">
+          <h3>Кабель в WAN</h3>
+          <p>Кабель от оптического терминала подключите в порт <strong>WAN</strong> (может называться Internet) на роутере — не в LAN.</p>
+        </div>
+        <div class="process-step">
+          <h3>Зайдите в настройки роутера</h3>
+          <p>Подключитесь к WiFi-сети роутера по умолчанию (имя и пароль — на наклейке снизу) и откройте в браузере адрес <strong>192.168.0.1</strong> или <strong>192.168.1.1</strong>.</p>
+        </div>
+        <div class="process-step">
+          <h3>Выберите DHCP</h3>
+          <p>В разделе WAN / Интернет найдите тип подключения и выберите <strong>DHCP / Dynamic IP / Automatic IP</strong> — без ввода логина и пароля.</p>
+        </div>
+        <div class="process-step">
+          <h3>Сохраните и проверьте</h3>
+          <p>Примените настройки, дождитесь перезагрузки роутера и проверьте, что устройства подключились к интернету.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CRITICAL NUANCE: UNPLUG ONU FOR 2 HOURS -->
+  <section class="article-section" style="background:var(--paper-deep);">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Важный нюанс</span>
+        <h2>Меняете роутер? Отключите терминал (ONU) на 2 часа</h2>
+        <p>Это самая частая причина, по которой новый роутер «не видит интернет», хотя настроен вроде бы правильно.</p>
+      </div>
+
+      <div class="ns-warn-box">
+        <div class="ns-icon">⚠️</div>
+        <div>
+          <h3>Сессия привязана к MAC-адресу старого роутера</h3>
+          <p>На сервере провайдера ваша сессия подключения привязывается к MAC-адресу конкретного роутера. Если просто подключить новый роутер вместо старого — сервер продолжает «ждать» прежний MAC-адрес, и новая сессия не поднимается: роутер не получает IP, интернета нет.</p>
+          <p><strong>Что делать:</strong> отключите блок питания оптического терминала (ONU) из розетки минимум <strong>на 2 часа</strong>. За это время старая сессия по тайм-ауту удалится с сервера. После этого включите терминал, дождитесь, пока загорятся индикаторы сигнала, и включите новый роутер — он получит IP автоматически.</p>
+        </div>
+      </div>
+
+      <div class="ns-symptom">
+        <span>🔎</span>
+        <span>Как понять, что дело именно в этом: терминал показывает нормальный сигнал, индикатор LAN на нём горит, кабель подключён в WAN-порт роутера правильно — а IP-адрес на WAN роутера всё равно не появляется или показывает 0.0.0.0.</span>
+      </div>
+
+      <div class="ns-note-box">
+        <span>💡</span>
+        <span>2 часа — это ожидание именно с выключенным из розетки блоком питания терминала. Если включить терминал раньше и снова выключить — отсчёт начинается заново.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ADVANCED: MAC CLONE -->
+  <section class="article-section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Для продвинутых пользователей</span>
+        <h2>Как не ждать 2 часа — клонирование MAC-адреса</h2>
+        <p>Если не хочется ждать, можно продублировать (клонировать) в новом роутере MAC-адрес WAN-интерфейса старого роутера — тогда сервер провайдера «увидит» знакомый адрес, и сессия поднимется сразу.</p>
+      </div>
+
+      <div class="ns-info-box">
+        <div class="ns-icon">🛠️</div>
+        <div>
+          <h3>Где искать эту настройку</h3>
+          <p>В веб-интерфейсе роутера обычно называется <strong>«Клонирование MAC-адреса»</strong>, MAC Clone или Clone MAC Address — как правило, находится в том же разделе WAN, где выбирается тип подключения.</p>
+        </div>
+      </div>
+
+      <div class="ns-warn-box">
+        <div class="ns-icon">❗</div>
+        <div>
+          <h3>Важная тонкость</h3>
+          <p>MAC-адрес, указанный на наклейке снизу старого роутера, <strong>не всегда совпадает</strong> с тем MAC-адресом, который был привязан к сессии на сервере. Часто на сервере привязан именно MAC WAN-порта, который нужно смотреть не на наклейке, а в веб-интерфейсе старого роутера (в разделе состояния WAN / Status), а не наугад переписывать со шильдика.</p>
+          <p>Если такого доступа к старому роутеру уже нет (например, он сломался) или MAC-адрес неизвестен — проще и надёжнее просто отключить терминал на 2 часа, как описано выше.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXAMPLE NETWORK PARAMETERS -->
+  <section class="article-section" style="background:var(--paper-deep);">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Как проверить, что всё получилось</span>
+        <h2>Пример параметров сети при успешном подключении</h2>
+        <p>Если настройка прошла правильно, в статусе WAN-подключения роутера должны появиться примерно такие параметры (точные цифры зависят от адреса и населённого пункта):</p>
+      </div>
+
+      <div class="ns-params-wrap">
+        <table class="ns-params-table">
+          <thead>
+            <tr><th>Параметр</th><th>Пример значения</th></tr>
+          </thead>
+          <tbody>
+            <tr><th>IP-адрес</th><td class="mono">192.168.X.X</td></tr>
+            <tr><th>Маска подсети</th><td class="mono">255.255.192.0</td></tr>
+            <tr><th>Шлюз</th><td class="mono">192.168.128.1</td></tr>
+            <tr><th>DNS 1</th><td class="mono">77.88.8.88</td></tr>
+            <tr><th>DNS 2</th><td class="mono">1.1.1.1</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="ns-note-box">
+        <span>💡</span>
+        <span>Это пример для части станиц (Новоминская, Стародеревянковская, Новодеревянковская). Диапазон адресов зависит от узла связи и населённого пункта — в других локациях цифры могут отличаться. Если у вас появился любой IP-адрес, отличный от 0.0.0.0, и шлюз, роутер, скорее всего, успешно получил настройки от сети.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SUPPORT CTA -->
+  <section class="abonent-section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Если что-то не получилось</span>
+        <h2>Не настроился роутер? Поможем разобраться</h2>
+        <p>Пройдите диагностику по индикаторам оборудования или сразу свяжитесь с нами — подскажем, что не так.</p>
+      </div>
+      <div class="abonent-grid">
+        <a href="diagnostika.html" class="abonent-card">
+          <div class="abonent-icon" style="background:rgba(192,57,43,.1);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7z"/></svg>
+          </div>
+          <h3>Пропал интернет?</h3>
+          <p>Пошаговая самостоятельная диагностика по индикаторам терминала и роутера — разберитесь, что случилось, за 2 минуты.</p>
+          <span class="btn btn-ghost">Пройти диагностику</span>
+        </a>
+        <a href="wifi-routery.html" class="abonent-card">
+          <div class="abonent-icon" style="background:rgba(31,111,100,.1);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--signal-dark)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></svg>
+          </div>
+          <h3>Чем отличаются роутеры?</h3>
+          <p>Простыми словами о поколениях Wi-Fi — почему старый роутер режет скорость и какой стандарт выбрать в 2026 году.</p>
+          <span class="btn btn-ghost">Разобраться</span>
+        </a>
+        <a href="https://max.ru/u/f9LHodD0cOLbdxm9q-o4BJX6n40LvaNxGg7Kuq9KpuYKPRoQ4WKfqa7YcP4" target="_blank" rel="noopener" class="abonent-card">
+          <div class="abonent-icon" style="background:rgba(91,58,86,.1);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--dusk)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <h3>Написать в МАКС</h3>
+          <p>Опишите проблему в мессенджере МАКС, при необходимости пришлите фото настроек — подскажем, что изменить.</p>
+          <span class="btn btn-ghost">Написать</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Коротко о главном</span>
+        <h2>Частые вопросы о настройке роутера</h2>
+      </div>
+      <div id="faqList">
+        <div class="faq-item">
+          <div class="faq-q"><span>Нужно ли вводить логин и пароль от интернета в роутере?</span><span class="plus">+</span></div>
+          <div class="faq-a"><p>Нет. Наша сеть работает на автоматическом получении IP-адреса (DHCP) — логин и пароль от договора вводить в роутер не нужно. Достаточно выбрать в настройках WAN тип подключения «Динамический IP» / DHCP / Automatic IP.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q"><span>Почему после смены роутера пропал интернет?</span><span class="plus">+</span></div>
+          <div class="faq-a"><p>Скорее всего, сессия ещё привязана к MAC-адресу предыдущего роутера. Отключите блок питания оптического терминала (ONU) из розетки минимум на 2 часа — за это время старая сессия удалится, и новый роутер сможет получить IP-адрес.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q"><span>Можно ли не ждать 2 часа?</span><span class="plus">+</span></div>
+          <div class="faq-a"><p>Да, если продублировать в новом роутере MAC-адрес WAN-интерфейса старого. Важно: MAC на наклейке снизу роутера не всегда совпадает с MAC именно WAN-порта — правильный адрес лучше смотреть в статусе WAN старого роутера, а не на шильдике.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q"><span>В какой порт подключать кабель от терминала?</span><span class="plus">+</span></div>
+          <div class="faq-a"><p>Только в порт WAN (может называться Internet). Подключение в LAN-порт работать не будет — сессия привязана к MAC-адресу именно WAN-интерфейса.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q"><span>Роутер получил IP, но интернета всё равно нет — что делать?</span><span class="plus">+</span></div>
+          <div class="faq-a"><p>Перезагрузите роутер и проверьте кабель. Если не помогло — пройдите короткую <a href="diagnostika.html">диагностику по индикаторам</a> или напишите нам в МАКС, опишем ситуацию подробнее.</p></div>
+        </div>
+      </div>
+      <div class="contacts-block">
+        <div><strong>Телефон</strong><a href="tel:+79604892836">+7 (960) 489-28-36</a> — Артём</div>
+        <div><strong>Написать в мессенджер</strong><a href="https://max.ru/u/f9LHodD0cOLbdxm9q-o4BJX6n40LvaNxGg7Kuq9KpuYKPRoQ4WKfqa7YcP4" target="_blank" rel="noopener">Написать в МАКС</a></div>
+        <div><strong>Полный список вопросов</strong><a href="faq.html">Все частые вопросы о подключении →</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-bar">
+    <div class="wrap">
+      <h2>Ещё нет подключения по оптоволокну?</h2>
+      <p>Оставьте заявку — перезвоним и согласуем подключение в удобный день.</p>
+      <a href="index.html#form" class="btn">Оставить заявку</a>
+      <a href="tel:+79604892836" class="btn btn-ghost" style="margin-left:10px;">+7 (960) 489-28-36</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">Интернет рядом — Каневской и Ейский район<span class="foot-badge"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.6" fill="none" stroke="#6b665c" stroke-width="1.5"/><circle cx="10" cy="10" r="5.6" fill="none" stroke="#9a9488" stroke-width="1.4"/><circle cx="10" cy="10" r="2.3" class="brand-fiber-core"/></svg>100% оптоволокно до дома</span></div>
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <a href="tel:+79604892836" class="btn btn-ghost" style="color:#FBF7EC; border-color:#6b665c;">+7 (960) 489-28-36</a>
+        <a href="https://max.ru/u/f9LHodD0cOLbdxm9q-o4BJX6n40LvaNxGg7Kuq9KpuYKPRoQ4WKfqa7YcP4" target="_blank" rel="noopener" class="btn" style="background:var(--gold); color:#fff;">Написать в МАКС</a>
+        <a href="index.html#form" class="btn btn-ghost" style="color:#FBF7EC; border-color:#6b665c;">Оставить заявку</a>
+      </div>
+    </div>
+    <nav class="foot-links" aria-label="Дополнительная навигация">
+      <a href="index.html">Главная</a>
+      <a href="kanevskaya.html">Каневская</a>
+      <a href="staroderevyanovskaya.html">Стародеревянковская</a>
+      <a href="novominskaya.html">Новоминская</a>
+      <a href="novoderevyankovskaya.html">Новодеревянковская</a>
+      <a href="yeysk.html">Ейск</a>
+      <a href="tariffs.html">Тарифы</a>
+      <a href="skolko-internet-nuzhno.html">Калькулятор скорости</a>
+      <a href="wifi-routery.html">Роутеры</a>
+      <a href="nastroyka-routera.html">Настройка роутера</a>
+      <a href="faq.html">Вопросы и ответы</a>
+      <a href="abonent.html">Для абонентов</a>
+      <a href="speedtest.html">Проверка скорости</a>
+      <a href="diagnostika.html">Пропал интернет?</a>
+      <a href="privacy.html">Политика обработки данных</a>
+    </nav>
+    <p>Сайт является независимым каналом сбора заявок на подключение интернета и не является официальным ресурсом провайдера. Отправляя заявку через форму на сайте, вы даёте согласие на обработку персональных данных.</p>
+    <p>© <span id="year"></span> Подключение интернета в Каневском и Ейском районе.</p>
+  </div>
+</footer>
+
+<script src="script.js" defer></script>
+
+</body>
+</html>
