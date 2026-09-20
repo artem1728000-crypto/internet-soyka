@@ -482,3 +482,78 @@
     if(e.key === 'Escape'){ closeModal(); }
   });
 })();
+
+/* ====== Модальное окно "Скачать приложение «Сойка»" ====== */
+(function(){
+  'use strict';
+
+  var appLinks = document.querySelectorAll('a[data-app-modal]');
+  if(!appLinks.length){ return; }
+
+  var overlay = null;
+
+  function buildModal(){
+    overlay = document.createElement('div');
+    overlay.className = 'max-modal-overlay';
+    overlay.innerHTML =
+      '<div class="max-modal" role="dialog" aria-modal="true" aria-labelledby="appModalTitle">' +
+        '<button type="button" class="max-modal-close" aria-label="Закрыть">&times;</button>' +
+        '<h3 id="appModalTitle">«Сойка» 2.2 для Android</h3>' +
+        '<p>Приложение полностью переделано. Коротко, что изменилось:</p>' +
+        '<ul class="app-modal-news">' +
+          '<li><span class="ico">🎨</span><span>Новый внешний вид — тёмное оформление, крупные карточки разделов, новая иконка</span></li>' +
+          '<li><span class="ico">🟢</span><span>Индикатор связи на главном экране: зелёная точка у раздела — он откроется, красная — нет</span></li>' +
+          '<li><span class="ico">🩺</span><span>Новый раздел «Проверить домашний интернет» — уровень сигнала Wi-Fi, адрес от роутера, отвечает ли роутер, доступны ли Google, Яндекс и личный кабинет. В конце — понятный вывод, что именно не так и что делать</span></li>' +
+          '<li><span class="ico">📨</span><span>Результаты проверки отправляются в МАКС одной кнопкой — не нужно ничего расписывать словами</span></li>' +
+          '<li><span class="ico">🔢</span><span>Поле «Лицевой счёт» в шапке — вводится один раз и сохраняется, чтобы не искать его при оплате</span></li>' +
+          '<li><span class="ico">💳</span><span>Новый экран оплаты через Сбербанк — показывает и копирует лицевой счёт и объясняет баланс: 0 рублей — интернет оплачен до конца месяца, минус — доступ заблокирован</span></li>' +
+          '<li><span class="ico">💬</span><span>Раздел «Связаться через МАКС» — выбираете тему обращения, и готовый шаблон сообщения сам копируется в буфер обмена</span></li>' +
+          '<li><span class="ico">↩️</span><span>Кнопка «Вернуться назад» во всех разделах с сайтом — возврат в меню одним нажатием</span></li>' +
+          '<li><span class="ico">ℹ️</span><span>Раздел «О приложении» — об авторе и о том, как поддержать проект</span></li>' +
+        '</ul>' +
+        '<div class="app-modal-warn">' +
+          '<p><strong>⚠️ Важно: сначала удалите старое приложение</strong></p>' +
+          '<p>Версия 2.2 пересобрана и подписана новым ключом, поэтому поверх старой версии Android её не поставит. Сначала удалите старое приложение, затем установите новое.</p>' +
+          '<p>Логин и пароль от личного кабинета при этом сотрутся — их нужно будет ввести заново один раз. Следующие обновления уже будут устанавливаться поверх, без удаления.</p>' +
+        '</div>' +
+        '<p class="app-modal-note">Файл распространяется напрямую, а не через Google Play, поэтому при установке Android попросит разрешить установку из неизвестных источников и может показать предупреждение антивируса — это стандартное поведение для .apk-файлов не из магазина приложений.</p>' +
+        '<div class="max-modal-actions">' +
+          '<a href="#" target="_blank" rel="noopener" class="btn" id="appModalDownload">Перейти к загрузке .apk</a>' +
+          '<button type="button" class="btn btn-ghost" id="appModalCancel">Закрыть</button>' +
+        '</div>' +
+      '</div>';
+    document.body.appendChild(overlay);
+
+    overlay.addEventListener('click', function(e){
+      if(e.target === overlay){ closeModal(); }
+    });
+    overlay.querySelector('.max-modal-close').addEventListener('click', closeModal);
+    overlay.querySelector('#appModalCancel').addEventListener('click', closeModal);
+    overlay.querySelector('#appModalDownload').addEventListener('click', closeModal);
+  }
+
+  function openModal(url){
+    if(!overlay){ buildModal(); }
+    overlay.querySelector('#appModalDownload').setAttribute('href', url);
+    overlay.classList.add('open');
+    document.body.classList.add('menu-open');
+    overlay.querySelector('.max-modal').scrollTop = 0;
+  }
+
+  function closeModal(){
+    if(!overlay){ return; }
+    overlay.classList.remove('open');
+    document.body.classList.remove('menu-open');
+  }
+
+  appLinks.forEach(function(link){
+    link.addEventListener('click', function(e){
+      e.preventDefault();
+      openModal(link.getAttribute('href'));
+    });
+  });
+
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){ closeModal(); }
+  });
+})();
