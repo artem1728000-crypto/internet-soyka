@@ -1501,18 +1501,6 @@ footer.site .foot-links a:hover{color:#FBF7EC;}
   padding:6px 0; font-size:.92rem; color:var(--ink); line-height:1.5;
 }
 .app-modal-news .ico{flex-shrink:0; font-size:1.05rem; line-height:1.4;}
-.app-modal-warn{
-  background:rgba(201,138,43,.1);
-  border-left:3px solid var(--gold);
-  padding:14px 16px;
-  border-radius:8px;
-  margin:0 0 16px;
-  font-size:.9rem;
-  color:var(--ink);
-  line-height:1.55;
-}
-.app-modal-warn p{margin:0 0 .6em;}
-.app-modal-warn p:last-child{margin:0;}
 .max-modal > .app-modal-note{
   font-size:.82rem; color:var(--ink-soft); line-height:1.5; margin:0 0 16px;
 }
