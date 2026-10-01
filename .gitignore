@@ -1,2 +1,6 @@
 .deploy/
 .claude/settings.local.json
+
+# Ключ просмотра статистики приложения и сами счётчики
+api/stats-key.php
+api/stats-data/stats.json
