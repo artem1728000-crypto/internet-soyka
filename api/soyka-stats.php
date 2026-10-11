@@ -124,6 +124,29 @@ foreach ($data as $day => $events) {
 uksort($versions, 'version_compare');
 $versions = array_reverse($versions, true);
 
+// По месяцам: «active_month» приходит раз в месяц с телефона, поэтому сумма — разные телефоны
+$months = [];
+foreach ($data as $day => $events) {
+    $month = substr($day, 0, 7);
+    foreach (['active_month', 'src_rustore', 'src_apk', 'install', 'login_first', 'quick_test', 'max'] as $name) {
+        $months[$month][$name] = ($months[$month][$name] ?? 0) + ($events[$name] ?? 0);
+    }
+}
+krsort($months);
+
+// Итоги быстрой проверки и сколько после них всё равно написали в МАКС
+$verdicts = [
+    'ok' => 'Интернет работает',
+    'restricted' => 'Работает с ограничениями',
+    'financial' => 'Только сеть Сойки (неоплата)',
+    'no_uplink' => 'Нет связи с интернетом',
+    'dns' => 'Не работает DNS',
+    'no_router' => 'Роутер не выдал адрес',
+    'vpn' => 'Включён VPN',
+    'mobile' => 'На мобильном интернете',
+    'offline' => 'Нет подключения к сети',
+];
+
 function cell($value) {
     return $value ? (string)$value : '<span class="zero">·</span>';
 }
@@ -154,6 +177,38 @@ function cell($value) {
 <body>
 <h1>Статистика приложения «Сойка»</h1>
 <p>Только счётчики по дням (московское время), без данных абонентов. «Пользовались за день» — сколько телефонов открывали приложение в этот день.</p>
+
+<h2>По месяцам</h2>
+<p>«Пользовались за месяц» и источник установки считаются с версии 3.5: каждый телефон — один раз в месяц.</p>
+<div class="scroll">
+<table>
+    <tr><th>Месяц</th><th>Пользовались за месяц</th><th>Из RuStore</th><th>Файлом с Диска</th><th>Новые установки</th><th>Первый вход в кабинет</th><th>Быстрая проверка</th><th>Переходы в МАКС</th></tr>
+    <?php foreach ($months as $month => $m): ?>
+    <tr>
+        <td><?= htmlspecialchars(date('m.Y', strtotime($month . '-01'))) ?></td>
+        <?php foreach (['active_month', 'src_rustore', 'src_apk', 'install', 'login_first', 'quick_test', 'max'] as $name): ?><td><?= cell($m[$name]) ?></td><?php endforeach; ?>
+    </tr>
+    <?php endforeach; ?>
+</table>
+</div>
+
+<h2>Итоги быстрой проверки</h2>
+<p>Сколько раз проверка показала каждый итог и сколько раз после него в течение получаса всё равно написали в МАКС. Считается с версии 3.5.</p>
+<div class="scroll">
+<table>
+    <tr><th>Итог</th><th>Проверок</th><th>Потом написали</th><th>Доля</th></tr>
+    <?php foreach ($verdicts as $kind => $label): $qt = $totals['qt_' . $kind] ?? 0; $mx = $totals['mx_' . $kind] ?? 0; ?>
+    <tr>
+        <td><?= htmlspecialchars($label) ?></td>
+        <td><?= cell($qt) ?></td>
+        <td><?= cell($mx) ?></td>
+        <td><?= $qt ? round(100 * $mx / $qt) . '%' : cell(0) ?></td>
+    </tr>
+    <?php endforeach; ?>
+</table>
+</div>
+
+<h2>По дням</h2>
 
 <div class="scroll">
 <table>
