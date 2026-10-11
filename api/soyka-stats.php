@@ -102,6 +102,7 @@ $columns = [
     'indicators' => 'Лампочки терминала',
     'speed' => 'Скорость и Wi-Fi',
     'wifi_air' => 'Соседние сети Wi-Fi',
+    'whitelist' => 'Белые списки',
     'router_setup' => 'Настройка роутера',
     'router_video' => 'Видео: настройка роутера',
     'payment' => 'Оплата',
