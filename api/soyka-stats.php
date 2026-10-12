@@ -67,6 +67,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
+    // Срок хранения по политике конфиденциальности — не дольше 3 лет
+    $oldest = (clone $now)->modify('-3 years')->format('Y-m-d');
+    foreach (array_keys($data) as $day) {
+        if ((string)$day < $oldest) {
+            unset($data[$day]);
+        }
+    }
+
     ftruncate($handle, 0);
     rewind($handle);
     fwrite($handle, json_encode($data));
