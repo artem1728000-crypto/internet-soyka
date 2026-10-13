@@ -50,6 +50,23 @@ if (args.length === 0) {
   files = args;
 }
 
+// Живые данные, которые пишут сами скрипты на сервере. Локальная копия (если
+// вдруг появится) затёрла бы их — поэтому не заливаются никогда, даже если
+// указаны явно. Подробнее — CLAUDE.md, раздел «Данные на сервере».
+const NEVER_UPLOAD = new Set([
+  'api/baza-data/baza.json',   // база бригад: коды домофонов и телефоны сотрудников
+  'api/stats-data/stats.json', // статистика приложения «Сойка»
+  'CLAUDE.md',                 // правила проекта — не для публикации на сайте
+]);
+files = files.filter(f => {
+  const rel = f.replace(/\\/g, '/').replace(/^\.\//, '');
+  if (NEVER_UPLOAD.has(rel)) {
+    console.log(`— пропущен (не заливается, см. NEVER_UPLOAD): ${rel}`);
+    return false;
+  }
+  return true;
+});
+
 const remoteBase = creds.remotePath.replace(/\/+$/, '') + '/public_html/';
 
 let ok = 0, fail = 0;
