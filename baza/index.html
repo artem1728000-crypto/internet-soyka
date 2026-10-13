@@ -14,7 +14,8 @@
   body { margin:0; font:16px/1.4 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background:var(--bg); color:var(--text); }
   main { max-width:640px; margin:0 auto; padding:16px; }
   h1 { font-size:22px; margin:4px 0 12px; }
-  .tabs { display:flex; gap:8px; margin-bottom:10px; }
+  .tabs { display:flex; gap:6px; margin-bottom:10px; flex-wrap:wrap; }
+  .tabs button { padding:8px 6px; font-size:14px; }
   .tabs button { flex:1; }
   button, input, textarea { font:inherit; color:inherit; }
   button { border:1px solid var(--line); background:var(--card); border-radius:10px; padding:10px 12px; cursor:pointer; }
@@ -37,7 +38,7 @@
 <main>
   <section id="login" class="hidden">
     <h1>База бригад</h1>
-    <p class="muted">Коды домофонов, телефоны сотрудников, оборудование и цены. Пароль — у бригадира.</p>
+    <p class="muted">Коды домофонов, телефоны сотрудников, оборудование и цены, порты BDCOM по адресам. Пароль — у бригадира.</p>
     <label for="pw">Пароль</label>
     <input id="pw" type="password" autocomplete="current-password">
     <label for="me">Ваше имя (видно, кто добавил запись)</label>
@@ -55,6 +56,7 @@
       <button id="tabDoor" class="on">🚪 Домофоны</button>
       <button id="tabPerson">📞 Сотрудники</button>
       <button id="tabEquip">📦 Оборудование</button>
+      <button id="tabOlt">🔌 Порты</button>
     </div>
     <input id="q" type="search" placeholder="Поиск">
     <p id="status" class="muted"></p>
@@ -74,6 +76,16 @@
       <label for="fPrice">Цена для абонента, ₽</label><input id="fPrice" type="number" inputmode="numeric">
       <label>Бонус за штуку, ₽: при 1–4 / 5–8 / больше 8 шт. в месяц</label>
       <div class="row"><input id="fB1" type="number" inputmode="numeric"><input id="fB5" type="number" inputmode="numeric"><input id="fB9" type="number" inputmode="numeric"></div>
+    </div>
+    <div id="oltFields">
+      <label for="fTown">Населённый пункт</label><input id="fTown" placeholder="Новоминская">
+      <label for="fStreet">Улица</label><input id="fStreet">
+      <label for="fHouse">Дом</label><input id="fHouse">
+      <div class="row">
+        <div><label for="fOlt">BDCOM №</label><input id="fOlt" inputmode="numeric"></div>
+        <div><label for="fPort">Порт</label><input id="fPort" inputmode="numeric"></div>
+      </div>
+      <label for="fCab">Шкаф</label><input id="fCab" placeholder="где стоит">
     </div>
     <div id="personFields">
       <label for="fName">ФИО</label><input id="fName">
@@ -126,6 +138,9 @@ function render() {
   $('tabDoor').classList.toggle('on', tab === 'door');
   $('tabPerson').classList.toggle('on', tab === 'person');
   $('tabEquip').classList.toggle('on', tab === 'equip');
+  $('tabOlt').classList.toggle('on', tab === 'olt');
+  $('q').placeholder = tab === 'olt' ? 'Улица и дом: «советская 99» — покажет соседние дома' : 'Поиск';
+  if (tab === 'olt') return renderOlt();
   const q = norm($('q').value).split(' ').filter(Boolean);
   const list = items.filter(it => it.type === tab && !it.del)
     .filter(it => {
@@ -171,7 +186,11 @@ async function refresh() {
 function openEdit(it) {
   editing = it || { id: crypto.randomUUID(), type: tab };
   const t = editing.type;
-  $('editTitle').textContent = (it ? 'Изменить' : 'Добавить') + ({ door: ' домофон', person: ' сотрудника', equip: ' оборудование' })[t];
+  $('editTitle').textContent = (it ? 'Изменить' : 'Добавить') + ({ door: ' домофон', person: ' сотрудника', equip: ' оборудование', olt: ' дом → порт' })[t];
+  $('oltFields').classList.toggle('hidden', t !== 'olt');
+  for (const [f, k] of [['fTown', 'town'], ['fStreet', 'street'], ['fHouse', 'house'], ['fOlt', 'olt'], ['fPort', 'port'], ['fCab', 'cab']]) {
+    $(f).value = editing[k] || (k === 'town' && !it ? 'Новоминская' : '');
+  }
   $('doorFields').classList.toggle('hidden', t !== 'door');
   $('personFields').classList.toggle('hidden', t !== 'person');
   $('equipFields').classList.toggle('hidden', t !== 'equip');
@@ -194,6 +213,9 @@ $('save').onclick = () => {
   const r = { id: editing.id, type: editing.type, by: load('baza_me'),
     addr: $('fAddr').value, entr: $('fEntr').value, code: $('fCode').value,
     name: $('fName').value, phone: $('fPhone').value, role: $('fRole').value, note: $('fNote').value };
+  if (r.type === 'olt') Object.assign(r, { town: $('fTown').value, street: $('fStreet').value, house: $('fHouse').value,
+    olt: $('fOlt').value, port: $('fPort').value, cab: $('fCab').value });
+  if (r.type === 'olt' && (!r.street.trim() || !r.house.trim())) return alert('Укажите улицу и дом');
   if (r.type === 'equip') Object.assign(r, { name: $('fEName').value, group: $('fGroup').value,
     price: +$('fPrice').value || 0, bonus: +$('fB1').value || 0, bonus5: +$('fB5').value || 0, bonus9: +$('fB9').value || 0 });
   if (r.type === 'door' && !r.addr.trim()) return alert('Укажите адрес');
@@ -207,6 +229,33 @@ $('fab').onclick = () => openEdit(null);
 $('tabDoor').onclick = () => { tab = 'door'; render(); };
 $('tabPerson').onclick = () => { tab = 'person'; render(); };
 $('tabEquip').onclick = () => { tab = 'equip'; render(); };
+$('tabOlt').onclick = () => { tab = 'olt'; render(); };
+
+// Порты: «советская 99» — дома улицы по близости номера; «советская» — все дома по порядку.
+const houseNum = h => parseInt(h, 10) || 0;
+function renderOlt() {
+  const words = norm($('q').value).split(' ').filter(Boolean);
+  const numWord = words.find(w => /^\d+/.test(w));
+  const target = numWord ? parseInt(numWord, 10) : null;
+  const streetWords = words.filter(w => w !== numWord);
+  let list = items.filter(it => it.type === 'olt' && !it.del)
+    .filter(it => { const hay = norm([it.town, it.street, it.cab, it.note].join(' ')); return streetWords.every(w => hay.includes(w)); });
+  if (!streetWords.length && target === null) {
+    $('list').innerHTML = `<p class="muted">Домов в базе: ${list.length}. Наберите улицу, можно с номером дома — покажу ближайшие.</p>`;
+    return;
+  }
+  list.sort(target !== null
+    ? (a, b) => Math.abs(houseNum(a.house) - target) - Math.abs(houseNum(b.house) - target) || a.street.localeCompare(b.street, 'ru')
+    : (a, b) => a.street.localeCompare(b.street, 'ru') || houseNum(a.house) - houseNum(b.house) || a.house.localeCompare(b.house, 'ru'));
+  list = list.slice(0, 80);
+  $('list').innerHTML = list.map(it => `<div class="card" data-id="${esc(it.id)}">
+      <div class="row"><b>${esc(it.street)}, ${esc(it.house)}</b>
+        <span class="code" style="flex:0 0 auto;text-align:right">${it.olt ? 'BDCOM ' + esc(it.olt) : 'BDCOM ?'}${it.port ? ' · порт ' + esc(it.port) : ''}</span></div>
+      <div class="muted">${esc(it.town)}${it.cab ? ' · шкаф: ' + esc(it.cab) : ''}</div>
+      ${it.note ? `<div class="muted">${esc(it.note)}</div>` : ''}
+    </div>`).join('') || '<p class="muted">Ничего не найдено.</p>';
+  for (const el of $('list').querySelectorAll('.card')) el.onclick = () => openEdit(items.find(i => i.id === el.dataset.id));
+}
 $('q').oninput = render;
 $('logout').onclick = () => { store('baza_pw'); store('baza_cache'); items = []; show('login'); };
 $('enter').onclick = () => {

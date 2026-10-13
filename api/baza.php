@@ -9,7 +9,8 @@
  *
  * Запись: id, type ("door" | "person" | "equip"), для door — addr, entr, code, note;
  * для person — name, phone, role, note; для equip — name, group, price, bonus, bonus5, bonus9, note
- * (цена для абонента и бонус за штуку при 1–4 / 5–8 / >8 шт. в месяц). by — кто правил (имя из приложения), at — время сервера.
+ * (цена для абонента и бонус за штуку при 1–4 / 5–8 / >8 шт. в месяц);
+ * для olt — town, street, house, olt, port, cab, note (какой BDCOM/порт обслуживает дом; без данных абонентов). by — кто правил (имя из приложения), at — время сервера.
  * Удалённые записи хранятся пометкой del ещё 180 дней, чтобы удаление дошло до всех телефонов.
  */
 
@@ -84,7 +85,7 @@ foreach ($input['items'] as $it) {
     }
     $id = clean($it['id'] ?? '', 64);
     $type = $it['type'] ?? '';
-    if (!preg_match('/^[A-Za-z0-9-]{8,64}$/', $id) || !in_array($type, ['door', 'person', 'equip'], true)) {
+    if (!preg_match('/^[A-Za-z0-9-]{8,64}$/', $id) || !in_array($type, ['door', 'person', 'equip', 'olt'], true)) {
         continue;
     }
     $rec = ['id' => $id, 'type' => $type, 'by' => clean($it['by'] ?? '', 60), 'at' => $nowMs];
@@ -96,6 +97,13 @@ foreach ($input['items'] as $it) {
         $rec['code'] = clean($it['code'] ?? '', 60);
         $rec['note'] = clean($it['note'] ?? '', 300);
         if ($rec['addr'] === '') {
+            continue;
+        }
+    } elseif ($type === 'olt') {
+        foreach (['town' => 60, 'street' => 80, 'house' => 30, 'olt' => 20, 'port' => 20, 'cab' => 120, 'note' => 300] as $k => $max) {
+            $rec[$k] = clean($it[$k] ?? '', $max);
+        }
+        if ($rec['street'] === '' || $rec['house'] === '') {
             continue;
         }
     } elseif ($type === 'equip') {
