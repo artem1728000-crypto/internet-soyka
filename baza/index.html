@@ -58,7 +58,10 @@
       <button id="tabEquip">📦 Оборудование</button>
       <button id="tabOlt">🔌 Порты</button>
     </div>
-    <input id="q" type="search" placeholder="Поиск">
+    <div class="row">
+      <input id="q" type="search" placeholder="Поиск">
+      <button id="pasteAddr" style="flex:0 0 auto" title="Вставить адрес, скопированный в Мобифорсе">📋 Адрес</button>
+    </div>
     <p id="status" class="muted"></p>
     <div id="list"></div>
   </section>
@@ -256,7 +259,49 @@ function renderOlt() {
     </div>`).join('') || '<p class="muted">Ничего не найдено.</p>';
   for (const el of $('list').querySelectorAll('.card')) el.onclick = () => openEdit(items.find(i => i.id === el.dataset.id));
 }
-$('q').oninput = render;
+// Адрес из Мобифорса: «353700, Краснодарский край, Каневской р-н, ст-ца Новоминская, ул Космонавтов, д 26, кв 7»
+// → «Новоминская Космонавтов 26». Не похоже на адрес — null.
+function addressQuery(text, withTown = true) {
+  const parts = text.replace(/\n/g, ',').split(',').map(p => p.trim()).filter(Boolean);
+  if (parts.length < 2) return null;
+  let town = '', street = '', house = '';
+  for (const p of parts) {
+    if (/^\d{6}$/.test(p) || /(край|обл\.?|область|р-н|район)$/i.test(p) ||
+        /^(кв\.?|квартира|оф\.?|офис|корп\.?|стр\.?|подъезд|эт\.?)\s*\d/i.test(p)) continue;
+    const t = p.match(/^(ст-ца|станица|х\.?|хутор|пос\.?|посёлок|поселок|п\.|с\.|село|г\.?|город)\s+/i);
+    const st = p.match(/^(ул\.?|улица|пер\.?|переулок|пр-кт|проспект|пр-д|проезд|пл\.?|площадь|б-р|бульвар|туп\.?|тупик|мкр\.?)\s+/i);
+    const h = p.match(/^(д\.?|дом)\s*(?=\d)/i);
+    if (t) town = p.slice(t[0].length);
+    else if (st) street = p.slice(st[0].length);
+    else if (h) house = p.slice(h[0].length).replace(/ /g, '');
+    else if (!house && street && /^\d/.test(p)) house = p.replace(/ /g, '');
+    else if (!street && town) street = p;
+  }
+  if (!street) return null;
+  return [withTown ? town : '', street, house].filter(Boolean).join(' ');
+}
+const looksFull = s => s.includes(',') && (/\d{6}/.test(s) || /край|р-н/i.test(s));
+function setQuery(q) { $('q').value = q; render(); }
+$('q').oninput = () => {
+  const v = $('q').value;
+  const q = looksFull(v) ? addressQuery(v) : null;
+  if (q) $('q').value = q;
+  render();
+};
+$('pasteAddr').onclick = async () => {
+  let raw = '';
+  try { raw = (await navigator.clipboard.readText()).trim(); }
+  catch (e) { alert('Браузер не дал прочитать буфер — вставьте адрес в поиск вручную (долгое нажатие → Вставить).'); return; }
+  if (!raw) return alert('Буфер пуст — скопируйте адрес в Мобифорсе');
+  if (tab === 'person') tab = 'olt';
+  const q = addressQuery(raw) || raw.replace(/\s+/g, ' ');
+  setQuery(q);
+  if (tab === 'olt' && !$('list').querySelector('.card')) {
+    const noTown = addressQuery(raw, false);
+    const street = noTown && noTown.split(' ').filter(w => !/^\d/.test(w)).join(' ');
+    for (const f of [noTown, street]) { if (!f) continue; setQuery(f); if ($('list').querySelector('.card')) break; }
+  }
+};
 $('logout').onclick = () => { store('baza_pw'); store('baza_cache'); items = []; show('login'); };
 $('enter').onclick = () => {
   store('baza_pw', $('pw').value.trim());
