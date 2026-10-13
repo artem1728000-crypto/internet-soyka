@@ -10,7 +10,8 @@
  * Запись: id, type ("door" | "person" | "equip"), для door — addr, entr, code, note;
  * для person — name, phone, role, note; для equip — name, group, price, bonus, bonus5, bonus9, note
  * (цена для абонента и бонус за штуку при 1–4 / 5–8 / >8 шт. в месяц);
- * для olt — town, street, house, olt, port, cab, note (какой BDCOM/порт обслуживает дом; без данных абонентов). by — кто правил (имя из приложения), at — время сервера.
+ * для olt — town, street, house, olt, port, cab, note (какой BDCOM/VSOL и порт обслуживает дом; без данных абонентов);
+ * для muff — town, olt, port, num, split, lat, lon, place, abon (подключённые адреса), note. by — кто правил (имя из приложения), at — время сервера.
  * Удалённые записи хранятся пометкой del ещё 180 дней, чтобы удаление дошло до всех телефонов.
  */
 
@@ -85,7 +86,7 @@ foreach ($input['items'] as $it) {
     }
     $id = clean($it['id'] ?? '', 64);
     $type = $it['type'] ?? '';
-    if (!preg_match('/^[A-Za-z0-9-]{8,64}$/', $id) || !in_array($type, ['door', 'person', 'equip', 'olt'], true)) {
+    if (!preg_match('/^[A-Za-z0-9-]{8,64}$/', $id) || !in_array($type, ['door', 'person', 'equip', 'olt', 'muff'], true)) {
         continue;
     }
     $rec = ['id' => $id, 'type' => $type, 'by' => clean($it['by'] ?? '', 60), 'at' => $nowMs];
@@ -104,6 +105,18 @@ foreach ($input['items'] as $it) {
             $rec[$k] = clean($it[$k] ?? '', $max);
         }
         if ($rec['street'] === '' || $rec['house'] === '') {
+            continue;
+        }
+    } elseif ($type === 'muff') {
+        foreach (['town' => 60, 'olt' => 20, 'port' => 20, 'num' => 20, 'split' => 20, 'place' => 120,
+                     'abon' => 1500, 'note' => 300] as $k => $max) {
+            $rec[$k] = clean($it[$k] ?? '', $max);
+        }
+        foreach (['lat', 'lon'] as $k) {
+            $v = (float)($it[$k] ?? 0);
+            $rec[$k] = ($v >= -180 && $v <= 180) ? round($v, 6) : 0;
+        }
+        if ($rec['olt'] === '' && $rec['place'] === '') {
             continue;
         }
     } elseif ($type === 'equip') {

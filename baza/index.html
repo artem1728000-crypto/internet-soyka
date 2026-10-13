@@ -234,30 +234,60 @@ $('tabPerson').onclick = () => { tab = 'person'; render(); };
 $('tabEquip').onclick = () => { tab = 'equip'; render(); };
 $('tabOlt').onclick = () => { tab = 'olt'; render(); };
 
-// Порты: «советская 99» — дома улицы по близости номера; «советская» — все дома по порядку.
+// Порты: «советская 99» — дома и муфты по близости номера; «советская» — всё по улице.
 const houseNum = h => parseInt(h, 10) || 0;
+const oltLabel = o => /^\d+$/.test(o || '') ? 'BDCOM ' + o : (o || 'BDCOM ?');
+// Муфта: насколько близко к дому target на улице streetWords (по месту и подключённым адресам)
+function muffScore(m, streetWords, target) {
+  if (target === null) return 0;
+  let best = 1e9;
+  for (const a of [m.place || ''].concat((m.abon || '').split(';'))) {
+    const n = norm(a); if (!n) continue;
+    if (!streetWords.every(w => n.includes(w) || norm(m.town).includes(w))) continue;
+    const num = (n.match(/\d+/) || [])[0];
+    if (num) best = Math.min(best, Math.abs(parseInt(num, 10) - target));
+  }
+  return best;
+}
 function renderOlt() {
   const words = norm($('q').value).split(' ').filter(Boolean);
   const numWord = words.find(w => /^\d+/.test(w));
   const target = numWord ? parseInt(numWord, 10) : null;
   const streetWords = words.filter(w => w !== numWord);
-  let list = items.filter(it => it.type === 'olt' && !it.del)
+  const houses = items.filter(it => it.type === 'olt' && !it.del)
     .filter(it => { const hay = norm([it.town, it.street, it.cab, it.note].join(' ')); return streetWords.every(w => hay.includes(w)); });
+  const muffs = items.filter(it => it.type === 'muff' && !it.del)
+    .filter(it => { const hay = norm([it.town, it.place, it.abon, it.olt, it.num, it.note].join(' ')); return streetWords.every(w => hay.includes(w)); });
   if (!streetWords.length && target === null) {
-    $('list').innerHTML = `<p class="muted">Домов в базе: ${list.length}. Наберите улицу, можно с номером дома — покажу ближайшие.</p>`;
+    $('list').innerHTML = `<p class="muted">Домов в базе: ${items.filter(i => i.type === 'olt' && !i.del).length}, муфт: ${items.filter(i => i.type === 'muff' && !i.del).length}. Наберите улицу, можно с номером дома — покажу ближайшие.</p>`;
     return;
   }
-  list.sort(target !== null
-    ? (a, b) => Math.abs(houseNum(a.house) - target) - Math.abs(houseNum(b.house) - target) || a.street.localeCompare(b.street, 'ru')
-    : (a, b) => a.street.localeCompare(b.street, 'ru') || houseNum(a.house) - houseNum(b.house) || a.house.localeCompare(b.house, 'ru'));
-  list = list.slice(0, 80);
-  $('list').innerHTML = list.map(it => `<div class="card" data-id="${esc(it.id)}">
-      <div class="row"><b>${esc(it.street)}, ${esc(it.house)}</b>
-        <span class="code" style="flex:0 0 auto;text-align:right">${it.olt ? 'BDCOM ' + esc(it.olt) : 'BDCOM ?'}${it.port ? ' · порт ' + esc(it.port) : ''}</span></div>
-      <div class="muted">${esc(it.town)}${it.cab ? ' · шкаф: ' + esc(it.cab) : ''}</div>
-      ${it.note ? `<div class="muted">${esc(it.note)}</div>` : ''}
-    </div>`).join('') || '<p class="muted">Ничего не найдено.</p>';
-  for (const el of $('list').querySelectorAll('.card')) el.onclick = () => openEdit(items.find(i => i.id === el.dataset.id));
+  const list = houses.map(h => ({ it: h, d: target !== null ? Math.abs(houseNum(h.house) - target) : 0 }))
+    .concat(muffs.map(m => ({ it: m, d: muffScore(m, streetWords, target) })))
+    .filter(x => target === null || x.d < 1e9)
+    .sort((a, b) => a.d - b.d || (a.it.type === 'olt' ? 0 : 1) - (b.it.type === 'olt' ? 0 : 1)
+      || (a.it.street || '').localeCompare(b.it.street || '', 'ru') || houseNum(a.it.house) - houseNum(b.it.house))
+    .slice(0, 80).map(x => x.it);
+  $('list').innerHTML = list.map(it => it.type === 'muff'
+    ? `<div class="card" data-id="${esc(it.id)}">
+        <div class="row"><b>📦 Муфта ${esc(it.num)}${it.split ? ' (' + esc(it.split) + ')' : ''}</b>
+          <span class="code" style="flex:0 0 auto;text-align:right;font-size:18px">${esc(it.olt)} · порт ${esc(it.port)}</span></div>
+        <div class="muted">${esc(it.town)}${it.place ? ' · ' + esc(it.place) : ''}</div>
+        ${it.abon ? `<div>Подключены: ${esc(it.abon.replace(/;/g, ', '))}</div>` : ''}
+        ${it.note ? `<div class="muted">${esc(it.note)}</div>` : ''}
+        ${it.lat ? `<div><a href="https://yandex.ru/maps/?pt=${it.lon},${it.lat}&z=18&l=map" target="_blank" rel="noopener">📍 На карте</a></div>` : ''}
+      </div>`
+    : `<div class="card" data-id="${esc(it.id)}">
+        <div class="row"><b>${esc(it.street)}, ${esc(it.house)}</b>
+          <span class="code" style="flex:0 0 auto;text-align:right">${esc(oltLabel(it.olt))}${it.port ? ' · порт ' + esc(it.port) : ''}</span></div>
+        <div class="muted">${esc(it.town)}${it.cab ? ' · ' + esc(it.cab) : ''}</div>
+        ${it.note ? `<div class="muted">${esc(it.note)}</div>` : ''}
+      </div>`).join('') || '<p class="muted">Ничего не найдено.</p>';
+  for (const el of $('list').querySelectorAll('.card')) el.onclick = e => {
+    if (e.target.tagName === 'A') return;
+    const it = items.find(i => i.id === el.dataset.id);
+    if (it.type === 'olt') openEdit(it);
+  };
 }
 // Адрес из Мобифорса: «353700, Краснодарский край, Каневской р-н, ст-ца Новоминская, ул Космонавтов, д 26, кв 7»
 // → «Новоминская Космонавтов 26». Не похоже на адрес — null.
