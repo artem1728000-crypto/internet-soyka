@@ -4,8 +4,9 @@
  * Пополняют все монтажники; доступ — по общему паролю из baza-key.php (в git не попадает).
  *
  * Заголовок X-Key: <пароль> — обязателен для всех запросов.
- * GET               — вся база: {"items":[...], "now": <мс>}
- * POST {"items":[…]} — добавить/изменить записи по id (удаление — "del": true), ответ как у GET.
+ * GET               — вся база: {"items":[...], "now": <мс>, "full": true}
+ * GET ?since=<мс>    — только изменённое после since ("full": false)
+ * POST {"items":[…]} — добавить/изменить записи по id (удаление — "del": true), ответ как у GET (since тоже можно).
  *
  * Запись: id, type ("door" | "person" | "equip"), для door — addr, entr, code, note;
  * для person — name, phone, role, note; для equip — name, group, price, bonus, bonus5, bonus9, note
@@ -48,9 +49,18 @@ function readDb($handle): array
     return is_array($db) ? $db : [];
 }
 
+/**
+ * Ответ: вся база или, если передан ?since=<мс> (значение «now» из прошлого ответа), только изменённое
+ * после этого момента — включая пометки удаления. "full": true — пришла вся база, кэш заменить целиком.
+ * Слишком старый since (пометки удаления уже вычищены) — тоже вся база.
+ */
 function reply(array $db, int $nowMs): void
 {
-    echo json_encode(['items' => array_values($db), 'now' => $nowMs], JSON_UNESCAPED_UNICODE);
+    $since = isset($_GET['since']) ? (int)$_GET['since'] : 0;
+    $full = $since <= 0 || $since < $nowMs - 170 * 86400 * 1000;
+    $list = $full ? array_values($db)
+        : array_values(array_filter($db, fn($r) => ($r['at'] ?? 0) > $since - 2000)); // 2 с запаса на гонку
+    echo json_encode(['items' => $list, 'now' => $nowMs, 'full' => $full], JSON_UNESCAPED_UNICODE);
 }
 
 function clean($v, int $max): string

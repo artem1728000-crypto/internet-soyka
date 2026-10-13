@@ -118,16 +118,25 @@ function show(id) {
   $('fab').classList.toggle('hidden', id !== 'app');
 }
 
+// Сервер отдаёт только изменённое с прошлого раза (since); "full" — пришла вся база.
 async function call(method, body) {
-  const r = await fetch(API, {
+  const since = items.length ? load('baza_since') : '';
+  const r = await fetch(API + (since ? '?since=' + since : ''), {
     method, headers: { 'X-Key': load('baza_pw'), 'Content-Type': 'application/json' },
     body: body ? JSON.stringify(body) : undefined, cache: 'no-store'
   });
   if (r.status === 403) throw new Error('key');
   if (!r.ok) throw new Error('HTTP ' + r.status);
   const data = await r.json();
-  items = data.items || [];
+  if (data.full !== false) {
+    items = data.items || [];
+  } else {
+    const byId = new Map(items.map(i => [i.id, i]));
+    for (const it of data.items || []) byId.set(it.id, it);
+    items = [...byId.values()];
+  }
   store('baza_cache', JSON.stringify(items));
+  if (data.now) store('baza_since', String(data.now));
 }
 
 // Поиск без «ул.», «д.», «ст-ца»…: «горького 5» найдёт «ст-ца Каневская, ул. Горького, д. 5»
@@ -332,7 +341,7 @@ $('pasteAddr').onclick = async () => {
     for (const f of [noTown, street]) { if (!f) continue; setQuery(f); if ($('list').querySelector('.card')) break; }
   }
 };
-$('logout').onclick = () => { store('baza_pw'); store('baza_cache'); items = []; show('login'); };
+$('logout').onclick = () => { store('baza_pw'); store('baza_cache'); store('baza_since'); items = []; show('login'); };
 $('enter').onclick = () => {
   store('baza_pw', $('pw').value.trim());
   store('baza_me', $('me').value.trim());
