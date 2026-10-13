@@ -7,8 +7,9 @@
  * GET               — вся база: {"items":[...], "now": <мс>}
  * POST {"items":[…]} — добавить/изменить записи по id (удаление — "del": true), ответ как у GET.
  *
- * Запись: id, type ("door" | "person"), для door — addr, entr, code, note;
- * для person — name, phone, role, note. by — кто правил (имя из приложения), at — время сервера.
+ * Запись: id, type ("door" | "person" | "equip"), для door — addr, entr, code, note;
+ * для person — name, phone, role, note; для equip — name, group, price, bonus, bonus5, bonus9, note
+ * (цена для абонента и бонус за штуку при 1–4 / 5–8 / >8 шт. в месяц). by — кто правил (имя из приложения), at — время сервера.
  * Удалённые записи хранятся пометкой del ещё 180 дней, чтобы удаление дошло до всех телефонов.
  */
 
@@ -83,7 +84,7 @@ foreach ($input['items'] as $it) {
     }
     $id = clean($it['id'] ?? '', 64);
     $type = $it['type'] ?? '';
-    if (!preg_match('/^[A-Za-z0-9-]{8,64}$/', $id) || !in_array($type, ['door', 'person'], true)) {
+    if (!preg_match('/^[A-Za-z0-9-]{8,64}$/', $id) || !in_array($type, ['door', 'person', 'equip'], true)) {
         continue;
     }
     $rec = ['id' => $id, 'type' => $type, 'by' => clean($it['by'] ?? '', 60), 'at' => $nowMs];
@@ -95,6 +96,16 @@ foreach ($input['items'] as $it) {
         $rec['code'] = clean($it['code'] ?? '', 60);
         $rec['note'] = clean($it['note'] ?? '', 300);
         if ($rec['addr'] === '') {
+            continue;
+        }
+    } elseif ($type === 'equip') {
+        $rec['name'] = clean($it['name'] ?? '', 120);
+        $rec['group'] = clean($it['group'] ?? '', 60);
+        foreach (['price', 'bonus', 'bonus5', 'bonus9'] as $k) {
+            $rec[$k] = max(0, min(1000000, (int)($it[$k] ?? 0)));
+        }
+        $rec['note'] = clean($it['note'] ?? '', 300);
+        if ($rec['name'] === '') {
             continue;
         }
     } else {
