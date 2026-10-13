@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /baza/
+Disallow: /api/
 
 Sitemap: https://internet-kanevskoy.ru/sitemap.xml

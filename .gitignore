@@ -4,3 +4,7 @@
 # Ключ просмотра статистики приложения и сами счётчики
 api/stats-key.php
 api/stats-data/stats.json
+
+# Общая база бригад: пароль и сами данные
+api/baza-key.php
+api/baza-data/baza.json
