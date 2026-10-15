@@ -12,7 +12,9 @@
  * для person — name, phone, role, note; для equip — name, group, price, bonus, bonus5, bonus9, note
  * (цена для абонента и бонус за штуку при 1–4 / 5–8 / >8 шт. в месяц);
  * для olt — town, street, house, olt, port, cab, note (какой BDCOM/VSOL и порт обслуживает дом; без данных абонентов);
- * для muff — town, olt, port, num, split, lat, lon, place, abon (подключённые адреса), note. by — кто правил (имя из приложения), at — время сервера.
+ * для muff — town, olt, port, num, split, lat, lon, place, abon (подключённые адреса), note;
+ * для splice — name (где: муфта, адрес, № задачи), note, plan (карта сварки «не в цвет» — JSON из приложения как строка).
+ * by — кто правил (имя из приложения), at — время сервера.
  * Удалённые записи хранятся пометкой del ещё 180 дней, чтобы удаление дошло до всех телефонов.
  */
 
@@ -96,7 +98,7 @@ foreach ($input['items'] as $it) {
     }
     $id = clean($it['id'] ?? '', 64);
     $type = $it['type'] ?? '';
-    if (!preg_match('/^[A-Za-z0-9-]{8,64}$/', $id) || !in_array($type, ['door', 'person', 'equip', 'olt', 'muff'], true)) {
+    if (!preg_match('/^[A-Za-z0-9-]{8,64}$/', $id) || !in_array($type, ['door', 'person', 'equip', 'olt', 'muff', 'splice'], true)) {
         continue;
     }
     $rec = ['id' => $id, 'type' => $type, 'by' => clean($it['by'] ?? '', 60), 'at' => $nowMs];
@@ -127,6 +129,13 @@ foreach ($input['items'] as $it) {
             $rec[$k] = ($v >= -180 && $v <= 180) ? round($v, 6) : 0;
         }
         if ($rec['olt'] === '' && $rec['place'] === '') {
+            continue;
+        }
+    } elseif ($type === 'splice') {
+        $rec['name'] = clean($it['name'] ?? '', 200);
+        $rec['note'] = clean($it['note'] ?? '', 500);
+        $rec['plan'] = clean($it['plan'] ?? '', 20000);
+        if ($rec['plan'] === '') {
             continue;
         }
     } elseif ($type === 'equip') {
