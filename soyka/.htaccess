@@ -1,0 +1,16 @@
+DirectoryIndex index.php
+Options -Indexes
+
+# Без этого типа часть браузеров сохраняет APK как .zip или открывает текстом
+AddType application/vnd.android.package-archive .apk
+
+<IfModule mod_headers.c>
+    <FilesMatch "\.apk$">
+        Header set Content-Disposition "attachment"
+        Header set X-Robots-Tag "noindex"
+    </FilesMatch>
+    # Номер версии должен приходить свежим, а не из кэша
+    <Files "latest.json">
+        Header set Cache-Control "no-store"
+    </Files>
+</IfModule>

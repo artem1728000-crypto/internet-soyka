@@ -8,3 +8,6 @@ api/stats-data/stats.json
 # Общая база бригад: пароль и сами данные
 api/baza-key.php
 api/baza-data/baza.json
+
+# APK приложения «Сойка» — выкладываются deploy.js, в git не хранятся
+soyka/*.apk
